@@ -26,13 +26,7 @@
 		</div>
 	<div id="contenttext">
 		<div class="bodytext" style="padding:12px;" align="justify">
-			<p><strong>TEXT</strong></p>
-			<p>TEXT</p>
-		</div>
-		<div class="panel" align="justify">
-			<span class="orangetitle">TITLE</span>
-			<span class="bodytext">
-			<p>TEXT</p>
+			{$html_body}
 		</div>
 	</div>
 	<div id="footer" class="smallgraytext" align="center">
