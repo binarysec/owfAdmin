@@ -10,7 +10,7 @@
 	</div>
 	<div id="header" align="center">
 		<div class="titletext" id="logo">
-			<div class="logotext" style="margin:30px">LOGO</div> 
+			<div class="logotext" style="margin:30px">LOGO</div>
 		</div>
 		<div id="pagetitle">
 			<div id="title" class="titletext" align="right">SLOGAN</div>
@@ -24,6 +24,7 @@
 			</div>
 			<div align="right" style="width:189px; height:8px;"><img src="/index.php/data/admin/img/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
 		</div>
+	</div>
 	<div id="contenttext">
 		<div class="bodytext" style="padding:12px;" align="justify">
 			{$html_body}
