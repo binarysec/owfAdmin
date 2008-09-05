@@ -8,7 +8,7 @@
 		</div>
 		<div id="topbar">
 			<div align="right" style="padding:12px;" class="smallwhitetext">
-				{$admin_topmenu}
+				<a href="{link '/session/logout'}" title="Logout">Logout</a>
 			</div>
 		</div>
 	</div>
