@@ -1,4 +1,4 @@
-{{css '/data/admin/css/screen.css'}}
+{css '/data/admin/css/screen.css'}
 <div id="page" align="center">
 	<div id="toppage" align="center">
 		<div id="date">
@@ -27,7 +27,7 @@
 	</div>
 	<div id="contenttext">
 		<div class="bodytext" style="padding:12px;" align="justify">
-			{{$html_body}}
+			{$html_body}
 		</div>
 	</div>
 	<div id="footer" class="smallgraytext" align="center">
