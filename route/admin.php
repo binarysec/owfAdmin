@@ -8,25 +8,12 @@ class wfr_admin_admin extends wf_route_request {
 		$this->wf = $wf;
 		$this->a_core_route = $this->wf->core_route();
 
-		echo '<pre>';
-
-		
-		$this->nav('', &$this->a_core_route->routes[0]);
-print_r(&$this->a_core_route->routes[0]);
-		
-
-		exit(0);
-	}
-
-	private function nav($base, $routes, $l=0) {
-		foreach($routes as $i => $route) {
-			//
-		}
+		//$this->get_subroutes('/admin')
 	}
 
 	public function show_admin() {
 		$core_admin = $this->wf->admin_html();
-
+		$core_admin->set_title('Panneau d\'administration');
 		$core_admin->rendering('');
 	}
 	
