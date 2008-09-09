@@ -9,6 +9,11 @@ body {
 	margin-right: 0px;
 	margin-bottom: 0px;
 }
+
+p {
+	margin: 0;
+}
+
 #toppage{
 	width:800px;
 }
@@ -54,13 +59,13 @@ body {
 }
 
 /*GRAY PANEL*/
-.panel{
+.panel {
 	padding:12px;
 	border:solid 1px #E4E4E4;
 	background-color:#EEEEEE;
 	margin:10px;
 	padding:10px;
-	width:550px;
+	width:540px;
 }
 
 /*TEXT STYLES*/
@@ -143,4 +148,34 @@ body {
 }
 #linksmenu a:hover{
 	background-color:#514F1C;
+}
+
+h2 {
+	width: 100%;
+	border-bottom: 1px solid #cccccc;
+}
+
+.legend {
+	text-align: center;
+}
+
+.panel img {
+	vertical-align: middle;
+	padding-bottom: 3px;
+	margin-left: 10px;
+}
+
+.panel h3 {
+	margin: 0;
+	font-size: 11px;
+}
+
+.errors, .notices {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.separator {
+	height: 10px;
 }
