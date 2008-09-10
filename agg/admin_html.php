@@ -71,7 +71,7 @@ class admin_html extends wf_agg {
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('admin_sidemenu', $this->get_subroutes('/admin'));
 		$tpl->set('admin_topmenu', '');
-		$tpl->set('admin_date', date('M, m Y'));
+		$tpl->set('admin_date', date('M, d Y'));
 		$tpl->set('admin_title', $this->title);
 		$tpl->set('admin_subtitle', $this->subtitle);
 		$tpl->set('admin_body', $body);
