@@ -1,51 +1,48 @@
 {css '/data/admin/css/screen.css'}
-<div id="page" align="center">
-	<div id="toppage" align="center">
-		<div id="date">
-			<div class="smalltext" style="padding:13px;">
-				<strong>{$admin_date}</strong>
-			</div>
-		</div>
-		<div id="topbar">
-			<div align="right" style="padding:12px;" class="smallwhitetext">
-				<a href="{link '/session/logout'}" title="Logout">Logout</a>
-			</div>
-		</div>
-	</div>
-	<div id="header" align="center">
-		<div class="titletext" id="logo">
-			<div class="logotext" style="margin:30px">
-				<span class="orangelogotext">BS</span>.adm
-			</div>
-		</div>
-		<div id="pagetitle">
-			<div id="title" class="titletext" align="right">
-				{$admin_title}{if $admin_subtitle}::{$admin_subtitle}{/if}
-			</div>
-		</div>
-	</div>
-	<div id="content" align="center">
-		<div id="menu" align="right">
-			<div align="right" style="width:189px; height:8px;"><img src="/index.php/data/admin/img/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
-			<div id="linksmenu" align="center">
-				<a href="{link '/admin'}" title="Administration">Administration</a>
-				{foreach $admin_sidemenu as $link => $desc}
-					<a href="{link $link}" title="{$desc}">{$desc}</a>
-				{/foreach}
-			</div>
-			<div align="right" style="width:189px; height:8px;"><img src="/index.php/data/admin/img/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
-		</div>
-	</div>
-	<div id="contenttext">
-		<div class="bodytext" style="padding:12px;" align="justify">
-			{$admin_body}
-		</div>
-	</div>
-	<div id="footer" class="smallgraytext" align="center">
-		LINKS<br />
-		COPYRIGHT
-	</div>
+
+<div class="page_notice">
+	<p>
+		Vous &ecirc;tes authentifi&eacute; en tant que <strong>k&eacute;o</strong>.
+		Bienvenue dans l'interface d'administration Web de BinarySec&nbsp;!
+	</p>
 </div>
 
+<div id="header">
+	<form id="search" action="" method="POST">
+		Rechercher&nbsp;: <input id="search_query" name="q" type="text" value="" />
+		<input type="submit" value="Go" />
+	</form>
+	<h1>Panneau d'administration{if $page_subtitle}::{$page_subtitle}{/if}</h1>
+</div>
 
+<div id="help">
+	<h2>{$help_title}</h2>
+	<p>{$help_text}</p>
+</div>
 
+<div id="separation"></div>
+
+<div id="sidebar">
+	<span id="sidebar_header"><a href="javascript:history.go(-1);">&laquo;</a></span>
+	<span id="sidebar_title">Modules d'administration</span>
+
+	<ul>
+		{foreach $sidebar_sections as $section}
+			<li class="{$section['style']}{if $section['selected']} selected{/if}">
+				<a href="{$section['link']}" title="{$section['name']}">{$section['name']}</a>
+			</li>
+		{/foreach}
+	</ul>
+	{$sidebar_ext}
+	<ul>
+		<li class="option"><a href="#">Se connecter en tant que...</a></li>
+	</ul>
+</div>
+
+<div id="hint">
+	<p>{$page_hint}</p>
+</div>
+
+<div id="main">
+	{$body}
+</div>
