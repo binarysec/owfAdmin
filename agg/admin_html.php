@@ -31,14 +31,21 @@ class admin_html extends wf_agg {
 	private $page_hint        = '&nbsp;';
 	private $help_title       = '&nbsp;';
 	private $help_text        = '&nbsp;';
-	private $sidebar_ext    = null;
-	private $sidebar_sections = array();
+	private $sidebar_ext      = null;
 	private $sidebar_actions  = array();
+
+	private $errors           = array();
+	private $current_link;
 
 	public function loader($wf) {
 		$this->wf = $wf;
 		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
+
+		$uri = $this->a_core_request->channel[3];
+		$ghost = $this->a_core_request->get_ghost();
+		$this->current_link = substr($uri, 0, strlen($uri) - strlen($ghost));
+
 	}
 
 	public function set_page_subtitle($subtitle) {
@@ -61,14 +68,6 @@ class admin_html extends wf_agg {
 		$this->sidebar_ext = $ext;
 	}
 
-	public function add_sidebar_section($title, $url, $type = null) {
-		$this->sidebar_sections[] = array(
-			'title' => $title,
-			'url'   => $url,
-			'type'  => $type
-		);
-	}
-
 	public function add_sidebar_action($title, $url) {
 		$this->sidebar_actions[] = array(
 			'title' => $title,
@@ -76,7 +75,7 @@ class admin_html extends wf_agg {
 		);
 	}
 
-	public function get_subroutes($link, $recur = false) {
+	public function get_subroutes($link, $l = 0) {
 		$dir = explode("/", rtrim($link, '/'));
 		$nav = &$this->a_core_route->routes;
 		for($i=1; $i<count($dir); $i++) {
@@ -85,29 +84,42 @@ class admin_html extends wf_agg {
 			else
 				return(array());
 		}
-		return($this->list_routes(&$nav[0], $link, $recur));
+		return($this->list_routes(&$nav[0], $link, $l));
 	}
 
-	private function list_routes($routes, $base = '', $recur = false, $subroutes = array()) {
-		foreach($routes as $name => $route) {
+	private function list_routes($routes, $link, $l_limit = 0, $l = 0, $base = '', $subroutes = array()) {
+		foreach($routes as $id => $route) {
 			foreach($route as $i => $infos) {
 				if(isset($infos[0])) {
-					$uri = $base.'/'.$name;
-					$name = ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4];
-					$selected = (substr($this->a_core_request->channel[3].'/', 0, strlen($uri) + 1) == $uri.'/');
- 					$subroutes[] = array(
+					$uri = $link.$base.'/'.$id;
+
+					//if($visibility == WF_ROUTE_HIDE)
+					//	break;
+
+					$t = '';
+					$arr = explode('/', $this->current_link);
+					for($i = 0; $i <= count(explode('/', $link)) + $l_limit; $i++)
+						if($i < count($arr)) $t .= $arr[$i].'/';
+					$selected = ($uri == rtrim($t, '/'));
+
+					$subroutes[] = array(
 						'uri'      => $uri,
-						'name'     => $name,
-						'selected' => $selected,
+						'name'     => ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4],
 						'link'     => $this->wf->linker($uri),
-						'style'    => 'config'
+						'style'    => ($l == 0) ? 'config' : 'puce',
+						'selected' => $selected,
+						'level'    => $l
 					);
 				}
-				else if($recur)
-					$this->list_routes(&$infos, $base.'/'.$name, $recur, &$subroutes);
+				else if($l < $l_limit)
+					$this->list_routes(&$infos, $link, $l_limit, $l + 1, $base.'/'.$id, &$subroutes);
 			}
 		}
 		return($subroutes);
+	}
+
+	public function add_error($error) {
+		$this->errors[] = $error;
 	}
 
 	public function rendering($body) {
@@ -115,11 +127,12 @@ class admin_html extends wf_agg {
 		$sections = array(array(
 			'uri'      => '/',
 			'name'     => 'Panneau d\'administration',
-			'selected' => (rtrim($this->a_core_request->channel[3], '/') == '/admin'),
 			'link'     => $this->wf->linker('/admin'),
-			'style'    => 'users'
+			'selected' => ($this->current_link == '/admin'),
+			'style'    => 'users',
+			'level'    => 0
 		));
-		$sections = array_merge($sections, $this->get_subroutes('/admin'));
+		$sections = array_merge($sections, $this->get_subroutes('/admin', 1));
 
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('page_subtitle',    $this->page_subtitle);
@@ -129,6 +142,7 @@ class admin_html extends wf_agg {
 		$tpl->set('sidebar_sections', $sections);
 		$tpl->set('sidebar_ext',      $this->sidebar_ext);
 		$tpl->set('sidebar_actions',  $this->sidebar_actions);
+		$tpl->set('errors',           $this->errors);
 		$tpl->set('body',             $body);
 		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
 	}
