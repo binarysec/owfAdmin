@@ -99,12 +99,14 @@ a img {
 	text-decoration: none;
 	color: #000000;
 }
-#sidebar_title {
+#sidebar h2 {
 	display: block;
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
-	padding: 10px 0 5px 5px;
+	padding: 15px 5px 5px 5px;
 	margin-bottom: 10px;
+	margin-top: 0;
+	border-bottom: 1px dashed #cccccc;
 }
 #sidebar ul {
 	padding-left: 5px;
@@ -121,54 +123,25 @@ a img {
 	background-position: left 3px;
 	background-repeat: no-repeat;
 }
+#sidebar li.section_l0 {
+	background-image: url('../img/icons/16x16/section_l0.png');
+	font-weight: bold;
+}
+#sidebar li.section_l1 {
+	background-image: url('../img/icons/16x16/section_l1.png');
+	/*margin-left: 27px;*/
+}
+#sidebar li.cat_open {
+	background-image: url('../img/icons/16x16/cat_open.png');
+	/*margin-left: 27px;*/
+}
 #sidebar li a {
 	text-decoration: none;
 	color: #000000;
 	display: block;
 	width: 100%;
 	padding: 5px;
-}
-#sidebar li.profil {
-	background-image: url('../img/icons/16x16/profil.png');
-}
-#sidebar li.medias {
-	background-image: url('../img/icons/16x16/medias.png');
-}
-#sidebar li.search {
-	background-image:  url('../img/icons/16x16/search.png');
-}
-#sidebar li.new_cat {
-	background-image: url('../img/icons/16x16/new_cat.png');
-}
-#sidebar li.new_media {
-	background-image: url('../img/icons/16x16/new_media.png');
-}
-#sidebar li.time {
-	background-image: url('../img/icons/16x16/time.png');
-}
-#sidebar li.comments {
-	background-image: url('../img/icons/16x16/comments.png');
-}
-#sidebar li.users {
-	background-image: url('../img/icons/16x16/users.png');
-}
-#sidebar li.config {
-	background-image: url('../img/icons/16x16/config.png');
-}
-#sidebar li.home {
-	background-image: url('../img/icons/16x16/home.png');
-}
-#sidebar li.trashcan {
-	background-image: url('../img/icons/16x16/trashcan.png');
-}
-#sidebar li.drafts {
-	background-image: url('../img/icons/16x16/drafts.png');
-}
-#sidebar li.cat_open {
-	background-image: url('../img/icons/16x16/cat_open.png');
-}
-#sidebar li.cat_close {
-	background-image: url('../img/icons/16x16/cat_close.png');
+	-moz-border-radius: 5px 0 0 5px;
 }
 #sidebar li.option {
 	font-size: 10px;
@@ -223,7 +196,7 @@ a img {
 	font-size: 11px;
 }
 #main h1 {
-	margin: 2em 1em 1em 1em;
+	margin: 30px 20px 20px 20px;
 	font-size: 20px;
 	width: 95%;
 	border-bottom: 1px dotted #819BD6;
@@ -266,9 +239,6 @@ a img {
 #main table.list thead, #main table tfoot {
 	text-align: left;
 }
-#main table.list tfoot th {
-	padding-top: 10px;
-}
 #main table.list thead {
 	background: #819BD6;
 }
@@ -308,9 +278,14 @@ a img {
 
 /* index */
 
+#main table#index {
+	text-align: left;
+	padding-left: 10px;
+	margin-top: 20px;
+	text-align: center;
+}
 #main table#index td.icon {
 	vertical-align: top;
-	text-align: center;
 	width: 64px;
 }
 #main table#index td.links {
@@ -324,4 +299,91 @@ a img {
 }
 #main table#index li {
 	list-style: square;
+}
+
+
+
+/* errors */
+
+#main .warning {
+	margin-top: 2em;
+	border: 1px solid #ff8a8a;
+	background: #ffd1d1;
+	width: 50%;
+	-moz-border-radius : 10px;
+	text-align: left;
+}
+#main .warning h2 {
+	margin: 0;
+	padding: 3px 0 3px 25px;
+	font-size: 13px;
+	letter-spacing: 4px;
+	font-weight: bold;
+	background: url('../img/icons/16x16/notice.png') left center no-repeat #ff8a8a;
+	-moz-border-radius: 9px;
+	text-align: center;
+}
+#main .warning .text {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#main .warning ul {
+	list-style: square;
+}
+#main .notice h2 {
+	margin: 0;
+	padding: 3px 0 3px 25px;
+	font-size: 13px;
+	letter-spacing: 4px;
+	font-weight: bold;
+	background: url('../img/icons/16x16/notice.png') left center no-repeat #819BD6;
+	-moz-border-radius: 9px;
+}
+#main .notice dl {
+	margin: 5px 0 5px 5px;
+}
+#main .notice dt {
+	display: inline;
+}
+#main .notice dt img {
+	vertical-align: middle;
+	margin: 2px 0 3px 0;
+}
+#main .notice dd {
+	display: inline;
+	margin: 0 0 0 5px;
+}
+
+
+/* message */
+
+#main .message {
+	margin-top: 2em;
+	border: 1px solid #819BD6;
+	background: #b6CAED;
+	width: 50%;
+	-moz-border-radius : 10px;
+}
+
+
+/* section menu */
+
+#main ul.section_menu {
+	margin: 0;
+	padding: 0;
+}
+
+#main ul.section_menu li {
+	float: left;
+	list-style: none;
+	text-align: center;
+	margin-left: 40px;
+}
+
+#main ul.section_menu a {
+	text-decoration: none;
+}
+
+#main ul.section_menu a:hover {
+	text-decoration: underline;
 }

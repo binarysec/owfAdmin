@@ -24,11 +24,12 @@
 
 <div id="sidebar">
 	<span id="sidebar_header"><a href="javascript:history.go(-1);">&laquo;</a></span>
-	<span id="sidebar_title">Modules d'administration</span>
+	<h2>Modules d'administration</h2>
 
 	<ul>
-		{foreach $sidebar_sections as $section}
-			<li class="{$section['style']}{if $section['selected']} selected{/if}">
+		{foreach $sidebar_sections as $i => $section}
+			{if $section['level'] == 0}</ul><ul>{/if}
+			<li class="section_l{$section['level']}{if $section['selected']} selected{/if}">
 				<a href="{$section['link']}" title="{$section['name']}">{$section['name']}</a>
 			</li>
 		{/foreach}
@@ -45,4 +46,17 @@
 
 <div id="main">
 	{$body}
+
+	{if $errors}
+		<div align="center">
+			<div class="warning">
+				<h2>Attention</h2>
+				<ul class="text">
+					{foreach $errors as $error}
+						<li>{$error}</li>
+					{/foreach}
+				</ul>
+			</div>
+		</div>
+	{/if}
 </div>
