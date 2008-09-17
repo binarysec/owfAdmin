@@ -10,6 +10,18 @@ a img {
 }
 
 
+/* general */
+
+.required {
+	color: #ff0000;
+}
+
+td.hint {
+	font-size: 10px;
+	text-align: justify;
+}
+
+
 /* errors */
 
 .page_error {
@@ -131,6 +143,10 @@ a img {
 	background-image: url('../img/icons/16x16/section_l1.png');
 	/*margin-left: 27px;*/
 }
+#sidebar li.home {
+	background-image: url('../img/icons/16x16/home.png');
+	font-weight: bold;
+}
 #sidebar li.cat_open {
 	background-image: url('../img/icons/16x16/cat_open.png');
 	/*margin-left: 27px;*/
@@ -215,6 +231,15 @@ a img {
 	width: 83%;
 	margin-top: -1px;
 }
+#main table.list .icon {
+	width: 16px;
+}
+#main table.list .id {
+	width: 20px;
+}
+#main table.list .key {
+	/*font-weight: bold;*/
+}
 #main table.list, #main table.form {
 
 }
@@ -241,6 +266,9 @@ a img {
 }
 #main table.list thead {
 	background: #819BD6;
+}
+#main table.list tr.god {
+	background: #ffd1d1;
 }
 #main table.list tr.locked {
 	background: #ffd1d1;

@@ -11,7 +11,7 @@ class wfr_admin_admin extends wf_route_request {
 		$this->a_admin_html = $this->wf->admin_html();
 	}
 
-	public function show_admin() {
+	public function show() {
 		$this->a_admin_html->set_help_title('Bienvenue&nbsp;!');
 		$this->a_admin_html->set_help_text(
 			'Bienvenue dans l\'interface d\'administration Web de BinarySec&nbsp;!
