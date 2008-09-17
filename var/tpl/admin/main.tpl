@@ -29,7 +29,7 @@
 	<ul>
 		{foreach $sidebar_sections as $i => $section}
 			{if $section['level'] == 0}</ul><ul>{/if}
-			<li class="section_l{$section['level']}{if $section['selected']} selected{/if}">
+			<li class="section_l{$section['level']}{if $section['selected']} selected{/if} {$section['style']}">
 				<a href="{$section['link']}" title="{$section['name']}">{$section['name']}</a>
 			</li>
 		{/foreach}
@@ -51,11 +51,11 @@
 		<div align="center">
 			<div class="warning">
 				<h2>Attention</h2>
-				<ul class="text">
+				<ol class="text">
 					{foreach $errors as $error}
 						<li>{$error}</li>
 					{/foreach}
-				</ul>
+				</ol>
 			</div>
 		</div>
 	{/if}

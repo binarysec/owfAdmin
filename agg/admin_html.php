@@ -35,6 +35,8 @@ class admin_html extends wf_agg {
 	private $sidebar_actions  = array();
 
 	private $errors           = array();
+	private $sel_section_id   = -1;
+	private $sel_section_lvl  = -1;
 	private $current_link;
 
 	public function loader($wf) {
@@ -45,7 +47,6 @@ class admin_html extends wf_agg {
 		$uri = $this->a_core_request->channel[3];
 		$ghost = $this->a_core_request->get_ghost();
 		$this->current_link = substr($uri, 0, strlen($uri) - strlen($ghost));
-
 	}
 
 	public function set_page_subtitle($subtitle) {
@@ -91,25 +92,31 @@ class admin_html extends wf_agg {
 		foreach($routes as $id => $route) {
 			foreach($route as $i => $infos) {
 				if(isset($infos[0])) {
+					/* check if the section is visible */
+					$visibility = ($infos[2] == WF_ROUTE_ACTION) ? $infos[6] : $infos[5];
+					if($visibility == WF_ROUTE_HIDE)
+						break;
+
 					$uri = $link.$base.'/'.$id;
 
-					//if($visibility == WF_ROUTE_HIDE)
-					//	break;
-
-					$t = '';
-					$arr = explode('/', $this->current_link);
-					for($i = 0; $i <= count(explode('/', $link)) + $l_limit; $i++)
-						if($i < count($arr)) $t .= $arr[$i].'/';
-					$selected = ($uri == rtrim($t, '/'));
-
+					/* fill section infos */
 					$subroutes[] = array(
 						'uri'      => $uri,
 						'name'     => ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4],
 						'link'     => $this->wf->linker($uri),
-						'style'    => ($l == 0) ? 'config' : 'puce',
-						'selected' => $selected,
+						'style'    => null,
 						'level'    => $l
 					);
+
+					/* check the current section */
+					$selected = (substr($this->current_link, 0, strlen($uri)) == $uri);
+					if($selected && $l > $this->sel_section_lvl) {
+						if($this->sel_section_id >= 0)
+							$subroutes[$this->sel_section_id]['selected'] = false;
+						$this->sel_section_id = count($subroutes) - 1;
+						$this->sel_section_lvl = $l;
+						$subroutes[$this->sel_section_id]['selected'] = true;
+					}
 				}
 				else if($l < $l_limit)
 					$this->list_routes(&$infos, $link, $l_limit, $l + 1, $base.'/'.$id, &$subroutes);
@@ -129,7 +136,7 @@ class admin_html extends wf_agg {
 			'name'     => 'Panneau d\'administration',
 			'link'     => $this->wf->linker('/admin'),
 			'selected' => ($this->current_link == '/admin'),
-			'style'    => 'users',
+			'style'    => 'home',
 			'level'    => 0
 		));
 		$sections = array_merge($sections, $this->get_subroutes('/admin', 1));
