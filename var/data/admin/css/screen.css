@@ -45,26 +45,28 @@ td.hint {
 
 /* errors */
 
-.page_error {
+.banner_error {
 	background-color: #ff6d6d;
 	width: 100%;
+	color: #ffffff;
 }
-.page_warning {
+.banner_warning {
 	background-color: #ffd1d1;
 	width: 100%:
 }
-.page_notice {
+.banner_notice {
 	background-color: #a6e8b0;
 	width: 100%;
 }
-.page_error p, .page_warning p, .page_notice p {
+.banner_error p, .banner_warning p, .banner_notice p {
 	margin: 0;
 }
-.page_error a, .page_warning a, .page_notice a {
+.banner_error a, .banner_warning a, .banner_notice a {
 	text-decoration: none;
+	color: #000000;
 }
-.page_error a:hover, .page_warning a:hover, .page_notice a:hover {
-	text-decoration: underline;
+.banner_error a {
+	color: #ffffff;
 }
 
 
