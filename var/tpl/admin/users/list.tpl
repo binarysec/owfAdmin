@@ -1,17 +1,7 @@
 {literal}
 	<script type="text/javascript">
 		function set_form_add_user() {
-			var field_email            = document.getElementById('form_add_user_email');
-			var field_password         = document.getElementById('form_add_user_password');
-			var field_password_confirm = document.getElementById('form_add_user_password_confirm');
-			var field_name             = document.getElementById('form_add_user_name');
-			var field_perms            = document.getElementById('form_add_user_perms');
-
-			field_email.value            = '';
-			field_password.value         = '';
-			field_password_confirm.value = '';
-			field_name.value             = '';
-			field_perms.value            = '';
+			document.getElementById('form_add_user').reset();
 		}
 
 		function set_form_edit_user(id, email, name, perms) {
@@ -26,7 +16,7 @@
 			field_email.value            = email;
 			field_password.value         = '';
 			field_password_confirm.value = '';
-			field_name.value             = name;
+			field_name.value             = unescape(name);
 			field_perms.value            = perms;
 		}
 
@@ -63,7 +53,7 @@
 						<img src="{link '/data/admin/img/icons/16x16/offline.png'}" alt="[Hors ligne]" title="Hors ligne" />
 					{/if}
 				</td>
-				<td class="key"><a href="">{$user['email']}</a></td>
+				<td class="key"><a>{$user['email']}</a></td>
 				<td>{$user['name']}</td>
 				<td>cr&eacute;&eacute; le {$user['create_time']}</td>
 				<td>{$user['perms']}</td>
@@ -71,14 +61,14 @@
 					<a><img src="{link '/data/cms/img/icons/16x16/view.png'}"
 						title="Voir l'utilisateur"
 						alt="Voir l'utilisateur" /></a>
-					<a href="javascript:return(false);" onclick="javascript:
+					<a onclick="javascript:
 						YAHOO.dialog_edit_user.myDialog.show();
-						set_form_edit_user('{$user['id']}', '{$user['email']}', '{$user['name']}', '{$user['perms']}');"
+						set_form_edit_user('{$user['id']}', '{$user['email']}', '{$user['_name']|escurl}', '{$user['perms']}');"
 						><img src="{link '/data/cms/img/icons/16x16/edit.png'}"
 							title="&Eacute;diter l'utilisateur"
 							alt="&Eacute;diter l'utilisateur"
 						/></a>
-					<a href="javascript:return(false);" onclick="javascript:
+					<a onclick="javascript:
 						YAHOO.dialog_delete_user.myDialog.show();
 						set_form_delete_user('{$user['id']}', '{$user['email']}')"
 						><img src="{link '/data/cms/img/icons/16x16/delete.png'}"
@@ -100,7 +90,7 @@
 	<img src="{link '/data/admin/img/icons/16x16/add_user.png'}"
 		alt="Cr&eacute;er un nouvel utilisateur"
 		title="Cr&eacute;er un nouvel utilisateur" />
-	<a href="javascript:return(false);" onclick="javascript:
+	<a onclick="javascript:
 		YAHOO.dialog_add_user.myDialog.show();
 		set_form_add_user();"
 		>Ajouter un nouvel utilisateur</a>

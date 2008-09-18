@@ -5,6 +5,10 @@ body {
 	background: #FFFFFF;
 }
 
+a {
+	cursor: pointer;
+}
+
 a img {
 	border: 0;
 }
@@ -19,6 +23,22 @@ a img {
 td.hint {
 	font-size: 10px;
 	text-align: justify;
+}
+
+
+/* yui */
+
+.yui-panel input,
+.yui-panel textarea,
+.yui-panel select {
+	width: 100%;
+}
+.yui-panel input {
+	background: url('../img/forminput.gif') left bottom repeat-x;
+	border: 0;
+}
+.yui-panel textarea {
+	border: 0;
 }
 
 
@@ -250,6 +270,9 @@ td.hint {
 }
 #main table.list a:hover {
 
+}
+#main table.list .title {
+	width: 150px;
 }
 #main table.list .actions a {
 	border: none;
