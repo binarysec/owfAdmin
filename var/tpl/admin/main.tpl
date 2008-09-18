@@ -1,11 +1,25 @@
 {css '/data/admin/css/screen.css'}
 
-<div class="page_notice">
-	<p>
-		Vous &ecirc;tes authentifi&eacute; en tant que <strong>k&eacute;o</strong>.
-		Bienvenue dans l'interface d'administration Web de BinarySec&nbsp;!
-	</p>
-</div>
+{if $user['id'] > 0}
+	<div class="banner_notice">
+		<p>
+			Vous &ecirc;tes authentifi&eacute; en tant que <strong>{$user['email']}</strong>.
+			<a href="{link '/session/logout'}" title="Se d&eacute;connecter">
+				Cliquez-ici pour vous d&eacute;connecter.
+			</a>
+		</p>
+	</div>
+{else}
+	<div class="banner_error">
+		<p>
+			Vous n'&ecirc;tes pas autoris&eacute; &agrave;
+			acc&eacute;der &agrave; cet espace priv&eacute;.
+			<a href="{link '/session/login'}" title="S'authentifier">
+				Cliquez-ici pour vous authentifier.
+			</a>
+		</p>
+	</div>
+{/if}
 
 <div id="header">
 	<form id="search" action="" method="POST">
@@ -36,7 +50,7 @@
 	</ul>
 	{$sidebar_ext}
 	<ul>
-		<li class="option"><a href="#">Se connecter en tant que...</a></li>
+		<li class="option"><a href="{link '/session/login'}">Se connecter en tant que...</a></li>
 	</ul>
 </div>
 

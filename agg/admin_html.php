@@ -26,6 +26,7 @@ class admin_html extends wf_agg {
 
 	private $a_core_route;
 	private $a_core_request;
+	private $a_core_session;
 
 	private $page_subtitle    = null;
 	private $page_hint        = '&nbsp;';
@@ -43,6 +44,7 @@ class admin_html extends wf_agg {
 		$this->wf = $wf;
 		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
+		$this->a_core_session = $this->wf->core_session();
 
 		$uri = $this->a_core_request->channel[3];
 		$ghost = $this->a_core_request->get_ghost();
@@ -130,7 +132,7 @@ class admin_html extends wf_agg {
 	}
 
 	public function rendering($body) {
-		/* add admin index */
+		/* add admin sections */
 		$sections = array(array(
 			'uri'      => '/',
 			'name'     => 'Panneau d\'administration',
@@ -142,6 +144,7 @@ class admin_html extends wf_agg {
 		$sections = array_merge($sections, $this->get_subroutes('/admin', 1));
 
 		$tpl = new core_tpl($this->wf);
+		$tpl->set('user',             $this->a_core_session->me);
 		$tpl->set('page_subtitle',    $this->page_subtitle);
 		$tpl->set('page_hint',        $this->page_hint);
 		$tpl->set('help_title',       $this->help_title);
