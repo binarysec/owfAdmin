@@ -32,6 +32,7 @@ td.hint {
 .yui-panel textarea,
 .yui-panel select {
 	width: 100%;
+	font-size: 11px;
 }
 .yui-panel input {
 	background: url('../img/forminput.gif') left bottom repeat-x;
