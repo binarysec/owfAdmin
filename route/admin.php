@@ -12,6 +12,9 @@ class wfr_admin_admin extends wf_route_request {
 	}
 
 	public function show() {
+		//$base = $this->a_core_request->get_ghost();
+		//$tree = $this->a_cms_categories->render_tree($base);
+
 		$this->a_admin_html->set_help_title('Bienvenue&nbsp;!');
 		$this->a_admin_html->set_help_text(
 			'Bienvenue dans l\'interface d\'administration Web de BinarySec&nbsp;!
@@ -21,6 +24,7 @@ class wfr_admin_admin extends wf_route_request {
 			'Quelques informations et statistiques sur
 			 l\'utilisation de la base de donn&eacute;es.'
 		);
+		//$this->a_admin_html->set_sidebar_ext($this->a_admin_html->render_routes_tree());
 
 		$tpl = new core_tpl($this->wf);
 		$this->a_admin_html->rendering($tpl->fetch('admin/index'));

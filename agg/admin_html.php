@@ -78,7 +78,7 @@ class admin_html extends wf_agg {
 		);
 	}
 
-	public function get_subroutes($link, $l = 0) {
+	public function get_subroutes($link, $recur = false, $l = -1) {
 		$dir = explode("/", rtrim($link, '/'));
 		$nav = &$this->a_core_route->routes;
 		for($i=1; $i<count($dir); $i++) {
@@ -87,10 +87,10 @@ class admin_html extends wf_agg {
 			else
 				return(array());
 		}
-		return($this->list_routes(&$nav[0], $link, $l));
+		return($this->list_routes(&$nav[0], $link, $recur, $l));
 	}
 
-	private function list_routes($routes, $link, $l_limit = 0, $l = 0, $base = '', $subroutes = array()) {
+	private function list_routes($routes, $link, $recur = false, $l_limit = -1, $l = 0, $base = '', $subroutes = array()) {
 		foreach($routes as $id => $route) {
 			foreach($route as $i => $infos) {
 				if(isset($infos[0])) {
@@ -102,12 +102,14 @@ class admin_html extends wf_agg {
 					$uri = $link.$base.'/'.$id;
 
 					/* fill section infos */
+					$level_diff = ($subroutes) ? $l - $subroutes[count($subroutes) - 1]['level'] + 1 : 1;
 					$subroutes[] = array(
-						'uri'      => $uri,
-						'name'     => ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4],
-						'link'     => $this->wf->linker($uri),
-						'style'    => null,
-						'level'    => $l
+						'uri'        => $uri,
+						'name'       => ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4],
+						'link'       => $this->wf->linker($uri),
+						'style'      => null,
+						'level'      => $l,
+						'level_diff' => $level_diff
 					);
 
 					/* check the current section */
@@ -120,8 +122,8 @@ class admin_html extends wf_agg {
 						$subroutes[$this->sel_section_id]['selected'] = true;
 					}
 				}
-				else if($l < $l_limit)
-					$this->list_routes(&$infos, $link, $l_limit, $l + 1, $base.'/'.$id, &$subroutes);
+				else if($recur && ($l < $l_limit || $l_limit < 0))
+					$this->list_routes(&$infos, $link, $recur, $l_limit, $l + 1, $base.'/'.$id, &$subroutes);
 			}
 		}
 		return($subroutes);
@@ -134,14 +136,15 @@ class admin_html extends wf_agg {
 	public function rendering($body) {
 		/* add admin sections */
 		$sections = array(array(
-			'uri'      => '/',
-			'name'     => 'Panneau d\'administration',
-			'link'     => $this->wf->linker('/admin'),
-			'selected' => ($this->current_link == '/admin'),
-			'style'    => 'home',
-			'level'    => 0
+			'uri'        => '/',
+			'name'       => 'Panneau d\'administration',
+			'link'       => $this->wf->linker('/admin'),
+			'selected'   => ($this->current_link == '/admin'),
+			'style'      => 'home',
+			'level'      => 0,
+			'level_diff' => 1
 		));
-		$sections = array_merge($sections, $this->get_subroutes('/admin', 1));
+		$sections = array_merge($sections, $this->get_subroutes('/admin', true, 1));
 
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user',             $this->a_core_session->me);
@@ -150,11 +153,18 @@ class admin_html extends wf_agg {
 		$tpl->set('help_title',       $this->help_title);
 		$tpl->set('help_text',        $this->help_text);
 		$tpl->set('sidebar_sections', $sections);
-		$tpl->set('sidebar_ext',      $this->sidebar_ext);
+		$tpl->set('sidebar_ext',      $this->render_routes_tree().$this->sidebar_ext);
 		$tpl->set('sidebar_actions',  $this->sidebar_actions);
 		$tpl->set('errors',           $this->errors);
 		$tpl->set('body',             $body);
 		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
+	}
+
+	public function render_routes_tree() {
+		$tpl = new core_tpl($this->wf);
+		$r = $this->get_subroutes('', true);
+		$tpl->set('routes', $r);
+		return($tpl->fetch('admin/routes'));
 	}
 
 }
