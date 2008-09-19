@@ -19,7 +19,7 @@ class admin extends wf_module {
 				"admin",
 				"show",
 				"Page admin",
-				WF_ROUTE_HIDE,
+				WF_ROUTE_SHOW,
 				array("session:anon")
 			),
 			/* users management */
