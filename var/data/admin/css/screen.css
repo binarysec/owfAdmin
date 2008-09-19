@@ -1,9 +1,137 @@
 body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 0.8em;
-	margin: 0;
+	font-family: Tahoma, Verdana, Arial, sans-serif; 
+	font-size: 11px;
+	background-image: url(../img/back_grey.png);
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-right: 15px;
+	margin-bottom: 0px;
+}
+
+.admin_content {
 	background: #FFFFFF;
 }
+
+.admin_subtitle {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.admin_session {
+	font-size: 11px;
+	color: #a10e09; 
+}
+
+.admin_body {
+	margin: 0px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+}
+
+.admin_bottom {
+	font-size: 9px;
+}
+
+.admin_bottom a, a:hover {
+	color: #a10e09; 
+	text-decoration: none; 
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Sidebar
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.admin_sidebar {
+	border-right: 1px dashed #e2e1dd;	
+}
+
+.admin_sidebar a, a:hover {
+	color: #a10e09; 
+	text-decoration: none; 
+}
+
+.admin_sidebar ul {
+	margin: 0px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 15px;
+}
+
+.admin_sidebar li {
+/* 	list-style: none; */
+/* 	font-size: 12px; */
+/* 	padding: 0 0 0 10px; */
+/* 	background-position: left 3px; */
+/* 	background-repeat: no-repeat; */
+}
+
+.admin_sidebar_element {
+	width: 270px;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+
+
+.admin_sidebar_title {
+	font-size: 17px;
+/* 	font-weight: bold; */
+}
+
+.admin_sidebar_data {
+	font-size: 11px;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Route list
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.admin_route_list_unselected {
+
+}
+
+.admin_route_list_selected {
+	font-weight: bold;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Admin menu
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#admin_menu .yuimenubaritem  {
+	font-size: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#admin_menu .yuimenubaritemlabel {
+	font-size: 14px;
+}
+
+#admin_menu .yuimenuitem {
+	font-size: 14px;
+}
+
+
+ #admin_menu .yuimenubaritem a, .yuimenubaritem a:hover {
+	font-size: 14px;
+}
+
+#admin_menu .yuimenubaritemlabel a, .yuimenubaritemlabel a:hover {
+	font-size: 14px;
+}
+
+#admin_menu .yuimenuitem a, .yuimenuitem a:hover {
+	font-size: 14px;
+}
+
 
 a {
 	cursor: pointer;

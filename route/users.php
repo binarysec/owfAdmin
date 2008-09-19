@@ -12,15 +12,8 @@ class wfr_admin_users extends wf_route_request {
 	}
 
 	public function show() {
-		$this->a_admin_html->set_help_title('Bienvenue&nbsp;!');
-		$this->a_admin_html->set_help_text(
-			'Bienvenue dans l\'interface d\'administration Web de BinarySec&nbsp;!
-			 Les modules d\'administration du menu de gauche vous permettrons d\'administrer votre site Web.'
-		);
-		$this->a_admin_html->set_page_hint(
-			'Quelques informations et statistiques sur
-			 l\'utilisation de la base de donn&eacute;es.'
-		);
+		$this->a_admin_html->set_subtitle("Gestionnaire d'utilisateur");
+
 
 		$this->a_admin_html->rendering($this->a_admin_users->render_list());
 	}
@@ -30,54 +23,54 @@ class wfr_admin_users extends wf_route_request {
 
 		/* no email */
 		if(!$_POST['email']) {
-			$this->a_admin_html->add_error(
-				'L\'adresse email de l\'utilisateur n\'a pas
-				&eacute;t&eacute; sp&eacute;cifi&eacute;e.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'adresse email de l\'utilisateur n\'a pas
+// 				&eacute;t&eacute; sp&eacute;cifi&eacute;e.'
+// 			);
 			$ok = false;
 		}
 		else {
 			/* FATAL: email already exists */
 			if($this->a_admin_users->exists_by_email($_POST['email'])) {
-				$this->a_admin_html->add_error(
-					'Un utilisateur poss&eacute;dant cette adresse email
-					(<strong>'.htmlentities($_POST['email']).'</strong>)
-					existe d&eacute;j&agrave; dans la base de donn&eacute;es.'
-				);
+// 				$this->a_admin_html->add_error(
+// 					'Un utilisateur poss&eacute;dant cette adresse email
+// 					(<strong>'.htmlentities($_POST['email']).'</strong>)
+// 					existe d&eacute;j&agrave; dans la base de donn&eacute;es.'
+// 				);
 				$this->show();
 				return;
 			}
 			/* email invalid */
 			if(!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
-				$this->a_admin_html->add_error(
-					'L\'adresse email de l\'utilisateur est malform&eacute;e.'
-				);
+// 				$this->a_admin_html->add_error(
+// 					'L\'adresse email de l\'utilisateur est malform&eacute;e.'
+// 				);
 				$ok = false;
 			}
 		}
 
 		/* no password */
 		if(!$_POST['password']) {
-			$this->a_admin_html->add_error(
-				'Le mot de passe de l\'utilisateur n\'a pas
-				&eacute;t&eacute; sp&eacute;cifi&eacute;.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'Le mot de passe de l\'utilisateur n\'a pas
+// 				&eacute;t&eacute; sp&eacute;cifi&eacute;.'
+// 			);
 			$ok = false;
 		}
 		/* no password confirmation */
 		if($_POST['password'] && !$_POST['password_confirm']) {
-			$this->a_admin_html->add_error(
-				'Le mot de passe de l\'utilisateur n\'a pas
-				&eacute;t&eacute; confirm&eacute;.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'Le mot de passe de l\'utilisateur n\'a pas
+// 				&eacute;t&eacute; confirm&eacute;.'
+// 			);
 			$ok = false;
 		}
 		/* passwords mismatch */
 		if($_POST['password'] && $_POST['password_confirm']
 		&& $_POST['password'] != $_POST['password_confirm']) {
-			$this->a_admin_html->add_error(
-				'Les deux mots de passe fournis ne correspondent pas.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'Les deux mots de passe fournis ne correspondent pas.'
+// 			);
 			$ok = false;
 		}
 
@@ -98,10 +91,10 @@ class wfr_admin_users extends wf_route_request {
 
 		/* FATAL: no id */
 		if(!$_POST['id']) {
-			$this->a_admin_html->add_error(
-				'L\'identifiant de l\'utilisateur &agrave; &eacute;diter
-				n\'a pas &eacute;t&eacute; sp&eacute;cifi&eacute;.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'identifiant de l\'utilisateur &agrave; &eacute;diter
+// 				n\'a pas &eacute;t&eacute; sp&eacute;cifi&eacute;.'
+// 			);
 			$this->show();
 			return;
 		}
@@ -111,57 +104,57 @@ class wfr_admin_users extends wf_route_request {
 
 		/* FATAL: id doesn't exist */
 		if(!$user_infos) {
-			$this->a_admin_html->add_error(
-				'L\'utilisateur &agrave; supprimer n\'existe
-				 pas dans la base de donn&eacute;es.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'utilisateur &agrave; supprimer n\'existe
+// 				 pas dans la base de donn&eacute;es.'
+// 			);
 			$this->show();
 			return;
 		}
 
 		/* no email */
 		if(!$_POST['email']) {
-			$this->a_admin_html->add_error(
-				'L\'adresse email de l\'utilisateur n\'a pas
-				&eacute;t&eacute; sp&eacute;cifi&eacute;e.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'adresse email de l\'utilisateur n\'a pas
+// 				&eacute;t&eacute; sp&eacute;cifi&eacute;e.'
+// 			);
 			$ok = false;
 		}
 		else {
 			/* FATAL: email has changed and already exists */
 			if($_POST['email'] != $user_infos['email']
 			&& $this->a_admin_users->exists_by_email($_POST['email'])) {
-				$this->a_admin_html->add_error(
-					'Un utilisateur poss&eacute;dant cette adresse email
-					(<strong>'.htmlentities($_POST['email']).'</strong>)
-					existe d&eacute;j&agrave; dans la base de donn&eacute;es.'
-				);
+// 				$this->a_admin_html->add_error(
+// 					'Un utilisateur poss&eacute;dant cette adresse email
+// 					(<strong>'.htmlentities($_POST['email']).'</strong>)
+// 					existe d&eacute;j&agrave; dans la base de donn&eacute;es.'
+// 				);
 				$this->show();
 				return;
 			}
 			/* email invalid */
 			if(!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)) {
-				$this->a_admin_html->add_error(
-					'L\'adresse email de l\'utilisateur est malform&eacute;e.'
-				);
+// 				$this->a_admin_html->add_error(
+// 					'L\'adresse email de l\'utilisateur est malform&eacute;e.'
+// 				);
 				$ok = false;
 			}
 		}
 
 		/* no password confirmation */
 		if($_POST['password'] && !$_POST['password_confirm']) {
-			$this->a_admin_html->add_error(
-				'Le mot de passe de l\'utilisateur n\'a pas
-				&eacute;t&eacute; confirm&eacute;.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'Le mot de passe de l\'utilisateur n\'a pas
+// 				&eacute;t&eacute; confirm&eacute;.'
+// 			);
 			$ok = false;
 		}
 		/* passwords mismatch */
 		if($_POST['password'] && $_POST['password_confirm']
 		&& $_POST['password'] != $_POST['password_confirm']) {
-			$this->a_admin_html->add_error(
-				'Les deux mots de passe fournis ne correspondent pas.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'Les deux mots de passe fournis ne correspondent pas.'
+// 			);
 			$ok = false;
 		}
 
@@ -183,20 +176,20 @@ class wfr_admin_users extends wf_route_request {
 
 		/* FATAL: no id */
 		if(!$_POST['id']) {
-			$this->a_admin_html->add_error(
-				'L\'identifiant de l\'utilisateur &agrave; &eacute;diter
-				n\'a pas &eacute;t&eacute; sp&eacute;cifi&eacute;.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'identifiant de l\'utilisateur &agrave; &eacute;diter
+// 				n\'a pas &eacute;t&eacute; sp&eacute;cifi&eacute;.'
+// 			);
 			$this->show();
 			return;
 		}
 
 		/* FATAL: id doesn't exist */
 		if(!$this->a_admin_users->get($_POST['id'])) {
-			$this->a_admin_html->add_error(
-				'L\'utilisateur &agrave; supprimer n\'existe
-				 pas dans la base de donn&eacute;es.'
-			);
+// 			$this->a_admin_html->add_error(
+// 				'L\'utilisateur &agrave; supprimer n\'existe
+// 				 pas dans la base de donn&eacute;es.'
+// 			);
 			$this->show();
 			return;
 		}
