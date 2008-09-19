@@ -144,7 +144,7 @@ class admin_users extends wf_agg {
 				'id'          => $user['id'],
 				'email'       => $user['email'],
 				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
-				'_name'       => $user['name'],
+				'_name'       => utf8_decode($user['name']),
 				'create_time' => date('d/m/Y', $user['create_time']),
 				'perms'       => ($perms) ? implode(', ', $perms) : '',
 				'online'      => (!!$user['session_id']),
