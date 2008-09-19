@@ -18,15 +18,15 @@ class admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"admin",
 				"show",
-				"Page admin",
+				"Administration",
 				WF_ROUTE_SHOW,
-				array("session:anon")
+				array("session:admin")
 			),
 			/* users management */
 			"/admin/users" => array(
 				WF_ROUTE_REDIRECT,
 				"/admin/users/list",
-				"Utilisateurs",
+				"Gestionnaire des utilisateurs",
 				WF_ROUTE_SHOW
 			),
 			"/admin/users/list" => array(
@@ -35,7 +35,7 @@ class admin extends wf_module {
 				"show",
 				"Liste des utilisateurs",
 				WF_ROUTE_HIDE,
-				array("session:anon")
+				array("session:admin")
 			),
 			"/admin/users/add" => array(
 				WF_ROUTE_ACTION,
@@ -43,7 +43,7 @@ class admin extends wf_module {
 				"add",
 				"Ajoute un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:anon")
+				array("session:admin")
 			),
 			"/admin/users/edit" => array(
 				WF_ROUTE_ACTION,
@@ -51,7 +51,7 @@ class admin extends wf_module {
 				"edit",
 				"Edite un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:anon")
+				array("session:admin")
 			),
 			"/admin/users/delete" => array(
 				WF_ROUTE_ACTION,
@@ -59,7 +59,7 @@ class admin extends wf_module {
 				"delete",
 				"Supprime un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:anon")
+				array("session:admin")
 			),
 		));
 	}

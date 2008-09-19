@@ -27,144 +27,265 @@ class admin_html extends wf_agg {
 	private $a_core_route;
 	private $a_core_request;
 	private $a_core_session;
-
-	private $page_subtitle    = null;
-	private $page_hint        = '&nbsp;';
-	private $help_title       = '&nbsp;';
-	private $help_text        = '&nbsp;';
-	private $sidebar_ext      = null;
-	private $sidebar_actions  = array();
-
-	private $errors           = array();
-	private $sel_section_id   = -1;
-	private $sel_section_lvl  = -1;
-	private $current_link;
-
+	private $a_core_lang;
+	private $a_core_html;
+	
+	private $lang;
+	
+	private $page_subtitle;
+	private $page_sidebar = array();
+	private $page_bottom;
+	
 	public function loader($wf) {
 		$this->wf = $wf;
 		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
 		$this->a_core_session = $this->wf->core_session();
-
-		$uri = $this->a_core_request->channel[3];
-		$ghost = $this->a_core_request->get_ghost();
-		$this->current_link = substr($uri, 0, strlen($uri) - strlen($ghost));
+		$this->a_core_lang = $this->wf->core_lang();
+		$this->a_core_html = $this->wf->core_html();
+		
+		$this->lang = $this->a_core_lang->get_context("admin/html");
+		
+		$this->generate_route();
+	}
+	
+	public function set_title($title) {
+		$this->a_core_html->set_title($title);
 	}
 
-	public function set_page_subtitle($subtitle) {
+	public function set_subtitle($subtitle) {
 		$this->page_subtitle = $subtitle;
 	}
-
-	public function set_page_hint($hint) {
-		$this->page_hint = $hint;
-	}
-
-	public function set_help_title($title) {
-		$this->help_title = $title;
-	}
-
-	public function set_help_text($text) {
-		$this->help_text = $text;
-	}
-
-	public function set_sidebar_ext($ext) {
-		$this->sidebar_ext = $ext;
-	}
-
-	public function add_sidebar_action($title, $url) {
-		$this->sidebar_actions[] = array(
+	
+	public function add_sidebar($title, $data) {
+		$this->page_sidebar[] = array(
 			'title' => $title,
-			'url'   => $url
+			'data'   => $data
 		);
 	}
-
-	public function get_subroutes($link, $recur = false, $l = -1) {
-		$dir = explode("/", rtrim($link, '/'));
-		$nav = &$this->a_core_route->routes;
-		for($i=1; $i<count($dir); $i++) {
-			if(isset($nav[0][$dir[$i]]))
-				$nav = &$nav[0][$dir[$i]];
-			else
-				return(array());
-		}
-		return($this->list_routes(&$nav[0], $link, $recur, $l));
+	
+	public function add_bottom($data) {
+		$this->page_bottom .= " / $data";
 	}
+	
+	private function generate_menu_array(&$nav, $dir, $pos, $title, $link="/") {
+		$buf = array();
+		foreach($nav as $key => $val) {
 
-	private function list_routes($routes, $link, $recur = false, $l_limit = -1, $l = 0, $base = '', $subroutes = array()) {
-		foreach($routes as $id => $route) {
-			foreach($route as $i => $infos) {
-				if(isset($infos[0])) {
-					/* check if the section is visible */
-					$visibility = ($infos[2] == WF_ROUTE_ACTION) ? $infos[6] : $infos[5];
-					if($visibility == WF_ROUTE_HIDE)
-						break;
-
-					$uri = $link.$base.'/'.$id;
-
-					/* fill section infos */
-					$level_diff = ($subroutes) ? $l - $subroutes[count($subroutes) - 1]['level'] + 1 : 1;
-					$subroutes[] = array(
-						'uri'        => $uri,
-						'name'       => ($infos[2] == WF_ROUTE_ACTION) ? $infos[5] : $infos[4],
-						'link'       => $this->wf->linker($uri),
-						'style'      => null,
-						'level'      => $l,
-						'level_diff' => $level_diff
-					);
-
-					/* check the current section */
-					$selected = (substr($this->current_link, 0, strlen($uri)) == $uri);
-					if($selected && $l > $this->sel_section_lvl) {
-						if($this->sel_section_id >= 0)
-							$subroutes[$this->sel_section_id]['selected'] = false;
-						$this->sel_section_id = count($subroutes) - 1;
-						$this->sel_section_lvl = $l;
-						$subroutes[$this->sel_section_id]['selected'] = true;
-					}
+			if(
+				$val[1][2] == WF_ROUTE_ACTION && 
+				$val[1][6] == WF_ROUTE_SHOW
+				) {
+				$linked = $this->wf->linker(
+					$link.$key
+				);
+				if($dir[$pos] != $key) {
+					$buf['label'][] = '<li class="admin_route_list_unselected">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][5]).
+						"</a></li>\n";
 				}
-				else if($recur && ($l < $l_limit || $l_limit < 0))
-					$this->list_routes(&$infos, $link, $recur, $l_limit, $l + 1, $base.'/'.$id, &$subroutes);
+				else {
+					$buf['label'][] = '<li class="admin_route_list_selected">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][5]).
+						"</a></li>\n";
+				}
 			}
+			else if(
+				$val[1][2] == WF_ROUTE_REDIRECT && 
+				$val[1][5] == WF_ROUTE_SHOW
+				) {
+				$linked = $this->wf->linker(
+					$link.$key
+				);
+				if($dir[$pos] != $key) {
+					$buf .= '<li class="admin_route_list_unselected">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][4]).
+						"</a></li>\n";
+				}
+				else {
+					$buf .= '<li class="admin_route_list_selected">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][4]).
+						"</a></li>\n";
+						
+					$title .= ":: ".$this->lang->ts($val[1][4])." ";
+				}
+			}
+	
+			if(is_array($val[0]))
+				$buf .= $this->generate_menu_array(
+					&$val[0], 
+					&$dir, 
+					&$title, 
+					$link.
+					"$key/"
+				);
 		}
-		return($subroutes);
+		$buf .= "</ul>";
+		return($buf);
 	}
-
-	public function add_error($error) {
-		$this->errors[] = $error;
-	}
-
+	
 	public function rendering($body) {
-		/* add admin sections */
-		$sections = array(array(
-			'uri'        => '/',
-			'name'       => 'Panneau d\'administration',
-			'link'       => $this->wf->linker('/admin'),
-			'selected'   => ($this->current_link == '/admin'),
-			'style'      => 'home',
-			'level'      => 0,
-			'level_diff' => 1
-		));
-		$sections = array_merge($sections, $this->get_subroutes('/admin', true, 1));
-
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user',             $this->a_core_session->me);
 		$tpl->set('page_subtitle',    $this->page_subtitle);
-		$tpl->set('page_hint',        $this->page_hint);
-		$tpl->set('help_title',       $this->help_title);
-		$tpl->set('help_text',        $this->help_text);
-		$tpl->set('sidebar_sections', $sections);
-		$tpl->set('sidebar_ext',      $this->render_routes_tree().$this->sidebar_ext);
-		$tpl->set('sidebar_actions',  $this->sidebar_actions);
-		$tpl->set('errors',           $this->errors);
+		
+
+		
+		/* check si on doit ajouter le side admin */
+		if($this->a_core_request->channel[2][0] == "admin") {
+			$this->add_sidebar(
+				$this->lang->ts("Administration"),
+				$this->page_adm_route
+			);
+			$tpl->set('page_sidebar',     $this->page_sidebar);
+		}
+		
+		/* navigation menu */
+		$menu = new ajax_topnav($this->wf, 'admin_menu');
+		$menu->menu = $this->page_menu;
+		$tpl->set('navigation',       $menu->render());
+		
+		/* add the bottom */
+		$this->add_bottom(
+			$this->lang->ts(array(
+				"%s SQL requests", 
+				$this->wf->db->get_request_counter()
+			))
+		);
+		$tpl->set('bottom',           $this->page_bottom);
+		
+		/* the body .. */
 		$tpl->set('body',             $body);
+		
 		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
 	}
 
-	public function render_routes_tree() {
-		$tpl = new core_tpl($this->wf);
-		$r = $this->get_subroutes('', true);
-		$tpl->set('routes', $r);
-		return($tpl->fetch('admin/routes'));
+	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
+		$buf .= "<ul>";
+		
+		foreach($nav as $key => $val) {
+			$toadd = FALSE;
+			
+			if(strncmp("/admin", $link, 6) == 0)
+				$use = TRUE;
+				
+			if(
+				$val[1][2] == WF_ROUTE_ACTION && 
+				$val[1][6] == WF_ROUTE_SHOW
+				) {
+				$linked = $this->wf->linker(
+					$link.$key
+				);
+				
+				if($use) {
+					if($dir[$pos] != $key) {
+						$subclass = "admin_route_list_unselected";
+					}
+					else {
+						$subclass = "admin_route_list_selected";
+							
+						$title .= ":: ".$this->lang->ts($val[1][5])." ";
+					}
+					
+					$buf .= '<li class="'.$subclass.'">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][5]).
+						"</a></li>\n";
+						
+					$this->page_adm_route_c++;
+				}
+				
+				$in = array(
+					"label" => '<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][5]).
+						"</a>"
+				);
+				$toadd = TRUE;
+			}
+			else if(
+				$val[1][2] == WF_ROUTE_REDIRECT && 
+				$val[1][5] == WF_ROUTE_SHOW
+				) {
+				$linked = $this->wf->linker(
+					$link.$key
+				);
+				
+				if($use) {
+					if($dir[$pos] != $key) {
+						$subclass = "admin_route_list_unselected";
+					}
+					else {
+						$subclass = "admin_route_list_selected";
+							
+						$title .= ":: ".$this->lang->ts($val[1][5])." ";
+					}
+					
+					$buf .= '<li class="'.$subclass.'">'.
+						'<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][4]).
+						"</a></li>\n";
+					
+					$this->page_adm_route_c++;
+				}
+				$in = array(
+					"label" => '<a href="'.$linked.'">'.
+						$this->lang->ts($val[1][4]).
+						"</a>"
+				);
+				$toadd = TRUE;
+			}
+
+			if(is_array($val[0])) {
+				$buf .= $this->generate_li(
+					&$val[0], 
+					&$dir, 
+					$pos+1,
+					&$title,
+					&$in["children"],
+					$link.
+					"$key/",
+					$use
+				);
+			}
+
+			if($toadd)
+				$arr[] = $in;
+			
+		}
+		$buf .= "</ul>";
+		return($buf);
+	}
+	
+	private $page_menu = array();
+	private $page_adm_route;
+	private $page_adm_route_c = 0;
+	
+	private function generate_route() {
+		$dir = explode("/", $_SERVER["PATH_INFO"]);
+		$start = 1;
+		
+		/* checking lang context if available */
+		if($this->a_core_lang->check_lang_route($dir[1]))
+			$start++;
+			
+		$title = NULL;
+		$buf = '<div class="admin_route_list">'.
+			$this->generate_li(
+				&$this->a_core_route->routes[0], 
+				&$dir,
+				$start, 
+				&$title, 
+				&$this->page_menu
+			).
+			'</div>';
+		
+		$this->page_adm_route = $buf;
+		
+		return(TRUE);
 	}
 
 }

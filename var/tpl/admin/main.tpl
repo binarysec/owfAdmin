@@ -1,76 +1,106 @@
 {css '/data/admin/css/screen.css'}
 
-{if $user['id'] > 0}
-	<div class="banner_notice">
-		<p>
-			Vous &ecirc;tes authentifi&eacute; en tant que <strong>{$user['email']}</strong>.
-			<a href="{link '/session/logout'}" title="Se d&eacute;connecter">
-				Cliquez-ici pour vous d&eacute;connecter.
-			</a>
-		</p>
-	</div>
-{else}
-	<div class="banner_error">
-		<p>
-			Vous n'&ecirc;tes pas autoris&eacute; &agrave;
-			acc&eacute;der &agrave; cet espace priv&eacute;.
-			<a href="{link '/session/login'}" title="S'authentifier">
-				Cliquez-ici pour vous authentifier.
-			</a>
-		</p>
-	</div>
-{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	
+	<td width="337" rowspan="2" background="{link '/data/admin/img/back_red.png'}">
+		<img src="{link '/data/admin/img/logo.png'}">
+	</td>
 
-<div id="header">
-	<form id="search" action="" method="POST">
-		Rechercher&nbsp;: <input id="search_query" name="q" type="text" value="" />
-		<input type="submit" value="Go" />
-	</form>
-	<h1>Panneau d'administration{if $page_subtitle}::{$page_subtitle}{/if}</h1>
-</div>
+	<td align="right" valign="top" background="{link '/data/admin/img/back_red.png'}">
+	
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td width="1" align="left" valign="bottom" background="{link '/data/admin/img/back_grey.png'}">
+			<img src="{link '/data/admin/img/up_rounded.png'}" width="4" height="4">
+		</td>
+		
+		<td background="{link '/data/admin/img/back_grey.png'}">
+		
+		<table>
+			<tr>
+			<td class="admin_session">
+				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
+			</td>
+			<td>
+				<a href="/logout">
+				<img border="0" src="/img/icons/disconnect_22.gif" title="Déconnexion"/>
+				</a>
+			</td>
+			</tr>
+		</table>
+		
+		</td>
+		</tr>
+	</table>
 
-<div id="help">
-	<h2>{$help_title}</h2>
-	<p>{$help_text}</p>
-</div>
+	</td>
+	</tr>
+	<tr>
+		<td width="100%" align="right" valign="bottom" background="{link '/data/admin/img/back_red.png'}">
+		<img src="{link '/data/admin/img/left_bottom_banner_rounded.png'}" width="14" height="8">
+	</td>
+	</tr>
+</table>
 
-<div id="separation"></div>
+<!-- Header Menu -->
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td>
+	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td width="9">
+			<img src="{link '/data/admin/img/menu/back_01.png'}">
+		</td>
+		<td align="left" background="{link '/data/admin/img/menu/back_02.png'}" class="admin_subtitle">
+			{$navigation}
+			
+		</td>
+		<td width="9">
+			<img src="{link '/data/admin/img/menu/back_03.png'}">
+		</td>
+		</tr>
+	</table>
+	</td>
+	</tr>
+</table>
 
-<div id="sidebar">
-	<span id="sidebar_header"><a href="javascript:history.go(-1);">&laquo;</a></span>
-	<h2>Modules d'administration</h2>
-
-	<ul>
-		{foreach $sidebar_sections as $i => $section}
-			{if $section['level'] == 0}</ul><ul>{/if}
-			<li class="section_l{$section['level']}{if $section['selected']} selected{/if} {$section['style']}">
-				<a href="{$section['link']}" title="{$section['name']}">{$section['name']}</a>
-			</li>
-		{/foreach}
-	</ul>
-	{$sidebar_ext}
-	<ul>
-		<li class="option"><a href="{link '/session/login'}">Se connecter en tant que...</a></li>
-	</ul>
-</div>
-
-<div id="hint">
-	<p>{$page_hint}</p>
-</div>
-
-<div id="main">
-	{$body}
-
-	{if $errors}
-		<div align="center">
-			<div class="warning">
-				<h2>Attention</h2>
-				<ol class="text">
-					{foreach $errors as $error}
-						<li>{$error}</li>
-					{/foreach}
-				</ol>
-			</div>
+<!-- Content Menu -->
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" class="admin_content">
+	<tr>
+	{if $page_sidebar}
+	<td align="left" valign="top" class="admin_sidebar">
+		{foreach $page_sidebar as $sidebar}
+		<div class="admin_sidebar_element">
+		<div class="admin_sidebar_title">{$sidebar["title"]}</div>
+		<div class="admin_sidebar_data">{$sidebar["data"]}</div>
 		</div>
+		{/foreach}
+	</td>
 	{/if}
-</div>
+	<td width="100%" align="left" valign="top">
+		{if $page_subtitle}{$page_subtitle}{/if}
+		<div class="admin_body">
+		{$body}
+		</div>
+	</td>
+	</tr>
+</table>
+
+<!-- Footer Menu -->
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td width="9">
+		<img src="{link '/data/admin/img/bot/01.png'}">
+	</td>
+	<td align="left" width="100%" background="{link '/data/admin/img/bot/02.png'}">
+		<div class="admin_bottom">
+		Copyright 2007 <a href="http://binarysec.com" target="_blank">BinarySEC</a>{$bottom}
+		</div>
+	</td>
+	<td width="9">
+		<img src="{link '/data/admin/img/bot/03.png'}">
+	</td>
+	</tr>
+
+</table>
