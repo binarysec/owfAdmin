@@ -80,7 +80,7 @@
 	{/if}
 	<td width="100%" align="left" valign="top">
 		{if $page_subtitle}{$page_subtitle}{/if}
-		<div class="admin_body">
+		<div id="main" class="admin_body">
 		{$body}
 		</div>
 	</td>
