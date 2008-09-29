@@ -130,11 +130,10 @@ class admin_html extends wf_agg {
 	
 	public function rendering($body) {
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('user',             $this->a_core_session->me);
-		$tpl->set('page_subtitle',    $this->page_subtitle);
-		
+		$tpl->set('user',          $this->a_core_session->me);
+		$tpl->set('page_subtitle', $this->page_subtitle);
+		$tpl->set('langs',         $this->a_core_lang->get_list());
 
-		
 		/* check si on doit ajouter le side admin */
 		if($this->a_core_request->channel[2][0] == "admin") {
 			$this->add_sidebar(
