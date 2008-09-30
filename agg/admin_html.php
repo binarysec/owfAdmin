@@ -199,9 +199,8 @@ class admin_html extends wf_agg {
 				}
 				
 				$in = array(
-					"label" => '<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][5]).
-						"</a>"
+					"label" => $this->lang->ts($val[1][5]),
+					"link" => $linked
 				);
 				$toadd = TRUE;
 			}
@@ -231,9 +230,8 @@ class admin_html extends wf_agg {
 					$this->page_adm_route_c++;
 				}
 				$in = array(
-					"label" => '<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][4]).
-						"</a>"
+					"label" => $this->lang->ts($val[1][4]),
+					"link" => $linked
 				);
 				$toadd = TRUE;
 			}
