@@ -166,6 +166,10 @@ td.hint {
 	background: url('../img/forminput.gif') left bottom repeat-x;
 	border: 0;
 }
+.yui-panel input.radio {
+	background: none;
+	width: auto;
+}
 .yui-panel textarea {
 	border: 0;
 }
