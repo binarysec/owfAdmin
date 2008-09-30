@@ -22,6 +22,23 @@ class admin extends wf_module {
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
+			
+			/* system management */
+			"/admin/system" => array(
+				WF_ROUTE_REDIRECT,
+				"/admin/system/informations",
+				"Gestion système",
+				WF_ROUTE_SHOW
+			),
+			"/admin/system/informations" => array(
+				WF_ROUTE_ACTION,
+				"sys/informations",
+				"show",
+				"Informations",
+				WF_ROUTE_HIDE,
+				array("session:admin")
+			),
+			
 			/* users management */
 			"/admin/users" => array(
 				WF_ROUTE_REDIRECT,
