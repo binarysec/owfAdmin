@@ -41,6 +41,40 @@ body {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
+ * Menu
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+#admin_menu li. a {
+	border: 0;
+}
+
+#admin_menu.yuimenubar {
+	border: 0;
+}
+
+#admin_menu.yuimenubar ul.first-of-type {
+	background: #fff;
+}
+
+#admin_menu.yuimenubar li.yuimenubaritem {
+	padding: 0;
+	border: 0;
+}
+
+#admin_menu.yuimenubar li.yuimenubaritem a {
+	font-size: 11px;
+	margin: 0;
+	border: 0;
+	cursor: pointer;
+}
+
+#admin_menu.yuimenubar li.yuimenubaritem a:hover {
+	background-color: #a10e09;
+	color: #ffffff;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
  * Sidebar
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 .admin_sidebar {
@@ -361,17 +395,16 @@ td.hint {
 
 /* main */
 
-/*#main {
-	margin-left: 280px;
-	background: #FFFFFF;
-	font-size: 11px;
-}*/
+#main {
+	width: 99%;
+}
 #main h1 {
-	margin: 30px 20px 20px 20px;
+	margin: 0;
+	margin-bottom: 10px;
 	font-size: 20px;
-	width: 95%;
-	border-bottom: 1px dotted #819BD6;
-	color: #5d6f99;
+	width: 100%;
+	border-bottom: 1px dotted #000000;
+	color: #000000;
 }
 #main table {
 	font-size: 11px;
@@ -382,9 +415,7 @@ td.hint {
 
 #main table.list {
 	border-collapse: collapse;
-	width: 100% !important;
-	width: 83%;
-	margin-top: -1px;
+	width: 100%;
 }
 #main table.list .icon {
 	width: 16px;
@@ -423,25 +454,33 @@ td.hint {
 	text-align: left;
 }
 #main table.list thead {
-	background: #819BD6;
+	background-color: #a10e09;
+	color :#ffffff;
+}
+#main table.list thead tr th {
+	padding-top: 10px;
+	padding-bottom: 5px;
 }
 #main table.list tr.god {
-	background: #ffd1d1;
+	background-color: #ffd1d1;
 }
 #main table.list tr.locked {
-	background: #ffd1d1;
+	background-color: #ffd1d1;
 }
 #main table.list tr.deleted, #main table.list tr.deleted a {
 	color: #888888;
 }
 #main table.list tr.disabled {
-	background: #e5e5e5;
+	background-color: #e5e5e5;
 }
 #main table.list tr.notpublished, #main table tr.notpublished a {
 	color: #888888;
 }
 #main table.list tr.selected, #main table.list tr:hover {
-	background: #BFE1BC;
+	background-color: #e2e1dd;
+}
+#main table.list thead tr:hover {
+	color: #000000;
 }
 #main table.list .empty
 {

@@ -73,16 +73,16 @@
 	<td align="left" valign="top" class="admin_sidebar">
 		{foreach $page_sidebar as $sidebar}
 		<div class="admin_sidebar_element">
-		<div class="admin_sidebar_title">{$sidebar["title"]}</div>
-		<div class="admin_sidebar_data">{$sidebar["data"]}</div>
+			<h2>{$sidebar["title"]}</h2>
+			<div class="admin_sidebar_data">{$sidebar["data"]}</div>
 		</div>
 		{/foreach}
 	</td>
 	{/if}
 	<td width="100%" align="left" valign="top">
-		{if $page_subtitle}{$page_subtitle}{/if}
 		<div id="main" class="admin_body">
-		{$body}
+			{if $page_subtitle}<h1>{$page_subtitle}</h1>{/if}
+			{$body}
 		</div>
 	</td>
 	</tr>
