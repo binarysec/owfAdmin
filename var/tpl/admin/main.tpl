@@ -20,7 +20,7 @@
 		<table>
 			<tr>
 			<td class="admin_session">
-				{foreach $langs as $code => $infos}<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}"><img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="" /></a> - {/foreach}
+				{foreach $langs as $code => $infos}<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}"><img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}" /></a> - {/foreach}
 				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
 			</td>
 			<td>
