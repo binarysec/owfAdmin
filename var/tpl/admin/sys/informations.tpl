@@ -15,6 +15,11 @@
 <tr>
 <td>{@ "Architecture"}</td>
 <td>{$machine}</td>
+
+</tr>
+<tr>
+<td>{@ "Serveur WEB"}</td>
+<td>{$server}</td>
 </tr>
 
 <tr>

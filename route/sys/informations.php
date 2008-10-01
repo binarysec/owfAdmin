@@ -14,6 +14,11 @@ class wfr_admin_sys_informations extends wf_route_request {
 
 		$tpl = new core_tpl($this->wf);
 
+		if(function_exists("apache_get_version"))
+			$server = apache_get_version();
+		else
+			$server = $_SERVER["SERVER_SOFTWARE"];
+
 		$in = array(
 			"version" => WF_VERSION,
 			"os" => php_uname("s"),
@@ -21,7 +26,8 @@ class wfr_admin_sys_informations extends wf_route_request {
 			"php" => phpversion(),
 			"zend" => zend_version(),
 			"db" => $this->wf->db->get_driver_banner(),
-			"cache" => $this->wf->core_cacher()->get_banner()
+			"cache" => $this->wf->core_cacher()->get_banner(),
+			"server" => $server
 		);
 		$tpl->set_vars($in);
 		
