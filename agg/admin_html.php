@@ -140,7 +140,7 @@ class admin_html extends wf_agg {
 				$this->lang->ts("Administration"),
 				$this->page_adm_route
 			);
-			$tpl->set('page_sidebar',     $this->page_sidebar);
+			$tpl->set('page_sidebar',     array_reverse($this->page_sidebar));
 		}
 		
 		/* navigation menu */
