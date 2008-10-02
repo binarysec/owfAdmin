@@ -32,7 +32,6 @@ class wfr_admin_sys_informations extends wf_route_request {
 		$tpl->set_vars($in);
 		
 		$this->a_admin_html->rendering($tpl->fetch('admin/sys/informations'));
-		echo 'caco';
 		exit(0);
 	}
 	
