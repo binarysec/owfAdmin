@@ -76,28 +76,107 @@ body {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
- * Info
+ * Cats tree
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-.info {
+#cats_tree .ygtvfocus,
+#cats_tree .ygtvfocus .ygtvlabel,
+#cats_tree .ygtvfocus .ygtvlabel:link,
+#cats_tree .ygtvfocus .ygtvlabel:visited,
+#cats_tree .ygtvfocus .ygtvlabel:hover {
+	background-color: transparent;
+}
+
+/* first or middle sibling, no children */
+#cats_tree .ygtvtn { background: url(../img/treeview/tn.gif) 0 0 no-repeat; width:17px; height:22px; }
+
+/* first or middle sibling, collapsable */
+#cats_tree .ygtvtm { background: url(../img/treeview/tm.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* first or middle sibling, collapsable, hover */
+#cats_tree .ygtvtmh { background: url(../img/treeview/tmh.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* first or middle sibling, expandable */
+#cats_tree .ygtvtp { background: url(../img/treeview/tp.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* first or middle sibling, expandable, hover */
+#cats_tree .ygtvtph { background: url(../img/treeview/tph.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* last sibling, no children */
+#cats_tree .ygtvln { background: url(../img/treeview/ln2.gif) 0 0 no-repeat; width:34px; height:22px; }
+
+/* Last sibling, collapsable */
+#cats_tree .ygtvlm { background: url(../img/treeview/lm.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* Last sibling, collapsable, hover */
+#cats_tree .ygtvlmh { background: url(../img/treeview/lmh.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* Last sibling, expandable */
+#cats_tree .ygtvlp { background: url(../img/treeview/lp.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* Last sibling, expandable, hover */
+#cats_tree .ygtvlph { background: url(../img/treeview/lph.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
+
+/* Loading icon */
+#cats_tree .ygtvloading { background: url(../img/treeview/loading.gif) 0 0 no-repeat; width:16px; height:22px; }
+
+/* the style for the empty cells that are used for rendering the depth 
+ * of the node */
+#cats_tree .ygtvdepthcell { background: url(../img/treeview/vline.gif) 0 0 no-repeat; width:17px; height:22px; }
+
+#cats_tree .ygtvblankdepthcell { width:17px; height:22px; }
+
+/* the style of the div around each node */
+#cats_tree .ygtvitem { }
+
+#cats_tree .ygtvitem table{
+    margin-bottom:0;
+}
+#cats_tree .ygtvitem td {
+    border:none;padding:0;
+} 
+
+
+
+/* the style of the div around each node's collection of children */
+#cats_tree .ygtvchildren { }  
+* html #cats_tree .ygtvchildren { height:1%; }  
+
+/* the style of the text label in ygTextNode */
+#cats_tree .ygtvlabel, #cats_tree .ygtvlabel:link, #cats_tree .ygtvlabel:visited, #cats_tree .ygtvlabel:hover { 
+	margin-left:2px;
+	text-decoration: none;
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Media info
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.media_info {
+	-moz-border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: 90%;
+}
+
+.media_info table {
 	width: 100%;
+	border-collapse: collapse;
 }
 
-.info dt {
-	width: 50%;
-	float: left;
-	margin: 0;
+.media_info table tr {
+	border-top: 1px solid #cccccc;
+}
+
+.media_info table tr.first {
+	border-top: none;
+}
+
+.media_info table td.label {
 	font-weight: bold;
-	border-top: 1px solid #cccccc;
-	padding-top: 3px;
-}
-
-.info dd {
-	float: left;
-	width: 40%;
-	margin: 0;
-	border-top: 1px solid #cccccc;
-	padding-top: 3px;
 }
 
 
@@ -106,7 +185,13 @@ body {
  * Sidebar
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 .admin_sidebar {
-	border-right: 1px dashed #e2e1dd;	
+	border-right: 1px dashed #e2e1dd;
+	padding-bottom: 20px;
+}
+
+.admin_sidebar h2 {
+	border-bottom: 1px dotted #000000;
+	margin-top: 20px;
 }
 
 .admin_sidebar a, a:hover {
@@ -134,7 +219,7 @@ body {
 	width: 270px;
 	margin-left: 10px;
 	margin-top: 10px;
-	margin-right: 0px;
+	margin-right: 10px;
 	margin-bottom: 0px;
 	padding: 0px;
 }
@@ -336,7 +421,7 @@ td.hint {
 	margin-top: 0;
 	border-bottom: 1px dashed #cccccc;
 }
-#sidebar ul {
+/*#sidebar ul {
 	padding-left: 5px;
 	width: 100%;
 }
@@ -357,7 +442,6 @@ td.hint {
 }
 #sidebar li.section_l1 {
 	background-image: url('../img/icons/16x16/section_l1.png');
-	/*margin-left: 27px;*/
 }
 #sidebar li.home {
 	background-image: url('../img/icons/16x16/home.png');
@@ -365,7 +449,6 @@ td.hint {
 }
 #sidebar li.cat_open {
 	background-image: url('../img/icons/16x16/cat_open.png');
-	/*margin-left: 27px;*/
 }
 #sidebar li a {
 	text-decoration: none;
@@ -386,7 +469,7 @@ td.hint {
 #sidebar li.option a:hover {
 	background-color: inherit;
 	text-decoration: underline;
-}
+}*/
 
 
 /* separation */
@@ -485,7 +568,7 @@ td.hint {
 	color :#ffffff;
 }
 #main table.list thead tr th {
-	padding-top: 10px;
+	padding-top: 5px;
 	padding-bottom: 5px;
 }
 #main table.list tr.god {
