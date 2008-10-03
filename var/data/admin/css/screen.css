@@ -88,7 +88,7 @@ body {
 }
 
 /* first or middle sibling, no children */
-#cats_tree .ygtvtn { background: url(../img/treeview/tn.gif) 0 0 no-repeat; width:17px; height:22px; }
+#cats_tree .ygtvtn { background: url(../img/treeview/tn.gif) 0 0 no-repeat; width:32px; height:22px; }
 
 /* first or middle sibling, collapsable */
 #cats_tree .ygtvtm { background: url(../img/treeview/tm.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer }
@@ -182,6 +182,18 @@ body {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
+ * Errors
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.errors ul {
+	list-style-image: url('../img/icons/16x16/error.png');
+	font-weight: bold;
+	color: #a10e09;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
  * Sidebar
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 .admin_sidebar {
@@ -222,6 +234,12 @@ body {
 	margin-right: 10px;
 	margin-bottom: 0px;
 	padding: 0px;
+}
+
+.admin_sidebar_element ul li {
+	list-style-image: url('../img/puce.gif');
+	list-style-position: inside;
+	padding-bottom: 3px;
 }
 
 .admin_sidebar_title {
@@ -571,6 +589,9 @@ td.hint {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+#main table.list tr.alt {
+	background-color: #eeeeee;
+}
 #main table.list tr.god {
 	background-color: #ffd1d1;
 }
@@ -586,11 +607,8 @@ td.hint {
 #main table.list tr.notpublished, #main table tr.notpublished a {
 	color: #888888;
 }
-#main table.list tr.selected, #main table.list tr:hover {
+#main table.list tbody tr.selected, #main table.list tbody tr:hover {
 	background-color: #e2e1dd;
-}
-#main table.list thead tr:hover {
-	color: #000000;
 }
 #main table.list .empty
 {
