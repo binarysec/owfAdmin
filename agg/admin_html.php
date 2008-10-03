@@ -164,14 +164,12 @@ class admin_html extends wf_agg {
 	}
 
 	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
-		$buf .= "<ul>";
-		
+		$buf = '';
 		foreach($nav as $key => $val) {
 			$toadd = FALSE;
 			
 			if(strncmp("/admin", $link, 6) == 0)
 				$use = TRUE;
-				
 			if(
 				$val[1][2] == WF_ROUTE_ACTION && 
 				$val[1][6] == WF_ROUTE_SHOW
@@ -237,23 +235,24 @@ class admin_html extends wf_agg {
 			}
 
 			if(is_array($val[0])) {
-				$buf .= $this->generate_li(
-					&$val[0], 
-					&$dir, 
-					$pos+1,
-					&$title,
-					&$in["children"],
-					$link.
-					"$key/",
-					$use
-				);
+				$buf .=  '<ul>'
+					.$this->generate_li(
+						&$val[0], 
+						&$dir, 
+						$pos+1,
+						&$title,
+						&$in["children"],
+						$link.
+						"$key/",
+						$use
+					)
+					.'</ul>';
 			}
 
 			if($toadd)
 				$arr[] = $in;
 			
 		}
-		$buf .= "</ul>";
 		return($buf);
 	}
 	
@@ -272,10 +271,10 @@ class admin_html extends wf_agg {
 		$title = NULL;
 		$buf = '<div class="admin_route_list">'.
 			$this->generate_li(
-				&$this->a_core_route->routes[0], 
+				&$this->a_core_route->routes[0],
 				&$dir,
-				$start, 
-				&$title, 
+				$start,
+				&$title,
 				&$this->page_menu
 			).
 			'</div>';
