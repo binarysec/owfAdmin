@@ -140,13 +140,13 @@ class admin_html extends wf_agg {
 				$this->lang->ts("Administration"),
 				$this->page_adm_route
 			);
-			$tpl->set('page_sidebar',     array_reverse($this->page_sidebar));
+			$tpl->set('page_sidebar', array_reverse($this->page_sidebar));
 		}
 		
 		/* navigation menu */
 		$menu = new ajax_topnav($this->wf, 'admin_menu');
 		$menu->menu = $this->page_menu;
-		$tpl->set('navigation',       $menu->render());
+		$tpl->set('navigation', $menu->render());
 		
 		/* add the bottom */
 		$this->add_bottom(
@@ -155,6 +155,17 @@ class admin_html extends wf_agg {
 				$this->wf->db->get_request_counter()
 			))
 		);
+		
+		$this->add_bottom(
+			$this->lang->ts(array(
+				"on <strong>%s</strong> - %s", 
+				php_uname("n"),
+				$_SERVER["REMOTE_ADDR"]
+			))
+		);
+		
+		
+		/* last */
 		$this->add_bottom(
 			$this->lang->ts(array(
 				"engine took %f ms", 
