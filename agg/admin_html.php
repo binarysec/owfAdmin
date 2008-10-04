@@ -155,6 +155,13 @@ class admin_html extends wf_agg {
 				$this->wf->db->get_request_counter()
 			))
 		);
+		$this->add_bottom(
+			$this->lang->ts(array(
+				"engine took %f ms", 
+				microtime(TRUE) - $this->wf->time_start
+			))
+		);
+		
 		$tpl->set('bottom',           $this->page_bottom);
 		
 		/* the body .. */
