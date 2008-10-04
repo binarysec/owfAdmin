@@ -27,9 +27,18 @@ class wfr_admin_sys_informations extends wf_route_request {
 			"zend" => zend_version(),
 			"db" => $this->wf->db->get_driver_banner(),
 			"cache" => $this->wf->core_cacher()->get_banner(),
-			"server" => $server
+			"server" => $server,
+			"modules" => &$this->wf->modules
 		);
 		$tpl->set_vars($in);
+		
+// 		foreach($this->wf->modules as $k => $v) {
+// 			$file = &$v[0];
+// 			$name = &$v[1];
+// 			$description = &$v[3]; 
+// 			$banner = &$v[4];
+// 			echo ">$v[5]<br>";
+// 		}
 		
 		$this->a_admin_html->rendering($tpl->fetch('admin/sys/informations'));
 		exit(0);

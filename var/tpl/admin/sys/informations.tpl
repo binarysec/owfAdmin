@@ -43,3 +43,29 @@
 </tr>
 
 </table>
+
+<br/>
+
+<h1>{@ "Information sur les modules chargé"}</h1>
+
+<table class="list">
+
+<thead>
+<tr>
+<th>{@ "Id"}</th>
+<th>{@ "Description"}</th>
+<th>{@ "Version"}</th>
+<th>{@ "Path"}</th>
+</tr>
+</thead>
+{foreach $modules as $k => $v}
+<tr>
+<td><strong>{$v[1]}</strong></td>
+<td>{$v[3]}</td>
+<td>{$v[5]}</td>
+<td>{$v[0]}</td>
+</tr>
+{/foreach}
+</tr>
+
+</table>
