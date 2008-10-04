@@ -3,7 +3,7 @@
 <table class="list">
 
 <tr>
-<td>{@ "Version"}</td>
+<td>{@ "Version WF"}</td>
 <td>{$version}</td>
 </tr>
 

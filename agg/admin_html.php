@@ -69,7 +69,8 @@ class admin_html extends wf_agg {
 	}
 	
 	private function generate_menu_array(&$nav, $dir, $pos, $title, $link="/") {
-		$buf = array();
+		$buf = NULL;
+	
 		foreach($nav as $key => $val) {
 
 			if(
@@ -80,13 +81,13 @@ class admin_html extends wf_agg {
 					$link.$key
 				);
 				if($dir[$pos] != $key) {
-					$buf['label'][] = '<li class="admin_route_list_unselected">'.
+					$buf .= '<li class="admin_route_list_unselected">'.
 						'<a href="'.$linked.'">'.
 						$this->lang->ts($val[1][5]).
 						"</a></li>\n";
 				}
 				else {
-					$buf['label'][] = '<li class="admin_route_list_selected">'.
+					$buf .= '<li class="admin_route_list_selected">'.
 						'<a href="'.$linked.'">'.
 						$this->lang->ts($val[1][5]).
 						"</a></li>\n";
@@ -180,7 +181,7 @@ class admin_html extends wf_agg {
 		
 		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
 	}
-
+		
 	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
 		$buf = '';
 		foreach($nav as $key => $val) {
@@ -197,18 +198,16 @@ class admin_html extends wf_agg {
 				);
 				
 				if($use) {
-					if($dir[$pos] != $key) {
-						$subclass = "admin_route_list_unselected";
-					}
-					else {
-						$subclass = "admin_route_list_selected";
-							
+					if($dir[$pos] == $key) {
+						$char = "* ";
 						$title .= ":: ".$this->lang->ts($val[1][5])." ";
 					}
-					
-					$buf .= '<li class="'.$subclass.'">'.
+					else
+						$char = NULL;
+						
+					$buf .= '<li class="cat_open">'.
 						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][5]).
+						$char.$this->lang->ts($val[1][5]).
 						"</a></li>\n";
 						
 					$this->page_adm_route_c++;
@@ -229,18 +228,16 @@ class admin_html extends wf_agg {
 				);
 				
 				if($use) {
-					if($dir[$pos] != $key) {
-						$subclass = "admin_route_list_unselected";
-					}
-					else {
-						$subclass = "admin_route_list_selected";
-							
+					if($dir[$pos] == $key) {
+						$char = "* ";
 						$title .= ":: ".$this->lang->ts($val[1][5])." ";
 					}
-					
-					$buf .= '<li class="'.$subclass.'">'.
+					else
+						$char = NULL;
+						
+					$buf .= '<li class="cat_open">'.
 						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][4]).
+						$char.$this->lang->ts($val[1][4]).
 						"</a></li>\n";
 					
 					$this->page_adm_route_c++;
@@ -278,6 +275,7 @@ class admin_html extends wf_agg {
 	private $page_adm_route;
 	private $page_adm_route_c = 0;
 	
+
 	private function generate_route() {
 		$dir = explode("/", $_SERVER["PATH_INFO"]);
 		$start = 1;
@@ -287,7 +285,11 @@ class admin_html extends wf_agg {
 			$start++;
 			
 		$title = NULL;
-		$buf = '<div class="admin_route_list">'.
+		
+		$tv = new ajax_treeview($this->wf, 'menu_tree');
+		$tv->tree_id = 'menu_tree';
+
+		$buf = '<div id="menu_tree">'.
 			$this->generate_li(
 				&$this->a_core_route->routes[0],
 				&$dir,
@@ -295,7 +297,8 @@ class admin_html extends wf_agg {
 				&$title,
 				&$this->page_menu
 			).
-			'</div>';
+			'</div>'.
+			$tv->render();
 		
 		$this->page_adm_route = $buf;
 		
