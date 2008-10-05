@@ -34,19 +34,19 @@ class admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"sys/informations",
 				"show",
-				"Informations",
-				WF_ROUTE_HIDE,
+				"System informations",
+				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
 			
 			/* users management */
 			"/admin/users" => array(
 				WF_ROUTE_REDIRECT,
-				"/admin/users/list",
+				"/admin/system/users/list",
 				"Gestionnaire des utilisateurs",
 				WF_ROUTE_SHOW
 			),
-			"/admin/users/list" => array(
+			"/admin/system/users/list" => array(
 				WF_ROUTE_ACTION,
 				"users",
 				"show",
@@ -54,7 +54,7 @@ class admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("session:admin")
 			),
-			"/admin/users/add" => array(
+			"/admin/system/users/add" => array(
 				WF_ROUTE_ACTION,
 				"users",
 				"add",
@@ -62,7 +62,7 @@ class admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("session:admin")
 			),
-			"/admin/users/edit" => array(
+			"/admin/system/users/edit" => array(
 				WF_ROUTE_ACTION,
 				"users",
 				"edit",
@@ -70,7 +70,7 @@ class admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("session:admin")
 			),
-			"/admin/users/delete" => array(
+			"/admin/system/users/delete" => array(
 				WF_ROUTE_ACTION,
 				"users",
 				"delete",

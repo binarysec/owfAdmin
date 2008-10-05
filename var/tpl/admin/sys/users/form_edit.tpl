@@ -1,4 +1,4 @@
-<form id="form_edit_user" class="form_dialog" method="POST" action="{link '/admin/users/edit'}">
+<form id="form_edit_user" class="form_dialog" method="POST" action="{link '/admin/system/users/edit'}">
 	<input type="hidden" id="form_edit_user_id" name="id" value="" />
 	<table>
 		<tr>
