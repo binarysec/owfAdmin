@@ -165,7 +165,6 @@ class admin_html extends wf_agg {
 			))
 		);
 		
-		
 		/* last */
 		$this->add_bottom(
 			$this->lang->ts(array(

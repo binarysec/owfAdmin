@@ -34,12 +34,12 @@
 
 <div class="table_views">
 	<img src="{link '/data/admin/img/icons/16x16/add_user.png'}"
-		alt="{@ Cr&eacute;er un nouvel utilisateur}"
-		title="Cr&eacute;er un nouvel utilisateur" />
+		alt="{@ 'Créer un nouvel utilisateur'}"
+		title="{@ 'Créer un nouvel utilisateur'}" />
 	<a onclick="javascript:
 		YAHOO.dialog_add_user.myDialog.show();
 		set_form_add_user();"
-		>Ajouter un nouvel utilisateur</a>
+		>{@ 'Créer un nouvel utilisateur'}</a>
 </div>
 
 <table class="list">
@@ -48,6 +48,7 @@
 			<th class="icon"></th>
 			<th class="key">E-mail</th>
 			<th>Nom</th>
+			<th>Adresse IP</th>
 			<th>Date de cr&eacute;ation</th>
 			<th>Actions</th>
 		</tr>
@@ -64,22 +65,23 @@
 				</td>
 				<td class="key"><a>{$user['email']}</a></td>
 				<td>{$user['name']}</td>
-				<td>cr&eacute;&eacute; le {$user['create_time']}</td>
+				<td>{if !$user['from']}-{else}{$user['from']}{/if}</td>
+				<td>{$user['create_time']}</td>
 				<td class="actions">
-					<a><img src="{link '/data/cms/img/icons/16x16/view.png'}"
+					<a><img src="{link '/data/admin/img/icons/16x16/view.png'}"
 						title="Voir l'utilisateur"
 						alt="Voir l'utilisateur" /></a>
 					<a onclick="javascript:
 						YAHOO.dialog_edit_user.myDialog.show();
 						set_form_edit_user('{$user['id']}', '{$user['email']}', '{$user['_name']|escurl}', '{$user['perms']}');"
-						><img src="{link '/data/cms/img/icons/16x16/edit.png'}"
+						><img src="{link '/data/admin/img/icons/16x16/edit_info.png'}"
 							title="&Eacute;diter l'utilisateur"
 							alt="&Eacute;diter l'utilisateur"
 						/></a>
 					<a onclick="javascript:
 						YAHOO.dialog_delete_user.myDialog.show();
 						set_form_delete_user('{$user['id']}', '{$user['email']}')"
-						><img src="{link '/data/cms/img/icons/16x16/delete.png'}"
+						><img src="{link '/data/admin/img/icons/16x16/delete.png'}"
 							title="Supprimer l'utilisateur"
 							alt="Supprimer l'utilisateur"
 						/></a>

@@ -1,6 +1,6 @@
 <?php
 
-class wfr_admin_users extends wf_route_request {
+class wfr_admin_system_users extends wf_route_request {
 	private $a_admin_html;
 	private $a_core_session;
 	
@@ -201,14 +201,20 @@ class wfr_admin_users extends wf_route_request {
 		$users = $this->a_core_session->user_list();
 		$list = array();
 		foreach($users as $user) {
-			$perms = unserialize($user['permissions']);
+
+			$from = $user['remote_address'];
+			if($user['remote_address'])
+				$from .= " (".
+					$user['remote_hostname'].
+					")";
+					
 			$list[] = array(
 				'id'          => $user['id'],
 				'email'       => $user['email'],
 				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
 				'_name'       => utf8_decode($user['name']),
 				'create_time' => date('d/m/Y', $user['create_time']),
-// 				'perms'       => ($perms) ? implode(', ', $perms) : '',
+				'from'        => $from,
 				'online'      => (!!$user['session_id']),
 			);
 		}
@@ -226,17 +232,17 @@ class wfr_admin_users extends wf_route_request {
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	private function render_add_form() {
 		$tpl = new core_tpl($this->wf);
-		return($tpl->fetch('aadmin/system/users/form_add'));
+		return($tpl->fetch('admin/system/users/form_add'));
 	}
 
 	private function render_edit_form() {
 		$tpl = new core_tpl($this->wf);
-		return($tpl->fetch('aadmin/system/users/form_edit'));
+		return($tpl->fetch('admin/system/users/form_edit'));
 	}
 
 	private function render_delete_form() {
 		$tpl = new core_tpl($this->wf);
-		return($tpl->fetch('aadmin/system/users/form_delete'));
+		return($tpl->fetch('admin/system/users/form_delete'));
 	}
 
 	private function render_add_dialog() {
