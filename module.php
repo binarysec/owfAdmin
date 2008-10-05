@@ -26,13 +26,13 @@ class admin extends wf_module {
 			/* system management */
 			"/admin/system" => array(
 				WF_ROUTE_REDIRECT,
-				"/admin/system/informations",
+				"/admin/system/users",
 				"Gestion système",
 				WF_ROUTE_SHOW
 			),
 			"/admin/system/informations" => array(
 				WF_ROUTE_ACTION,
-				"sys/informations",
+				"system/informations",
 				"show",
 				"System informations",
 				WF_ROUTE_SHOW,
@@ -40,7 +40,7 @@ class admin extends wf_module {
 			),
 			
 			/* users management */
-			"/admin/users" => array(
+			"/admin/system/users" => array(
 				WF_ROUTE_REDIRECT,
 				"/admin/system/users/list",
 				"Gestionnaire des utilisateurs",
@@ -48,7 +48,7 @@ class admin extends wf_module {
 			),
 			"/admin/system/users/list" => array(
 				WF_ROUTE_ACTION,
-				"users",
+				"system/users",
 				"show",
 				"Liste des utilisateurs",
 				WF_ROUTE_HIDE,
@@ -56,7 +56,7 @@ class admin extends wf_module {
 			),
 			"/admin/system/users/add" => array(
 				WF_ROUTE_ACTION,
-				"users",
+				"system/users",
 				"add",
 				"Ajoute un utilisateur",
 				WF_ROUTE_HIDE,
@@ -64,7 +64,7 @@ class admin extends wf_module {
 			),
 			"/admin/system/users/edit" => array(
 				WF_ROUTE_ACTION,
-				"users",
+				"system/users",
 				"edit",
 				"Edite un utilisateur",
 				WF_ROUTE_HIDE,
@@ -72,7 +72,7 @@ class admin extends wf_module {
 			),
 			"/admin/system/users/delete" => array(
 				WF_ROUTE_ACTION,
-				"users",
+				"system/users",
 				"delete",
 				"Supprime un utilisateur",
 				WF_ROUTE_HIDE,

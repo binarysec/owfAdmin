@@ -40,7 +40,7 @@ class wfr_admin_system_informations extends wf_route_request {
 // 			echo ">$v[5]<br>";
 // 		}
 		
-		$this->a_admin_html->rendering($tpl->fetch('admin/sys/informations'));
+		$this->a_admin_html->rendering($tpl->fetch('admin/system/informations'));
 		exit(0);
 	}
 	
