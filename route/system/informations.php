@@ -1,6 +1,6 @@
 <?php
 
-class wfr_admin_sys_informations extends wf_route_request {
+class wfr_admin_system_informations extends wf_route_request {
 
 	private $a_core_route;
 	private $a_admin_html;
