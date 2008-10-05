@@ -1,4 +1,4 @@
-<form id="form_add_user" class="form_dialog" method="POST" action="{link '/admin/users/add'}">
+<form id="form_add_user" class="form_dialog" method="POST" action="{link '/admin/system/users/add'}">
 	<table>
 		<tr>
 			<td><label for="form_add_user_email">Email <span class="required">(*)</span>&nbsp;:</label></td>

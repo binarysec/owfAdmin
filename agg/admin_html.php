@@ -137,10 +137,10 @@ class admin_html extends wf_agg {
 
 		/* check si on doit ajouter le side admin */
 		if($this->a_core_request->channel[2][0] == "admin") {
-			$this->add_sidebar(
-				$this->lang->ts("Administration"),
-				$this->page_adm_route
-			);
+// 			$this->add_sidebar(
+// 				$this->lang->ts("Administration"),
+// 				$this->page_adm_route
+// 			);
 			$tpl->set('page_sidebar', array_reverse($this->page_sidebar));
 		}
 		
@@ -291,11 +291,12 @@ class admin_html extends wf_agg {
 
 		$buf = '<div id="menu_tree">'.
 			$this->generate_li(
-				&$this->a_core_route->routes[0],
+				&$this->a_core_route->routes[0]["admin"][0],
 				&$dir,
 				$start,
 				&$title,
-				&$this->page_menu
+				&$this->page_menu,
+				"/admin/"
 			).
 			'</div>'.
 			$tv->render();

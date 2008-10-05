@@ -1,23 +1,25 @@
 <?php
 
 class wfr_admin_users extends wf_route_request {
-
 	private $a_admin_html;
-	private $a_admin_users;
-
+	private $a_core_session;
+	
 	public function __construct($wf) {
 		$this->wf = $wf;
 		$this->a_admin_html = $this->wf->admin_html();
-		$this->a_admin_users = $this->wf->admin_users();
+		$this->a_core_session = $this->wf->core_session();
 	}
 
 	public function show() {
+		$this->a_admin_html->set_title("Administration");
 		$this->a_admin_html->set_subtitle("Gestionnaire d'utilisateur");
-
-
-		$this->a_admin_html->rendering($this->a_admin_users->render_list());
+		$this->a_admin_html->rendering($this->render_list());
 	}
-
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * Rail function used to add a user
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public function add() {
 		$ok = true;
 
@@ -31,7 +33,7 @@ class wfr_admin_users extends wf_route_request {
 		}
 		else {
 			/* FATAL: email already exists */
-			if($this->a_admin_users->exists_by_email($_POST['email'])) {
+			if($this->a_core_session->user_search_by_mail($_POST['email'])) {
 // 				$this->a_admin_html->add_error(
 // 					'Un utilisateur poss&eacute;dant cette adresse email
 // 					(<strong>'.htmlentities($_POST['email']).'</strong>)
@@ -75,17 +77,23 @@ class wfr_admin_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$this->a_admin_users->add(
-				$_POST['email'],
-				$_POST['password'],
-				$_POST['name'],
-				$_POST['perms']
-			);
+			$t = explode(",", $_POST['perms']);
+			
+			$this->a_core_session->user_add(array(
+				"email" => $_POST['email'],
+				"password" => $_POST['password'],
+				"name" => $_POST['name'],
+				"permissions" => &$t
+			));
 		}
 
 		$this->show();
 	}
 
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * Rail function used to edit a user
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public function edit() {
 		$ok = true;
 
@@ -100,7 +108,7 @@ class wfr_admin_users extends wf_route_request {
 		}
 
 		/* get user infos */
-		$user_infos = $this->a_admin_users->get($_POST['id']);
+		$user_infos = $this->a_core_session->user_info($_POST['id']);
 
 		/* FATAL: id doesn't exist */
 		if(!$user_infos) {
@@ -123,7 +131,7 @@ class wfr_admin_users extends wf_route_request {
 		else {
 			/* FATAL: email has changed and already exists */
 			if($_POST['email'] != $user_infos['email']
-			&& $this->a_admin_users->exists_by_email($_POST['email'])) {
+			&& $this->a_core_session->user_search_by_mail($_POST['email'])) {
 // 				$this->a_admin_html->add_error(
 // 					'Un utilisateur poss&eacute;dant cette adresse email
 // 					(<strong>'.htmlentities($_POST['email']).'</strong>)
@@ -159,46 +167,103 @@ class wfr_admin_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$this->a_admin_users->edit(
+			$t = explode(",", $_POST['perms']);
+			
+			$this->a_core_session->user_mod(
 				$_POST['id'],
-				$_POST['email'],
-				$_POST['password'],
-				$_POST['name'],
-				$_POST['perms']
+				array(
+					"email" => $_POST['email'],
+					"password" => $_POST['password'],
+					"name" => $_POST['name'],
+					"permissions" => &$t
+				)
 			);
 		}
 
 		$this->show();
 	}
 
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * Rail function used to delete a user
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public function delete() {
-		$ok = true;
-
-		/* FATAL: no id */
-		if(!$_POST['id']) {
-// 			$this->a_admin_html->add_error(
-// 				'L\'identifiant de l\'utilisateur &agrave; &eacute;diter
-// 				n\'a pas &eacute;t&eacute; sp&eacute;cifi&eacute;.'
-// 			);
-			$this->show();
-			return;
-		}
-
-		/* FATAL: id doesn't exist */
-		if(!$this->a_admin_users->get($_POST['id'])) {
-// 			$this->a_admin_html->add_error(
-// 				'L\'utilisateur &agrave; supprimer n\'existe
-// 				 pas dans la base de donn&eacute;es.'
-// 			);
-			$this->show();
-			return;
-		}
-
-		if($ok) {
-			$this->a_admin_users->delete($_POST['id']);
-		}
-
+		$this->a_core_session->user_del($_POST['id']);
 		$this->show();
 	}
 
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * Rendering user list
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	private function render_list() {
+		/* fetch user list */
+		$users = $this->a_core_session->user_list();
+		$list = array();
+		foreach($users as $user) {
+			$perms = unserialize($user['permissions']);
+			$list[] = array(
+				'id'          => $user['id'],
+				'email'       => $user['email'],
+				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
+				'_name'       => utf8_decode($user['name']),
+				'create_time' => date('d/m/Y', $user['create_time']),
+// 				'perms'       => ($perms) ? implode(', ', $perms) : '',
+				'online'      => (!!$user['session_id']),
+			);
+		}
+		
+		$tpl = new core_tpl($this->wf);
+		$tpl->set('scripts', $this->render_dialogs());
+		$tpl->set('users', &$list);
+		
+		return($tpl->fetch('admin/system/users/list'));
+	}
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * All function to render form etc...
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	private function render_add_form() {
+		$tpl = new core_tpl($this->wf);
+		return($tpl->fetch('aadmin/system/users/form_add'));
+	}
+
+	private function render_edit_form() {
+		$tpl = new core_tpl($this->wf);
+		return($tpl->fetch('aadmin/system/users/form_edit'));
+	}
+
+	private function render_delete_form() {
+		$tpl = new core_tpl($this->wf);
+		return($tpl->fetch('aadmin/system/users/form_delete'));
+	}
+
+	private function render_add_dialog() {
+		$dlg = new ajax_dialog($this->wf, 'add_user');
+		$dlg->title = 'Ajouter un nouvel utilisateur';
+		$dlg->content = $this->render_add_form();
+		return($dlg->render());
+	}
+
+	private function render_edit_dialog() {
+		$dlg = new ajax_dialog($this->wf, 'edit_user');
+		$dlg->title = '&Eacute;diter l\'utilisateur';
+		$dlg->content = $this->render_edit_form();
+		return($dlg->render());
+	}
+
+	private function render_delete_dialog() {
+		$dlg = new ajax_dialog($this->wf, 'delete_user');
+		$dlg->title = 'Supprimer l\'utilisateur';
+		$dlg->content = $this->render_delete_form();
+		return($dlg->render());
+	}
+
+	private function render_dialogs() {
+		$buf .= $this->render_add_dialog();
+		$buf .= $this->render_edit_dialog();
+		$buf .= $this->render_delete_dialog();
+		return($buf);
+	}
 }

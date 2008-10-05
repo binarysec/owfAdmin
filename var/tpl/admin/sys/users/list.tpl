@@ -32,6 +32,16 @@
 
 {$scripts}
 
+<div class="table_views">
+	<img src="{link '/data/admin/img/icons/16x16/add_user.png'}"
+		alt="{@ Cr&eacute;er un nouvel utilisateur}"
+		title="Cr&eacute;er un nouvel utilisateur" />
+	<a onclick="javascript:
+		YAHOO.dialog_add_user.myDialog.show();
+		set_form_add_user();"
+		>Ajouter un nouvel utilisateur</a>
+</div>
+
 <table class="list">
 	<thead>
 		<tr>
@@ -39,7 +49,6 @@
 			<th class="key">E-mail</th>
 			<th>Nom</th>
 			<th>Date de cr&eacute;ation</th>
-			<th>Permissions</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -56,7 +65,6 @@
 				<td class="key"><a>{$user['email']}</a></td>
 				<td>{$user['name']}</td>
 				<td>cr&eacute;&eacute; le {$user['create_time']}</td>
-				<td>{$user['perms']}</td>
 				<td class="actions">
 					<a><img src="{link '/data/cms/img/icons/16x16/view.png'}"
 						title="Voir l'utilisateur"
@@ -85,13 +93,3 @@
 		</tr>
 	</tfoot>
 </table>
-
-<div class="table_views">
-	<img src="{link '/data/admin/img/icons/16x16/add_user.png'}"
-		alt="Cr&eacute;er un nouvel utilisateur"
-		title="Cr&eacute;er un nouvel utilisateur" />
-	<a onclick="javascript:
-		YAHOO.dialog_add_user.myDialog.show();
-		set_form_add_user();"
-		>Ajouter un nouvel utilisateur</a>
-</div>
