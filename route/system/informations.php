@@ -21,7 +21,7 @@ class wfr_admin_system_informations extends wf_route_request {
 
 		$in = array(
 			"version" => WF_VERSION,
-			"os" => php_uname("s"),
+			"os" => php_uname("s")." (".php_uname("r").")",
 			"machine" => php_uname("m"),
 			"php" => phpversion(),
 			"zend" => zend_version(),
