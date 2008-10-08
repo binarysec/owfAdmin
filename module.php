@@ -30,11 +30,20 @@ class admin extends wf_module {
 				"Gestion système",
 				WF_ROUTE_SHOW
 			),
-			"/admin/system/informations" => array(
+			"/admin/system/information" => array(
 				WF_ROUTE_ACTION,
-				"system/informations",
+				"system/information",
 				"show",
-				"System informations",
+				"System information",
+				WF_ROUTE_SHOW,
+				array("session:admin")
+			),
+			
+			"/admin/system/preferences" => array(
+				WF_ROUTE_ACTION,
+				"system/preferences",
+				"show",
+				"Edit system preferences",
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),

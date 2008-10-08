@@ -1,6 +1,6 @@
 <?php
 
-class wfr_admin_system_informations extends wf_route_request {
+class wfr_admin_system_information extends wf_route_request {
 
 	private $a_core_route;
 	private $a_admin_html;
@@ -40,7 +40,7 @@ class wfr_admin_system_informations extends wf_route_request {
 // 			echo ">$v[5]<br>";
 // 		}
 		
-		$this->a_admin_html->rendering($tpl->fetch('admin/system/informations'));
+		$this->a_admin_html->rendering($tpl->fetch('admin/system/information'));
 		exit(0);
 	}
 	
