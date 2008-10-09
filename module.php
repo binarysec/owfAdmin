@@ -46,7 +46,7 @@ class admin extends wf_module {
 				"show_groups",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("session:admin")
+				array("system:preferences")
 			),
 			"/admin/system/preferences/vars/show" => array(
 				WF_ROUTE_ACTION,
@@ -54,7 +54,7 @@ class admin extends wf_module {
 				"show_vars",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("session:admin")
+				array("system:preferences")
 			),
 			"/admin/system/preferences/vars/edit" => array(
 				WF_ROUTE_ACTION,
@@ -62,7 +62,7 @@ class admin extends wf_module {
 				"edit_var",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("session:admin")
+				array("system:preferences")
 			),
 			
 			/* users management */
