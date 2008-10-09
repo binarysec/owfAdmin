@@ -9,7 +9,7 @@ class admin extends wf_module {
 	public function get_description()  { return("Admin"); }
 	public function get_banner()  { return("Admin/1.0"); }
 	public function get_version() { return("1.0"); }
-	public function get_authors() { return("Olivier PASCAL"); }
+	public function get_authors() { return("Olivier PASCAL, Michael VERGOZ"); }
 	public function get_depends() { return(NULL); }
 	
 	public function get_actions() {
@@ -39,10 +39,27 @@ class admin extends wf_module {
 				array("session:admin")
 			),
 			
+			/* preference edition */
 			"/admin/system/preferences" => array(
 				WF_ROUTE_ACTION,
 				"system/preferences",
-				"show",
+				"show_groups",
+				"Edit system preferences",
+				WF_ROUTE_SHOW,
+				array("session:admin")
+			),
+			"/admin/system/preferences/vars/show" => array(
+				WF_ROUTE_ACTION,
+				"system/preferences",
+				"show_vars",
+				"Edit system preferences",
+				WF_ROUTE_SHOW,
+				array("session:admin")
+			),
+			"/admin/system/preferences/vars/edit" => array(
+				WF_ROUTE_ACTION,
+				"system/preferences",
+				"edit_var",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
 				array("session:admin")
