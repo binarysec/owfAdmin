@@ -2,11 +2,8 @@
 	<thead>
 		<tr>
 			<th class="icon"></th>
-			<th class="key">Nom</th>
-			<th>Description</th>
-			<th>Adresse IP</th>
-<!-- 			<th>Date de cr&eacute;ation</th> -->
-<!-- 			<th>Actions</th> -->
+			<th class="key">{@ 'Nom'}</th>
+			<th>{@ 'Description'}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,7 +14,6 @@
 				</td>
 				<td><a href="{$group[1]}"><strong>{$group[0]->name}</strong></a></td>
 				<td>{$group[0]->description}</td>
-				<td>{$group[0]->create_time}</td>
 			</tr>
 		{/foreach}
 	</tbody>

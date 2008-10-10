@@ -58,7 +58,6 @@ class wfr_admin_system_preferences extends wf_route_request {
 				$o = $this->a_core_pref->register_group($group["name"]),
 				$link
 			);
-			$o->description = $this->lang->ts($o->description);
 		}
 		
 		/* Create the side bar */
@@ -96,7 +95,6 @@ class wfr_admin_system_preferences extends wf_route_request {
 				$link
 			);
 			$list[] = &$list_key[$group["name"]];
-			$o->description = $this->lang->ts($o->description);
 		}
 		
 		/* get name */
@@ -123,9 +121,7 @@ class wfr_admin_system_preferences extends wf_route_request {
 				"/admin/system/preferences/vars/edit/$name/".
 				$var["variable"]
 			);
-			$var["description"] = $this->lang->ts(
-				base64_decode($var["description"])
-			);
+			$var["description"] = base64_decode($var["description"]);
 		}
 		
 		/* Create the side bar */
@@ -167,7 +163,7 @@ class wfr_admin_system_preferences extends wf_route_request {
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	private function render_edit_simple() {
 		$dlg = new ajax_dialog($this->wf, 'edit_var_simple');
-		$dlg->title = 'Editer la variable';
+		$dlg->title = $this->lang->ts('Editer la variable');
 		$tpl = new core_tpl($this->wf);
 		$dlg->content = $tpl->fetch(
 			'admin/system/preferences/list_vars_edit_simple'
