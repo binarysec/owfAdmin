@@ -28,7 +28,8 @@ class admin extends wf_module {
 				WF_ROUTE_REDIRECT,
 				"/admin/system/users",
 				"Gestion système",
-				WF_ROUTE_SHOW
+				WF_ROUTE_SHOW,
+				array("session:admin")
 			),
 			"/admin/system/information" => array(
 				WF_ROUTE_ACTION,
@@ -46,7 +47,7 @@ class admin extends wf_module {
 				"show_groups",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("system:preferences")
+				array("admin:system:preferences")
 			),
 			"/admin/system/preferences/vars/show" => array(
 				WF_ROUTE_ACTION,
@@ -54,7 +55,7 @@ class admin extends wf_module {
 				"show_vars",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("system:preferences")
+				array("admin:system:preferences")
 			),
 			"/admin/system/preferences/vars/edit" => array(
 				WF_ROUTE_ACTION,
@@ -62,7 +63,7 @@ class admin extends wf_module {
 				"edit_var",
 				"Edit system preferences",
 				WF_ROUTE_SHOW,
-				array("system:preferences")
+				array("admin:system:preferences")
 			),
 			
 			/* users management */
@@ -70,7 +71,8 @@ class admin extends wf_module {
 				WF_ROUTE_REDIRECT,
 				"/admin/system/users/list",
 				"Gestionnaire des utilisateurs",
-				WF_ROUTE_SHOW
+				WF_ROUTE_SHOW,
+				array("admin:system:users")
 			),
 			"/admin/system/users/list" => array(
 				WF_ROUTE_ACTION,
@@ -78,7 +80,7 @@ class admin extends wf_module {
 				"show",
 				"Liste des utilisateurs",
 				WF_ROUTE_HIDE,
-				array("session:admin")
+				array("admin:system:users:list")
 			),
 			"/admin/system/users/add" => array(
 				WF_ROUTE_ACTION,
@@ -86,7 +88,7 @@ class admin extends wf_module {
 				"add",
 				"Ajoute un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:admin")
+				array("admin:system:users:manage")
 			),
 			"/admin/system/users/edit" => array(
 				WF_ROUTE_ACTION,
@@ -94,7 +96,7 @@ class admin extends wf_module {
 				"edit",
 				"Edite un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:admin")
+				array("admin:system:users:manage")
 			),
 			"/admin/system/users/delete" => array(
 				WF_ROUTE_ACTION,
@@ -102,7 +104,7 @@ class admin extends wf_module {
 				"delete",
 				"Supprime un utilisateur",
 				WF_ROUTE_HIDE,
-				array("session:admin")
+				array("admin:system:users:manage")
 			),
 		));
 	}

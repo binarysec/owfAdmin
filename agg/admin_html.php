@@ -195,28 +195,37 @@ class admin_html extends wf_agg {
 				$linked = $this->wf->linker(
 					$link.$key
 				);
+
+				if(!$val[1][7])
+					$val[1][7] = array("session:anon");
+					
 				
-				if($use) {
-					if($dir[$pos] == $key) {
-						$char = "* ";
-						$title .= ":: ".$this->lang->ts($val[1][5])." ";
-					}
-					else
-						$char = NULL;
-						
-					$buf .= '<li class="cat_open">'.
-						'<a href="'.$linked.'">'.
-						$char.$this->lang->ts($val[1][5]).
-						"</a></li>\n";
-						
-					$this->page_adm_route_c++;
-				}
-				
-				$in = array(
-					"label" => $this->lang->ts($val[1][5]),
-					"link" => $linked
+				$perm = $this->a_core_session->check_permissions(
+					&$val[1][7]
 				);
-				$toadd = TRUE;
+				if($perm) {
+					if($use) {
+						if($dir[$pos] == $key) {
+							$char = "* ";
+							$title .= ":: ".$this->lang->ts($val[1][5])." ";
+						}
+						else
+							$char = NULL;
+							
+						$buf .= '<li class="cat_open">'.
+							'<a href="'.$linked.'">'.
+							$char.$this->lang->ts($val[1][5]).
+							"</a></li>\n";
+							
+						$this->page_adm_route_c++;
+					}
+					
+					$in = array(
+						"label" => $this->lang->ts($val[1][5]),
+						"link" => $linked
+					);
+					$toadd = TRUE;
+				}
 			}
 			else if(
 				$val[1][2] == WF_ROUTE_REDIRECT && 
@@ -226,26 +235,34 @@ class admin_html extends wf_agg {
 					$link.$key
 				);
 				
-				if($use) {
-					if($dir[$pos] == $key) {
-						$char = "* ";
-						$title .= ":: ".$this->lang->ts($val[1][5])." ";
-					}
-					else
-						$char = NULL;
-						
-					$buf .= '<li class="cat_open">'.
-						'<a href="'.$linked.'">'.
-						$char.$this->lang->ts($val[1][4]).
-						"</a></li>\n";
-					
-					$this->page_adm_route_c++;
-				}
-				$in = array(
-					"label" => $this->lang->ts($val[1][4]),
-					"link" => $linked
+				if(!$val[1][6])
+					$val[1][6] = array("session:anon");
+
+				$perm = $this->a_core_session->check_permissions(
+					&$val[1][6]
 				);
-				$toadd = TRUE;
+				if($perm) {
+					if($use) {
+						if($dir[$pos] == $key) {
+							$char = "* ";
+							$title .= ":: ".$this->lang->ts($val[1][5])." ";
+						}
+						else
+							$char = NULL;
+							
+						$buf .= '<li class="cat_open">'.
+							'<a href="'.$linked.'">'.
+							$char.$this->lang->ts($val[1][4]).
+							"</a></li>\n";
+						
+						$this->page_adm_route_c++;
+					}
+					$in = array(
+						"label" => $this->lang->ts($val[1][4]),
+						"link" => $linked
+					);
+					$toadd = TRUE;
+				}
 			}
 
 			if(is_array($val[0])) {
@@ -267,6 +284,8 @@ class admin_html extends wf_agg {
 				$arr[] = $in;
 			
 		}
+		
+	
 		return($buf);
 	}
 	
@@ -274,7 +293,6 @@ class admin_html extends wf_agg {
 	private $page_adm_route;
 	private $page_adm_route_c = 0;
 	
-
 	private function generate_route() {
 		$dir = explode("/", $_SERVER["PATH_INFO"]);
 		$start = 1;
