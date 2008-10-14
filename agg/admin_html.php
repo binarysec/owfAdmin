@@ -29,13 +29,13 @@ class admin_html extends wf_agg {
 	private $a_core_session;
 	private $a_core_lang;
 	private $a_core_html;
-	private $a_cms_sites;
 	
 	private $lang;
 	
 	private $page_subtitle;
 	private $page_sidebar = array();
 	private $page_bottom;
+	private $page_topbar;
 	
 	public function loader($wf) {
 		$this->wf = $wf;
@@ -44,7 +44,6 @@ class admin_html extends wf_agg {
 		$this->a_core_session = $this->wf->core_session();
 		$this->a_core_lang    = $this->wf->core_lang();
 		$this->a_core_html    = $this->wf->core_html();
-		$this->a_cms_sites    = $this->wf->cms_sites();
 		
 		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
@@ -62,8 +61,12 @@ class admin_html extends wf_agg {
 	public function add_sidebar($title, $data) {
 		$this->page_sidebar[] = array(
 			'title' => $title,
-			'data'   => $data
+			'data'  => $data
 		);
+	}
+
+	public function append_topbar($data) {
+		$this->page_topbar .= $data;
 	}
 	
 	public function add_bottom($data) {
@@ -135,9 +138,8 @@ class admin_html extends wf_agg {
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user',          $this->a_core_session->me);
 		$tpl->set('page_subtitle', $this->page_subtitle);
+		$tpl->set('page_topbar',   $this->page_topbar);
 		$tpl->set('langs',         $this->a_core_lang->get_list());
-		$tpl->set('sites',         $this->a_cms_sites->get_all());
-		$tpl->set('current_site',  $this->a_cms_sites->get_current());
 
 		/* check si on doit ajouter le side admin */
 		if($this->a_core_request->channel[2][0] == "admin") {
