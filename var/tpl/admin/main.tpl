@@ -20,8 +20,22 @@
 		<table>
 			<tr>
 			<td class="admin_session">
-				{foreach $langs as $code => $infos}<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}"><img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}" /></a> - {/foreach}
+				{foreach $langs as $code => $infos}
+					<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}">
+						<img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}" />
+					</a>
+				-
+				{/foreach}
 				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
+				<select id="admin_site_id" name="admin_site_id" onchange="javascript:document.location='{link '/admin/cms/sites/select/'}' + this.value">
+					{foreach $sites as $site}
+						<option
+							value="{$site['name']}"
+							{if $current_site == $site['name']}
+								selected="selected"
+							{/if}>{$site['name']}</option>
+					{/foreach}
+				</select>
 			</td>
 			<td>
 				<a href="/logout">
