@@ -27,15 +27,20 @@
 				-
 				{/foreach}
 				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
-				<select id="admin_site_id" name="admin_site_id" onchange="javascript:document.location='{link '/admin/cms/sites/select/'}' + this.value">
-					{foreach $sites as $site}
-						<option
-							value="{$site['name']}"
-							{if $current_site == $site['name']}
-								selected="selected"
-							{/if}>{$site['name']}</option>
-					{/foreach}
-				</select>
+				<form id="form_site" action="{link '/admin/cms/sites/select'}" method="POST" style="display: inline;">
+					<input type="hidden" id="form_site_back_url" name="back_url" value="{$_BACK_URL}" />
+					<select id="form_site_name" name="site_name" onchange="javascript:document.getElementById('form_site').submit();">
+						{foreach $sites as $site}
+							<option
+								id="form_site_name_{$site['name']}"
+								name="site_name_{$site['name']}"
+								value="{$site['name']}"
+								{if $current_site == $site['name']}
+									selected="selected"
+								{/if}>{$site['name']}</option>
+						{/foreach}
+					</select>
+				</form>
 			</td>
 			<td>
 				<a href="/logout">
