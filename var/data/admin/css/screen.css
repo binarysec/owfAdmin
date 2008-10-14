@@ -550,6 +550,8 @@ td.hint {
 }
 #main table.list .id {
 	width: 20px;
+}
+#main table.list .strong {
 	font-weight: bold;
 }
 #main table.list .key {
