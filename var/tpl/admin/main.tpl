@@ -29,13 +29,13 @@
 				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
 				<form id="form_site" action="{link '/admin/cms/sites/select'}" method="POST" style="display: inline;">
 					<input type="hidden" id="form_site_back_url" name="back_url" value="{$_BACK_URL}" />
-					<select id="form_site_name" name="site_name" onchange="javascript:document.getElementById('form_site').submit();">
+					<select id="form_site_id" name="site_id" onchange="javascript:document.getElementById('form_site').submit();">
 						{foreach $sites as $site}
 							<option
-								id="form_site_name_{$site['name']}"
-								name="site_name_{$site['name']}"
-								value="{$site['name']}"
-								{if $current_site == $site['name']}
+								id="form_site_id_{$site['name']}"
+								name="site_id_{$site['name']}"
+								value="{$site['id']}"
+								{if $current_site == $site['id']}
 									selected="selected"
 								{/if}>{$site['name']}</option>
 						{/foreach}
