@@ -40,6 +40,25 @@
 		</td>
 		</tr>
 	</table>
+	
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td width="1" align="left" valign="bottom">
+		</td>
+		
+		<td background="{link '/data/admin/img/back_red.png'}">
+		
+		<table>
+			<tr>
+			<td class="admin_subtop">
+				{$page_subtop}
+			</td>
+			</tr>
+		</table>
+		
+		</td>
+		</tr>
+	</table>
 
 	</td>
 	</tr>

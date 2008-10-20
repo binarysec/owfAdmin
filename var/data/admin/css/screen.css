@@ -22,6 +22,11 @@ body {
 	color: #a10e09; 
 }
 
+.admin_subtop {
+	font-size: 11px;
+	color: #ffffff; 
+}
+
 .admin_body {
 	margin: 0px;
 	padding-top: 10px;
