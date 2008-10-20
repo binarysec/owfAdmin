@@ -597,6 +597,9 @@ td.hint {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+#main table.list tr {
+	cursor: move;
+}
 #main table.list tr.alt {
 	background-color: #f3f3f3;
 }
@@ -747,4 +750,35 @@ td.hint {
 
 #main ul.section_menu a:hover {
 	text-decoration: underline;
+}
+
+
+/* ddlist */
+
+.ddlist ul {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.ddlist ul li {
+	list-style: none;
+	margin: 1px;
+	cursor: move;
+	background-color: #fbcaca;
+	border:1px solid #ec9898;
+	padding: 2px;
+}
+
+.ddlist ul li:hover {
+	background-color: #ffe0e0;
+}
+
+.ddlist ul li img {
+	vertical-align: middle;
+}
+
+.ddlist .submit {
+	width: 100%;
+	height: 25px;
 }
