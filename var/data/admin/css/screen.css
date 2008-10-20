@@ -597,7 +597,7 @@ td.hint {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-#main table.list tr {
+#main table.list.medias tr {
 	cursor: move;
 }
 #main table.list tr.alt {
