@@ -36,6 +36,7 @@ class admin_html extends wf_agg {
 	private $page_sidebar = array();
 	private $page_bottom;
 	private $page_topbar;
+	private $page_subtop;
 	
 	public function loader($wf) {
 		$this->wf = $wf;
@@ -48,6 +49,10 @@ class admin_html extends wf_agg {
 		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
 		$this->generate_route();
+	}
+	
+	public function append_subtop($data) {
+		$this->page_subtop .= $data;
 	}
 	
 	public function set_title($title) {
@@ -139,6 +144,7 @@ class admin_html extends wf_agg {
 		$tpl->set('user',          $this->a_core_session->me);
 		$tpl->set('page_subtitle', $this->page_subtitle);
 		$tpl->set('page_topbar',   $this->page_topbar);
+		$tpl->set('page_subtop',   $this->page_subtop);
 		$tpl->set('langs',         $this->a_core_lang->get_list());
 
 		/* check si on doit ajouter le side admin */
