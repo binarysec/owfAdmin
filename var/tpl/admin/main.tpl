@@ -21,9 +21,13 @@
 			<tr>
 			<td class="admin_session">
 				{foreach $langs as $code => $infos}
-					<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}">
-						<img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}" />
-					</a>
+					{if $code != $current_lang_code}
+						<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}">
+					{/if}
+						<img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}"{if $code == $current_lang_code} class="selected"{/if} />
+					{if $code != $current_lang_code}
+						</a>
+					{/if}
 				-
 				{/foreach}
 				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}

@@ -22,6 +22,16 @@ body {
 	color: #a10e09; 
 }
 
+.admin_session img {
+	margin: 2px;
+}
+
+.admin_session img.selected,
+.admin_session a:hover img {
+	border: 2px solid #0000ff;
+	margin: 0;
+}
+
 .admin_subtop {
 	font-size: 11px;
 	color: #ffffff; 
@@ -618,7 +628,11 @@ td.hint {
 #main table.list tr.notpublished, #main table tr.notpublished a {
 	color: #888888;
 }
-#main table.list tbody tr.selected, #main table.list tbody tr:hover {
+#main table.list tbody tr.selected {
+	background-color: #efa5a3;
+}
+
+#main table.list tbody tr:hover {
 	background-color: #e2e1dd;
 }
 #main table.list .empty
