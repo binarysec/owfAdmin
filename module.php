@@ -1,6 +1,6 @@
 <?php
  
-class admin extends wf_module {
+class wfm_admin extends wf_module {
 	public function __construct($wf) {
 		$this->wf = $wf;
 	}
