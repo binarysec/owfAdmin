@@ -78,67 +78,6 @@ class admin_html extends wf_agg {
 		$this->page_bottom .= " / $data";
 	}
 	
-	private function generate_menu_array(&$nav, $dir, $pos, $title, $link="/") {
-		$buf = NULL;
-	
-		foreach($nav as $key => $val) {
-
-			if(
-				$val[1][2] == WF_ROUTE_ACTION && 
-				$val[1][6] == WF_ROUTE_SHOW
-				) {
-				$linked = $this->wf->linker(
-					$link.$key
-				);
-				if($dir[$pos] != $key) {
-					$buf .= '<li class="admin_route_list_unselected">'.
-						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][5]).
-						"</a></li>\n";
-				}
-				else {
-					$buf .= '<li class="admin_route_list_selected">'.
-						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][5]).
-						"</a></li>\n";
-				}
-			}
-			else if(
-				$val[1][2] == WF_ROUTE_REDIRECT && 
-				$val[1][5] == WF_ROUTE_SHOW
-				) {
-				$linked = $this->wf->linker(
-					$link.$key
-				);
-				if($dir[$pos] != $key) {
-					$buf .= '<li class="admin_route_list_unselected">'.
-						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][4]).
-						"</a></li>\n";
-				}
-				else {
-					$buf .= '<li class="admin_route_list_selected">'.
-						'<a href="'.$linked.'">'.
-						$this->lang->ts($val[1][4]).
-						"</a></li>\n";
-						
-					$title .= ":: ".$this->lang->ts($val[1][4])." ";
-				}
-			}
-	
-			if(is_array($val[0]))
-				$buf .= $this->generate_menu_array(
-					&$val[0], 
-					&$dir, 
-					&$title, 
-					$link.
-					"$key/"
-				);
-		}
-		$buf .= "</ul>";
-		return($buf);
-	}
-	
 	public function rendering($body) {
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user',              $this->a_core_session->me);
@@ -160,6 +99,7 @@ class admin_html extends wf_agg {
 		/* navigation menu */
 		$menu = new ajax_topnav($this->wf, 'admin_menu');
 		$menu->menu = $this->page_menu;
+
 		$tpl->set('navigation', $menu->render());
 		
 		/* add the bottom */
@@ -318,6 +258,8 @@ class admin_html extends wf_agg {
 		
 		$tv = new ajax_treeview($this->wf, 'menu_tree');
 		$tv->tree_id = 'menu_tree';
+
+		$this->page_menu[] = array('label' => 'Panneau d\'admnistration', 'link' => $this->wf->linker('/admin'));
 
 		$buf = '<div id="menu_tree">'.
 			$this->generate_li(

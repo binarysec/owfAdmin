@@ -25,9 +25,10 @@ class wfm_admin extends wf_module {
 			
 			/* system management */
 			"/admin/system" => array(
-				WF_ROUTE_REDIRECT,
-				"/admin/system/users",
-				"Gestion système",
+				WF_ROUTE_ACTION,
+				"system/system",
+				"show",
+				"Informations système",
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
