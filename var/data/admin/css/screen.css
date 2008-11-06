@@ -8,6 +8,10 @@ body {
 	margin-bottom: 0px;
 }
 
+.spacer {
+	clear: both;
+}
+
 .admin_content {
 	background: #FFFFFF;
 }
@@ -756,10 +760,15 @@ td.hint {
 	list-style: none;
 	text-align: center;
 	margin-left: 40px;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	width: 100px;
 }
 
 #main ul.section_menu a {
 	text-decoration: none;
+	font-weight: bold;
+	color: #000000;
 }
 
 #main ul.section_menu a:hover {
