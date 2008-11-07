@@ -205,7 +205,7 @@ body {
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 .errors ul {
-	list-style-image: url('../img/icons/16x16/error.png');
+	list-style-image: url('../../../img/icons/16x16/error.png');
 	font-weight: bold;
 	color: #a10e09;
 }
@@ -474,18 +474,18 @@ td.hint {
 	background-repeat: no-repeat;
 }
 #sidebar li.section_l0 {
-	background-image: url('../img/icons/16x16/section_l0.png');
+	background-image: url('../../../img/icons/16x16/section_l0.png');
 	font-weight: bold;
 }
 #sidebar li.section_l1 {
-	background-image: url('../img/icons/16x16/section_l1.png');
+	background-image: url('../../../img/icons/16x16/section_l1.png');
 }
 #sidebar li.home {
-	background-image: url('../img/icons/16x16/home.png');
+	background-image: url('../../../img/icons/16x16/home.png');
 	font-weight: bold;
 }
 #sidebar li.cat_open {
-	background-image: url('../img/icons/16x16/cat_open.png');
+	background-image: url('../../../img/icons/16x16/cat_open.png');
 }
 #sidebar li a {
 	text-decoration: none;
@@ -701,7 +701,7 @@ td.hint {
 	font-size: 13px;
 	letter-spacing: 4px;
 	font-weight: bold;
-	background: url('../img/icons/16x16/notice.png') left center no-repeat #ff8a8a;
+	background: url('../../../img/icons/16x16/notice.png') left center no-repeat #ff8a8a;
 	-moz-border-radius: 9px;
 	text-align: center;
 }
@@ -718,7 +718,7 @@ td.hint {
 	font-size: 13px;
 	letter-spacing: 4px;
 	font-weight: bold;
-	background: url('../img/icons/16x16/notice.png') left center no-repeat #819BD6;
+	background: url('../../../img/icons/16x16/notice.png') left center no-repeat #819BD6;
 	-moz-border-radius: 9px;
 }
 #main .notice dl {
