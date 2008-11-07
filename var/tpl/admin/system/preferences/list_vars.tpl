@@ -33,7 +33,7 @@
 		{foreach $vars as $var}
 			<tr class="user">
 				<td class="icon">
-				<img src="{link '/data/admin/img/icons/16x16/puce.png'}" alt="[Configurer]" title="Configurer"/>
+				<img src="{link '/data/icons/16x16/puce.png'}" alt="[Configurer]" title="Configurer"/>
 				</td>
 				<td><strong>{$var["variable"]}</strong></td>
 				<td>{$var["description"]}</td>
@@ -60,7 +60,7 @@
 							'{$var['dft']}', 
 							'{$var['value']}',
 							'{$var['edit_url']}')"
-						><img src="{link '/data/admin/img/icons/16x16/edit_info.png'}"
+						><img src="{link '/data/icons/16x16/edit_info.png'}"
 							title="Editer la variable"
 							alt="Editer la variable"
 						/></a>
