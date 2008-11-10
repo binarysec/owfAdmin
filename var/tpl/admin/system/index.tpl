@@ -8,13 +8,13 @@
 	<li>
 		<a href="{link '/admin/system/preferences'}">
 			<img src="{link '/data/icons/48x48/prefs.png'}" /><br />
-			Pr&eacute;f&eacute;rences syst&egrave;mes
+			Pr&eacute;f&eacute;rences syst&egrave;mes ({$nb_pref_groups})
 		</a>
 	</li>
 	<li>
 		<a href="{link '/admin/system/users'}">
 			<img src="{link '/data/icons/48x48/users.png'}" /><br />
-			Utilisateurs
+			Utilisateurs ({$nb_users})
 		</a>
 	</li>
 	<li>

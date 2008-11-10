@@ -28,7 +28,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/system",
 				"show",
-				"Informations système",
+				"Système",
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
@@ -108,5 +108,12 @@ class wfm_admin extends wf_module {
 				array("admin:system:users:manage")
 			),
 		));
+	}
+
+	public function get_index() {
+		$tpl = new core_tpl($this->wf);
+		$tpl->set('nb_users', count($this->wf->core_session()->user_list()));
+		$tpl->set('nb_pref_groups', count($this->wf->core_pref()->group_find()));
+		return($tpl->fetch('admin/system/index'));
 	}
 }

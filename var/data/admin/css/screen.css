@@ -755,7 +755,7 @@ td.hint {
 	padding: 0;
 }
 
-#main ul.section_menu li {
+#main ul.section_menu > li {
 	float: left;
 	list-style: none;
 	text-align: center;
@@ -773,6 +773,14 @@ td.hint {
 
 #main ul.section_menu a:hover {
 	text-decoration: underline;
+}
+
+#main ul li ul {
+	list-style: square;
+}
+
+#main ul li ul {
+	padding-left: 20px;
 }
 
 

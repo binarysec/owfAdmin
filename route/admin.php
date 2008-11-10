@@ -15,19 +15,12 @@ class wfr_admin_admin extends wf_route_request {
 		$html = '';
 
 		/* menu global d'administration */
-		$routes = &$this->wf->core_route()->routes[0]["admin"][0];
-		foreach($routes as $route) {
-			$mod = $route[1][1];
-			if($mod == 'admin')
-				$index_tpl = '/admin/system/index';
-			else
-				$index_tpl = $mod.'/admin/index';
-
-			$tpl = new core_tpl($this->wf);
-			if($tpl->locate($index_tpl)) {
-				$name = $route[1][2] == WF_ROUTE_ACTION ? $route[1][5] : $route[1][4];
-				$html .= '<h1>'.$name.'</h1>';
-				$html .= $tpl->fetch($index_tpl);
+ 		$routes = &$this->wf->core_route()->routes[0]["admin"][0];
+ 		foreach($routes as $route) {
+			$mod = $this->wf->modules[$route[1][1]][8];
+			if(method_exists($mod, 'get_index')) {
+				$html .= '<h1>'.$route[1][5].'</h1>';
+				$html .= $mod->get_index();
 			}
 		}
 
