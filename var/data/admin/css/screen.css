@@ -776,6 +776,7 @@ td.hint {
 }
 
 #main ul li ul {
+	width: 550px;
 	list-style: square;
 }
 
