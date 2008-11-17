@@ -259,7 +259,7 @@ class admin_html extends wf_agg {
 		$tv = new ajax_treeview($this->wf, 'menu_tree');
 		$tv->tree_id = 'menu_tree';
 
-		$this->page_menu[] = array('label' => 'Panneau d\'admnistration', 'link' => $this->wf->linker('/admin'));
+		$this->page_menu[] = array('label' => 'Panneau d\'administration', 'link' => $this->wf->linker('/admin'));
 
 		$buf = '<div id="menu_tree">'.
 			$this->generate_li(
