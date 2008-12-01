@@ -8,6 +8,10 @@ body {
 	margin-bottom: 0px;
 }
 
+img {
+	vertical-align: middle;
+}
+
 .spacer {
 	clear: both;
 }
@@ -558,6 +562,27 @@ td.hint {
 }
 
 
+.form_dialog .note {
+	font-style: italic;
+	font-size: 10px;
+}
+
+/* table topnav */
+
+#main .table_topnav {
+	width: 100%;
+	height: 35px;
+}
+#main .table_topnav button {
+	height: 30px;
+}
+#main .table_topnav_left {
+	float: left;
+}
+#main .table_topnav_right {
+	float: right;
+}
+
 /* table list */
 
 #main table.list {
@@ -574,7 +599,7 @@ td.hint {
 	font-weight: bold;
 }
 #main table.list .key {
-	/*font-weight: bold;*/
+	font-weight: bold;
 }
 #main table.list, #main table.form {
 
