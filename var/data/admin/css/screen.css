@@ -14,6 +14,7 @@ img {
 
 .spacer {
 	clear: both;
+	margin-bottom: 10px;
 }
 
 .admin_content {
@@ -547,22 +548,28 @@ td.hint {
 /* main */
 
 #main {
-	width: 99%;
+	width: 98%;
+	margin-left: 0.5%;
+	padding-bottom: 20px;
 }
 #main h1 {
+background: url(../../../../data/icons/24x24/module.png) 0 0 no-repeat;
+padding-left: 30px;
 	margin: 0;
-	margin-bottom: 10px;
+	/*margin-top: 20px;*/
+	margin-bottom: 20px;
+	/*margin-left: 1%;*/
 	font-size: 20px;
 	width: 100%;
-	border-bottom: 1px dotted #000000;
-	color: #000000;
+	border-bottom: 1px dotted #999;
+	color: #000;
 }
 #main table {
 	font-size: 11px;
 }
 
 
-.form_dialog .note {
+tr.note {
 	font-style: italic;
 	font-size: 10px;
 }
@@ -588,6 +595,9 @@ td.hint {
 #main table.list {
 	border-collapse: collapse;
 	width: 100%;
+}
+#main table.list td {
+	height: 25px;
 }
 #main table.list .icon {
 	width: 16px;
@@ -631,6 +641,9 @@ td.hint {
 #main table.list thead {
 	background-color: #a10e09;
 	color :#ffffff;
+}
+#main table.list.reorderable tr {
+	cursor: move;
 }
 #main table.list thead tr th {
 	padding-top: 5px;
@@ -778,16 +791,65 @@ td.hint {
 #main ul.section_menu {
 	margin: 0;
 	padding: 0;
+	padding-top: 10px;
 }
 
 #main ul.section_menu > li {
 	float: left;
 	list-style: none;
 	text-align: center;
-	margin-left: 40px;
+	margin-left: 20px;
 	margin-bottom: 20px;
+	/*border: 1px dotted #dddddd;*/
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
 	margin-top: 10px;
 	width: 100px;
+	padding: 10px;
+	height: 85px;
+}
+
+#main .module_index .infos {
+	float: left;
+	margin-left: 20px;
+}
+
+#main .module_index .infos h2 {
+	font-size: 14px;
+	margin: 0;
+}
+
+#main .module_index .infos li {
+	list-style: square;
+}
+
+#main .module_index .infos li a {
+	color: #000;
+	font-weight: bold;
+}
+
+#main .module_index button {
+	float: left;
+	width: 130px;
+	height: 125px;
+	border: 1px solid #eee;
+	background-color: #fff;
+	margin-left: 20px;
+	font-weight: bold;
+	font-size: 11px;
+	margin-bottom: 20px;
+}
+
+#main .module_index button img {
+	margin-bottom: 10px;
+}
+
+#main .module_index button:hover {
+	border: 1px solid #ddd;
+}
+
+#main ul.section_menu > li img {
+	padding-bottom: 5px;
 }
 
 #main ul.section_menu a {
