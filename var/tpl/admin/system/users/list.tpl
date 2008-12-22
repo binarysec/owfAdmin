@@ -78,6 +78,11 @@
 							title="&Eacute;diter l'utilisateur"
 							alt="&Eacute;diter l'utilisateur"
 						/></a>
+					<a href="{link '/admin/system/profiles/show/'.$user['id']}"
+						><img src="{link '/data/icons/16x16/manage_form.png'}"
+							alt="{@ 'Modifier le profil'}"
+							title="{@ 'Modifier le profil'}"
+						/></a>
 					<a onclick="javascript:
 						YAHOO.dialog_delete_user.myDialog.show();
 						set_form_delete_user('{$user['id']}', '{$user['email']}')"
