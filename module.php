@@ -95,7 +95,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/users",
 				"edit",
-				"Edite un utilisateur",
+				"Édite un utilisateur",
 				WF_ROUTE_HIDE,
 				array("admin:system:users:manage")
 			),
@@ -104,6 +104,22 @@ class wfm_admin extends wf_module {
 				"system/users",
 				"delete",
 				"Supprime un utilisateur",
+				WF_ROUTE_HIDE,
+				array("admin:system:users:manage")
+			),
+			"/admin/system/profiles/show" => array(
+				WF_ROUTE_ACTION,
+				"system/profiles",
+				"show",
+				"Affiche un profil utilisateur",
+				WF_ROUTE_HIDE,
+				array("admin:system:users:manage")
+			),
+			"/admin/system/profiles/edit" => array(
+				WF_ROUTE_ACTION,
+				"system/profiles",
+				"edit",
+				"Édite un profil utilisateur",
 				WF_ROUTE_HIDE,
 				array("admin:system:users:manage")
 			),
