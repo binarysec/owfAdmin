@@ -56,7 +56,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 
 		$this->wf->core_request()->set_header(
 			'Location',
-			$this->wf->linker('/admin/system/profiles/show/'.$uid)
+			$this->wf->linker('/admin/system/users/list')
 		);
 		$this->wf->core_request()->send_headers();
 		exit(0);
