@@ -32,14 +32,22 @@
 
 {$scripts}
 
-<div class="table_views">
-	<img src="{link '/data/icons/16x16/add_user.png'}"
-		alt="{@ 'Créer un nouvel utilisateur'}"
-		title="{@ 'Créer un nouvel utilisateur'}" />
-	<a onclick="javascript:
-		YAHOO.dialog_add_user.myDialog.show();
-		set_form_add_user();"
-		>{@ 'Créer un nouvel utilisateur'}</a>
+<div class="table_topnav">
+	<div class="table_topnav_left">
+		<button onclick="javascript:document.location='{link '/admin'}'">
+			<img src="{link '/data/icons/22x22/back.png'}" />
+			{@ 'Retourner au panneau d\'administration'}
+		</button>
+	</div>
+
+	<div class="table_topnav_right">
+		<button onclick="javascript:
+			set_form_add_user();
+			YAHOO.dialog_add_user.myDialog.show();">
+			<img src="{link '/data/icons/22x22/add.png'}" />
+			{@ 'Ajouter un utilisateur'}
+		</button>
+	</div>
 </div>
 
 <table class="list">
@@ -55,7 +63,7 @@
 	</thead>
 	<tbody>
 		{foreach $users as $user}
-			<tr class="user">
+			<tr class="user{alt ' alt'}">
 				<td class="icon">
 					{if $user['online']}
 						<img src="{link '/data/icons/16x16/online.png'}" alt="[En ligne]" title="En ligne" />
@@ -64,8 +72,8 @@
 					{/if}
 				</td>
 				<td class="key"><a>{$user['email']}</a></td>
-				<td>{$user['name']}</td>
-				<td>{if !$user['from']}-{else}{$user['from']}{/if}</td>
+				<td>{if $user['name']}{$user['name']}{else}-{/if}</td>
+				<td>{if $user['from']}{$user['from']}{else}-{/if}</td>
 				<td>{$user['create_time']}</td>
 				<td class="actions">
 					<a><img src="{link '/data/icons/16x16/view.png'}"

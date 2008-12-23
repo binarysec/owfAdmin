@@ -3,8 +3,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 	
-	<td width="337" rowspan="2" background="{link '/data/admin/img/back_red.png'}">
-		<a href="{link '/admin'}"><img src="{link '/data/admin/img/logo.png'}"></a>
+	<td width="337" rowspan="2" background="{link '/data/admin/img/back_red.png'}" height="100px">
+		<!--<a href="{link '/admin'}"><img src="{link '/data/admin/img/logo.png'}"></a>-->
 	</td>
 
 	<td align="right" valign="top" background="{link '/data/admin/img/back_red.png'}">

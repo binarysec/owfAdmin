@@ -2,7 +2,7 @@
 	{foreach $form_hidden_elements as $id => $element}
 		{$element->render()}
 	{/foreach}
-	<table>
+	<table style="border-left: 6px solid #ddd;">
 		{foreach $form_elements as $id => $element}
 		<tr>
 			<td style="width: 150px; font-weight: bold;">
