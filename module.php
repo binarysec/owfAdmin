@@ -36,7 +36,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/information",
 				"show",
-				"System information",
+				"Informations système",
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
@@ -46,7 +46,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/preferences",
 				"show_groups",
-				"Edit system preferences",
+				"Préférences système",
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
@@ -54,7 +54,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/preferences",
 				"show_vars",
-				"Edit system preferences",
+				"Préférences système",
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
@@ -62,7 +62,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/preferences",
 				"edit_var",
-				"Edit system preferences",
+				"Préférences système",
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
@@ -71,7 +71,7 @@ class wfm_admin extends wf_module {
 			"/admin/system/users" => array(
 				WF_ROUTE_REDIRECT,
 				"/admin/system/users/list",
-				"Gestionnaire des utilisateurs",
+				"Utilisateurs",
 				WF_ROUTE_SHOW,
 				array("admin:system:users")
 			),

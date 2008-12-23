@@ -553,14 +553,15 @@ td.hint {
 	padding-bottom: 20px;
 }
 #main h1 {
-background: url(../../../../data/icons/24x24/module.png) 0 0 no-repeat;
-padding-left: 30px;
+	background: url(../../../../data/icons/24x24/module.png) 0 0 no-repeat;
+	padding-left: 30px;
 	margin: 0;
+	margin-top: 10px;
 	/*margin-top: 20px;*/
 	margin-bottom: 20px;
 	/*margin-left: 1%;*/
 	font-size: 20px;
-	width: 100%;
+	width: 88%;
 	border-bottom: 1px dotted #999;
 	color: #000;
 }
@@ -582,6 +583,10 @@ tr.note {
 }
 #main .table_topnav button {
 	height: 30px;
+	padding: 0;
+}
+#main .table_topnav button img {
+	margin-right: 5px;
 }
 #main .table_topnav_left {
 	float: left;
@@ -659,7 +664,13 @@ tr.note {
 	background-color: #ffd1d1;
 }
 #main table.list tr.locked {
+	background-color: #ffe1e1;
+}
+#main table.list tr.error {
 	background-color: #ffd1d1;
+}
+#main table.list tr.ok {
+	background-color: #b2f999;
 }
 #main table.list tr.deleted, #main table.list tr.deleted a {
 	color: #888888;
@@ -676,6 +687,7 @@ tr.note {
 
 #main table.list tbody tr:hover {
 	background-color: #e2e1dd;
+	color: #000;
 }
 #main table.list .empty
 {
@@ -830,6 +842,7 @@ tr.note {
 
 #main .module_index button {
 	float: left;
+	padding: 0;
 	width: 130px;
 	height: 125px;
 	border: 1px solid #eee;
@@ -838,6 +851,7 @@ tr.note {
 	font-weight: bold;
 	font-size: 11px;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 
 #main .module_index button img {
@@ -845,7 +859,7 @@ tr.note {
 }
 
 #main .module_index button:hover {
-	border: 1px solid #ddd;
+	border: 1px solid #ccc;
 }
 
 #main ul.section_menu > li img {
@@ -900,4 +914,78 @@ tr.note {
 .ddlist .submit {
 	width: 100%;
 	height: 25px;
+}
+
+table.form td.errors {
+	vertical-align: top;
+}
+
+table.form td.label {
+	font-weight: bold;
+	width: 230px;
+}
+
+table.form input,
+table.form select,
+table.form textarea {
+	width: 100%;
+}
+
+table.form input {
+	background: url('../img/forminput.gif') left bottom repeat-x;
+	border: 0;
+}
+
+tr.alt {
+	background-color: #f3f3f3;
+}
+
+/* vert menu */
+
+#main ul.vert_menu {
+	margin: 0;
+	padding: 0;
+	margin-right: 20px;
+}
+
+#main ul.vert_menu > li {
+	list-style: none;
+	text-align: center;
+	margin-left: 10px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#main ul.vert_menu a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #000000;
+}
+
+#main ul.vert_menu a:hover {
+	text-decoration: underline;
+}
+
+.form_dialog table {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.form_dialog textarea {
+	border: 1px solid #ccc;
+	background-color: #f9f9f9;
+}
+
+.accordion {
+	width: 100%;
+}
+
+.accordiontitle {
+	background-color: #efefef;
+	margin-bottom: 5px;
+	font-weight: normal;
+}
+
+.accordiontitle:hover {
+	cursor: pointer;
 }

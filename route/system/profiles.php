@@ -4,6 +4,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 	private $a_admin;
 	private $a_session;
 	private $a_profile;
+	private $a_lang;
 
 	public function __construct($wf) {
 		$this->wf = $wf;
@@ -11,6 +12,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$this->a_admin   = $this->wf->admin_html();
 		$this->a_session = $this->wf->core_session();
 		$this->a_profile = $this->wf->core_profile();
+		$this->lang      = $this->wf->core_lang()->get_context('admin/system/profiles');
 
 		$p = $this->a_profile->register_profile(
 			'core_session_extend',
@@ -63,7 +65,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$uid   = $arr[0];
 		$pid   = $arr[1];
 
-		/* invalide user */
+		/* invalid user */
 		$user = $this->a_session->user_info($uid);
 		if(!$user) {
 			$this->wf->core_request()->set_header(
@@ -86,12 +88,12 @@ class wfr_admin_system_profiles extends wf_route_request {
 
 			/* get fields */
 			$p = $this->a_profile->register_profile($profile['name']);
-			$fields = $p->get_all();
+			$fields = $p->get_all_fields();
 
 			/* add fields */
 			foreach($fields as $field) {
 				$field_id    = 'field'.$field['id'];
-				$field_value = $p->get_value($field['variable'], $uid);
+				$field_value = $p->get_value($field['field'], $uid);
 
 				switch($field['type']) {
 					case CORE_PROFILE_NUM:
@@ -121,7 +123,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 						$elt->value = $field_value;
 						break;
 				}
-				$elt->name  = 'profile['.$field['variable'].']';
+				$elt->name  = 'profile['.$field['field'].']';
 				$elt->label = base64_decode($field['description']);
 				$form->add_element($elt);
 			}
@@ -132,11 +134,16 @@ class wfr_admin_system_profiles extends wf_route_request {
 			$form->add_element($elt);
 
 			/* construct accordion item with the form */
-			$acc_items[
-				'<h2><img src="'.$this->wf->linker('/data/icons/22x22/expand.png').'" alt="" /> '.
-				base64_decode($profile['description']).'</h2>'
-			] = $form->render('/admin/system/profiles/form');
+			$title =
+				'<h2 class="accordiontitle">'.
+				'<img src="'.$this->wf->linker('/data/icons/22x22/expand.png').'" alt="" /> '.
+				base64_decode($profile['description']).
+				'</h2>';
+			$acc_items[$title] = $form->render('/admin/system/profiles/form');
 		}
+
+		$this->a_admin->set_title($this->lang->ts('Profil avancé de l\'utilisateur'));
+		$this->a_admin->set_subtitle($this->lang->ts('Profil avancé de l\'utilisateur'));
 
 		$acc = new ajax_accordion($this->wf, 'profiles');
 		$acc->selected = $pid ? $pid : 1;
