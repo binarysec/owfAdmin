@@ -31,12 +31,10 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$ghost = trim($this->wf->core_request()->get_ghost(), '/');
 		$arr   = explode('/', $ghost);
 		$uid   = $arr[0];
-		$pid   = $arr[1];
 
-		/* valid user and profile */
+		/* valid user */
 		$user    = $this->a_session->user_info($uid);
-		$profile = $this->a_profile->group_find(NULL, $pid);
-		if(!$user || !$profile) {
+		if(!$user) {
 			$this->wf->core_request()->set_header(
 				'Location',
 				$this->wf->linker('/admin/system/users/list')
@@ -45,15 +43,20 @@ class wfr_admin_system_profiles extends wf_route_request {
 			exit(0);
 		}
 
-		$form_fields = $this->wf->get_var('profile');
-		$profile_ctx = $this->a_profile->register_profile($profile[0]['name']);
-		foreach($form_fields as $var => $value) {
-			$profile_ctx->set_value($var, $uid, $value);
+		foreach($_POST as $profile => $fields) {
+			if(is_array($fields)) {
+				$ctx = $this->a_profile->register_profile($profile);
+				if($ctx) {
+					foreach($fields as $field => $value) {
+						$ctx->set_value($field, $uid, $value);
+					}
+				}
+			}
 		}
 
 		$this->wf->core_request()->set_header(
 			'Location',
-			$this->wf->linker('/admin/system/profiles/show/'.$uid.'/'.$profile[0]['id'])
+			$this->wf->linker('/admin/system/profiles/show/'.$uid)
 		);
 		$this->wf->core_request()->send_headers();
 		exit(0);
@@ -79,8 +82,10 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$acc_items = array();
 
 		/* get profiles */
-		$profiles = $this->a_profile->group_find();
-		foreach($profiles as $profile) {
+		$profiles = $this->a_profile->search_profile();
+		for($i = 0; $i < count($profiles); $i++) {
+			$profile = &$profiles[$i];
+
 			/* create form */
 			$form = new core_form($this->wf, 'form_edit_profile'.$profile['id']);
 			$form->action = $this->wf->linker('/admin/system/profiles/edit/'.$uid.'/'.$profile['id']);
@@ -123,34 +128,21 @@ class wfr_admin_system_profiles extends wf_route_request {
 						$elt->value = $field_value;
 						break;
 				}
-				$elt->name  = 'profile['.$field['field'].']';
+				$elt->name  = $profile['name'].'['.$field['field'].']';
 				$elt->label = base64_decode($field['description']);
 				$form->add_element($elt);
 			}
 
-			/* add submit button */
-			$elt = new core_form_submit($form_name.'_submit');
-			$elt->value = 'Enregistrer';
-			$form->add_element($elt);
-
-			/* construct accordion item with the form */
-			$title =
-				'<h2 class="accordiontitle">'.
-				'<img src="'.$this->wf->linker('/data/icons/22x22/expand.png').'" alt="" /> '.
-				base64_decode($profile['description']).
-				'</h2>';
-			$acc_items[$title] = $form->render('/admin/system/profiles/form');
+			/* construct form */
+			$profile['form'] = $form->render('/admin/system/profiles/form');
 		}
 
 		$this->a_admin->set_title($this->lang->ts('Profil avancé de l\'utilisateur'));
 		$this->a_admin->set_subtitle($this->lang->ts('Profil avancé de l\'utilisateur'));
 
-		$acc = new ajax_accordion($this->wf, 'profiles');
-		$acc->selected = $pid ? $pid : 1;
-		$acc->items = $acc_items;
-
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('forms', $acc->render());
+		$tpl->set('user', $user);
+		$tpl->set('profiles', $profiles);
 		$this->a_admin->rendering($tpl->fetch('/admin/system/profiles/edit'));
 	}
 
