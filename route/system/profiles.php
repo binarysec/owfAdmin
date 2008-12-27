@@ -32,6 +32,9 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$arr   = explode('/', $ghost);
 		$uid   = $arr[0];
 
+		if(!$uid)
+			$uid = $this->a_session->me["id"];
+			
 		/* valid user */
 		$user    = $this->a_session->user_info($uid);
 		if(!$user) {
@@ -45,6 +48,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 
 		foreach($_POST as $profile => $fields) {
 			if(is_array($fields)) {
+				/*! \bug un utilisateur peut potencielement registrer n'importe quel profile */
 				$ctx = $this->a_profile->register_profile($profile);
 				if($ctx) {
 					foreach($fields as $field => $value) {
@@ -68,6 +72,9 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$uid   = $arr[0];
 		$pid   = $arr[1];
 
+		if(!$uid)
+			$uid = $this->a_session->me["id"];
+		
 		/* invalid user */
 		$user = $this->a_session->user_info($uid);
 		if(!$user) {
@@ -137,8 +144,8 @@ class wfr_admin_system_profiles extends wf_route_request {
 			$profile['form'] = $form->render('/admin/system/profiles/form');
 		}
 
-		$this->a_admin->set_title($this->lang->ts('Profil avancé de l\'utilisateur'));
-		$this->a_admin->set_subtitle($this->lang->ts('Profil avancé de l\'utilisateur'));
+		$this->a_admin->set_title($this->lang->ts("Gestion du profile"));
+		$this->a_admin->set_subtitle($this->lang->ts("Gestion du profile"));
 
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user', $user);
