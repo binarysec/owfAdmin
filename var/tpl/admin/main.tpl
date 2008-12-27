@@ -34,8 +34,8 @@
 				{$page_topbar}
 			</td>
 			<td>
-				<a href="/logout">
-				<img border="0" src="/img/icons/disconnect_22.gif" title="Déconnexion"/>
+				<a href="{link '/session/logout'}"> 
+				<img border="0" src="{link '/data/icons/16x16/agt_stop1.png'}" title="Déconnexion"/>
 				</a>
 			</td>
 			</tr>
