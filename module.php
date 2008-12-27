@@ -107,13 +107,22 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("admin:system:users:manage")
 			),
+			
+			/* profile */
+			"/admin/profiles" => array(
+				WF_ROUTE_REDIRECT,
+				"/admin/system/profiles/show",
+				"Mon profil",
+				WF_ROUTE_SHOW,
+				array("session:simple")
+			),
 			"/admin/system/profiles/show" => array(
 				WF_ROUTE_ACTION,
 				"system/profiles",
 				"show",
 				"Affiche un profil utilisateur",
 				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
+				array("session:simple")
 			),
 			"/admin/system/profiles/edit" => array(
 				WF_ROUTE_ACTION,
@@ -121,7 +130,7 @@ class wfm_admin extends wf_module {
 				"edit",
 				"Édite un profil utilisateur",
 				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
+				array("session:simple")
 			),
 		));
 	}
