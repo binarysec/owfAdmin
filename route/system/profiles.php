@@ -25,6 +25,9 @@ class wfr_admin_system_profiles extends wf_route_request {
 			'Forum'
 		);
 		$p->register('nickname', 'Pseudo', CORE_PROFILE_VARCHAR, false);
+		$p->register('age', 'Age', CORE_PROFILE_NUM, false);
+		$p->register('confirmage', 'Age confirmé', CORE_PROFILE_BOOL, false);
+		$p->register('website', 'Site web', CORE_PROFILE_VARCHAR, false);
 	}
 
 	public function edit() {

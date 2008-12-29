@@ -109,7 +109,7 @@ class wfm_admin extends wf_module {
 			),
 			
 			/* profile */
-			"/admin/profiles" => array(
+			"/admin/myprofil" => array(
 				WF_ROUTE_REDIRECT,
 				"/admin/system/profiles/show",
 				"Mon profil",
