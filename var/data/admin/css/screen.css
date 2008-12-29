@@ -976,16 +976,10 @@ tr.alt {
 	background-color: #f9f9f9;
 }
 
-.accordion {
-	width: 100%;
-}
-
-.accordiontitle {
+.sectiontitle {
 	background-color: #efefef;
-	margin-bottom: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	font-weight: normal;
-}
-
-.accordiontitle:hover {
-	cursor: pointer;
+	height: 25px;
 }
