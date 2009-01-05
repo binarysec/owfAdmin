@@ -280,10 +280,11 @@ class wfr_admin_system_users extends wf_route_request {
 				'email'       => $user['email'],
 				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
 				'_name'       => utf8_decode($user['name']),
-				'create_time' => date('d/m/Y', $user['create_time']),
+				'createtime'  => $user['create_time'],
 				'from'        => $from,
 				'online'      => $online,
-				'perms'       => $perms
+				'perms'       => $perms,
+				'lastauth'    => $user['session_time_auth']
 			);
 		}
 		

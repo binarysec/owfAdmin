@@ -62,6 +62,7 @@
 			<th class="key">E-mail</th>
 			<th>Nom</th>
 			<th>Adresse IP</th>
+			<th>Dernier login</th>
 			<th>Date de cr&eacute;ation</th>
 			<th>Actions</th>
 		</tr>
@@ -78,8 +79,9 @@
 				</td>
 				<td class="key">{$user['email']}</td>
 				<td>{if $user['name']}{$user['name']}{else}-{/if}</td>
-				<td>{if $user['from']}{$user['from']}{else}-{/if}</td>
-				<td>{$user['create_time']}</td>
+				<td>{if $user['from']}{$user['from']}{else}n/a{/if}</td>
+				<td>{if $user['lastauth']}{date 'd/m/Y H:i', $user['lastauth']}{else}n/a{/if}</td>
+				<td>{date 'd/m/Y H:i', $user['createtime']}</td>
 				<td class="actions">
 					<a onclick="javascript:
 						YAHOO.dialog_edit_user.myDialog.show();
