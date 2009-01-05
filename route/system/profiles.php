@@ -81,7 +81,10 @@ class wfr_admin_system_profiles extends wf_route_request {
 				if($pro) {
 					/* check permissions if necessary */
 					if($pro[0]['perms']) {
-						if(!$this->a_session->user_get_permissions(&$uid, $pro[0]['perms'])) {
+						if(!$this->a_session->check_permissions(
+							$pro[0]['perms'],
+							&$this->a_session->me['id']
+						)) {
 							continue;
 						}
 					}
@@ -167,7 +170,10 @@ class wfr_admin_system_profiles extends wf_route_request {
 
 			/* check permissions if necessary */
 			if($profile['perms']) {
-				if(!$this->a_session->user_get_permissions(&$uid, $profile['perms'])) {
+				if(!$this->a_session->check_permissions(
+					&$profile['perms'],
+					&$this->a_session->me['id']
+				)) {
 					continue;
 				}
 			}
