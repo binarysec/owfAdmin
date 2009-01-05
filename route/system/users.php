@@ -84,7 +84,7 @@ class wfr_admin_system_users extends wf_route_request {
 			foreach($t as $perm) {
 				$perm = trim($perm, " \r\n");
 				if($perm) {
-					$ret = preg_match('/^(.*)\([^\)]*\)$/', $perm, $res);
+					$ret = preg_match('/^(.*)\(([^\)]*)\)$/', $perm, $res);
 					if($ret) {
 						$perms[]  = $res[1];
 						$values[] = $res[2];
