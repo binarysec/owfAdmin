@@ -7,7 +7,7 @@
 	</div>
 </div>
 
-<h1>{@ "Information sur le système"}</h1>
+<h1>{@ "Informations sur le système"}</h1>
 
 <table class="list">
 
@@ -55,7 +55,7 @@
 
 <br/>
 
-<h1>{@ "Information sur les modules chargé"}</h1>
+<h1>{@ "Information sur les modules chargés"}</h1>
 
 <table class="list">
 
