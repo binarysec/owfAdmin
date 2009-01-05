@@ -77,13 +77,18 @@ class wfr_admin_system_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$t = explode(",", $_POST['perms']);
+			$perms = array();
+			$t = explode("\n", $_POST['perms']);
+			foreach($t as $perm) {
+				$perm = trim($perm, " \r\n");
+				if($perm) $perms[] = $perm;
+			}
 			
 			$this->a_core_session->user_add(array(
 				"email" => $_POST['email'],
 				"password" => $_POST['password'],
 				"name" => $_POST['name'],
-				"permissions" => &$t
+				"permissions" => &$perms
 			));
 		}
 
@@ -150,13 +155,13 @@ class wfr_admin_system_users extends wf_route_request {
 		}
 
 		/* no password confirmation */
-		if($_POST['password'] && !$_POST['password_confirm']) {
+// 		if($_POST['password'] && !$_POST['password_confirm']) {
 // 			$this->a_admin_html->add_error(
 // 				'Le mot de passe de l\'utilisateur n\'a pas
 // 				&eacute;t&eacute; confirm&eacute;.'
 // 			);
-			$ok = false;
-		}
+// 			$ok = false;
+// 		}
 		/* passwords mismatch */
 		if($_POST['password'] && $_POST['password_confirm']
 		&& $_POST['password'] != $_POST['password_confirm']) {
@@ -167,16 +172,26 @@ class wfr_admin_system_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$t = explode(",", $_POST['perms']);
-			
+			$perms = array();
+			$t = explode("\n", $_POST['perms']);
+			foreach($t as $perm) {
+				$perm = trim($perm, " \r\n");
+				if($perm) $perms[] = $perm;
+			}
+
+			$data = array(
+				"email" => $_POST['email'],
+				"name" => $_POST['name'],
+				"permissions" => &$perms
+			);
+
+			if($_POST['password'] == $_POST['password_confirm']) {
+				$data['password'] = $_POST['password'];
+			}
+
 			$this->a_core_session->user_mod(
 				$_POST['id'],
-				array(
-					"email" => $_POST['email'],
-					"password" => $_POST['password'],
-					"name" => $_POST['name'],
-					"permissions" => &$t
-				)
+				$data
 			);
 		}
 
@@ -201,13 +216,21 @@ class wfr_admin_system_users extends wf_route_request {
 		$users = $this->a_core_session->user_list();
 		$list = array();
 		foreach($users as $user) {
-
 			$from = $user['remote_address'];
 			if($user['remote_address'])
 				$from .= " (".
 					$user['remote_hostname'].
 					")";
-					
+
+			$perms = array();
+			$perm_list = $this->a_core_session->user_get_permissions($user['id']);
+			foreach($perm_list as $perm => $value) {
+				if($value !== TRUE) {
+					$perm .= '('.$perm.')';
+				}
+				$perms[] = $perm;
+			}
+
 			$list[] = array(
 				'id'          => $user['id'],
 				'email'       => $user['email'],
@@ -216,6 +239,7 @@ class wfr_admin_system_users extends wf_route_request {
 				'create_time' => date('d/m/Y', $user['create_time']),
 				'from'        => $from,
 				'online'      => (!!$user['session_id']),
+				'perms'       => $perms
 			);
 		}
 		

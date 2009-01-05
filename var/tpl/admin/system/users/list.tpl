@@ -5,6 +5,7 @@
 		}
 
 		function set_form_edit_user(id, email, name, perms) {
+			document.getElementById('form_edit_user').reset();
 			var field_id               = document.getElementById('form_edit_user_id');
 			var field_email            = document.getElementById('form_edit_user_email');
 			var field_password         = document.getElementById('form_edit_user_password');
@@ -17,7 +18,11 @@
 			field_password.value         = '';
 			field_password_confirm.value = '';
 			field_name.value             = unescape(name);
-			field_perms.value            = perms;
+			for(perm in perms) {
+				if(perms[perm] != null) {
+					field_perms.value += perms[perm] + "\n";
+				}
+			}
 		}
 
 		function set_form_delete_user(id, email) {
@@ -81,7 +86,12 @@
 						alt="Voir l'utilisateur" /></a>
 					<a onclick="javascript:
 						YAHOO.dialog_edit_user.myDialog.show();
-						set_form_edit_user('{$user['id']}', '{$user['email']}', '{$user['_name']|escurl}', '{$user['perms']}');"
+						set_form_edit_user(
+							'{$user['id']}',
+							'{$user['email']}',
+							'{$user['_name']|escurl}',
+							new Array({foreach $user['perms'] as $perm}'{$perm}',{/foreach}null)
+						);"
 						><img src="{link '/data/icons/16x16/edit_info.png'}"
 							title="&Eacute;diter l'utilisateur"
 							alt="&Eacute;diter l'utilisateur"
