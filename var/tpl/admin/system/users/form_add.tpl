@@ -17,7 +17,7 @@
 			<td><input type="text" id="form_add_user_name" name="name" value="" /></td>
 		</tr>
 		<tr>
-			<td><label for="form_add_user_perms">Permissions (s&eacute;par&eacute;es par des virgules)&nbsp;:</label></td>
+			<td><label for="form_add_user_perms">Permissions&nbsp;:</label></td>
 			<td><textarea id="form_add_user_perms" name="perms"></textarea></td>
 		</tr>
 	</table>
