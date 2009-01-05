@@ -76,14 +76,11 @@
 						<img src="{link '/data/icons/16x16/offline.png'}" alt="[Hors ligne]" title="Hors ligne" />
 					{/if}
 				</td>
-				<td class="key"><a>{$user['email']}</a></td>
+				<td class="key">{$user['email']}</td>
 				<td>{if $user['name']}{$user['name']}{else}-{/if}</td>
 				<td>{if $user['from']}{$user['from']}{else}-{/if}</td>
 				<td>{$user['create_time']}</td>
 				<td class="actions">
-					<a><img src="{link '/data/icons/16x16/view.png'}"
-						title="Voir l'utilisateur"
-						alt="Voir l'utilisateur" /></a>
 					<a onclick="javascript:
 						YAHOO.dialog_edit_user.myDialog.show();
 						set_form_edit_user(
