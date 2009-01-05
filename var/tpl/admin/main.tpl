@@ -35,7 +35,7 @@
 			</td>
 			<td>
 				<a href="{link '/session/logout'}"> 
-				<img border="0" src="{link '/data/icons/16x16/agt_stop1.png'}" title="Déconnexion"/>
+				<img border="0" src="{link '/data/icons/16x16/agt_stop1.png'}" title="D&eacute;connexion" alt="D&eacute;connexion" />
 				</a>
 			</td>
 			</tr>
