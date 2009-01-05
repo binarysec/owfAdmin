@@ -77,18 +77,31 @@ class wfr_admin_system_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$perms = array();
+			$perms  = array();
+			$values = array();
+
 			$t = explode("\n", $_POST['perms']);
 			foreach($t as $perm) {
 				$perm = trim($perm, " \r\n");
-				if($perm) $perms[] = $perm;
+				if($perm) {
+					$ret = preg_match('/^(.*)\([^\)]*\)$/', $perm, $res);
+					if($ret) {
+						$perms[]  = $res[1];
+						$values[] = $res[2];
+					}
+					else {
+						$perms[]  = $perm;
+						$values[] = NULL;
+					}
+				}
 			}
-			
+
 			$this->a_core_session->user_add(array(
-				"email" => $_POST['email'],
-				"password" => $_POST['password'],
-				"name" => $_POST['name'],
-				"permissions" => &$perms
+				"email"       => $_POST['email'],
+				"password"    => $_POST['password'],
+				"name"        => $_POST['name'],
+				"permissions" => &$perms,
+				"values"      => &$values
 			));
 		}
 
@@ -177,17 +190,30 @@ class wfr_admin_system_users extends wf_route_request {
 		}
 
 		if($ok) {
-			$perms = array();
+			$perms  = array();
+			$values = array();
+
 			$t = explode("\n", $_POST['perms']);
 			foreach($t as $perm) {
 				$perm = trim($perm, " \r\n");
-				if($perm) $perms[] = $perm;
+				if($perm) {
+					$ret = preg_match('/^(.*)\(([^\)]*)\)$/', $perm, $res);
+					if($ret) {
+						$perms[]  = $res[1];
+						$values[] = $res[2];
+					}
+					else {
+						$perms[]  = $perm;
+						$values[] = NULL;
+					}
+				}
 			}
 
 			$data = array(
-				"email" => $_POST['email'],
-				"name" => $_POST['name'],
-				"permissions" => &$perms
+				"email"       => $_POST['email'],
+				"name"        => $_POST['name'],
+				"permissions" => &$perms,
+				"values"      => &$values
 			);
 
 			if($_POST['password'] == $_POST['password_confirm']) {
@@ -242,7 +268,7 @@ class wfr_admin_system_users extends wf_route_request {
 			$perm_list = $this->a_core_session->user_get_permissions($user['id']);
 			foreach($perm_list as $perm => $value) {
 				if($value !== TRUE) {
-					$perm .= '('.$perm.')';
+					$perm .= '('.$value.')';
 				}
 				$perms[] = $perm;
 			}
