@@ -1,50 +1,27 @@
 <form method="post" action="{link '/admin/system/profiles/edit/'.$user['id']}">
 
-<h2>Information personnelles :</h2>
+<h2>Information personnelles&nbsp;:</h2>
 <table>
 	<tr>
-		<td>
-		Nom/prénom : 
-		</td>
-		<td>
-		<input type="text" value=""/>
-		</td>
+		<td style="width: 200px; font-weight: bold;">Adresse email&nbsp;:</td>
+		<td>{$user['email']}</td>
 	</tr>
-	
 	<tr>
-		<td>
-		Adresse email :
-		</td>
-		<td>
-		<input type="text" value=""/>
-		</td>
+		<td style="width: 200px; font-weight: bold;"><label for="form_user_name">Pr&eacute;nom / Nom&nbsp;:</label></td>
+		<td><input id="form_user_name" type="text" name="name" value="{$user['name']}" /></td>
+	</tr>
+	<tr>
+		<td style="width: 200px; font-weight: bold;"><label for="form_user_password">Mot de passe&nbsp;:</label></td>
+		<td><input id="form_user_password" name="password" type="password" value="" /></td>
+	</tr>
+	<tr>
+		<td style="width: 200px; font-weight: bold;"><label for="form_user_password2">Mot de passe (confirmation)&nbsp;:</label></td>
+		<td><input id="form_user_password2" name="password2" type="password" value="" /></td>
 	</tr>
 </table>
 
-<h2>Changer le mot de passe :</h2>
-<table>
-	<tr>
-		<td>
-		Entrer le mot de passe #1 :
-		</td>
-		<td>
-		<input type="pass1" value=""/>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-		Entrer le mot de passe #2 :
-		</td>
-		<td>
-		<input type="pass2" value=""/>
-		</td>
-	</tr>
-</table>
-
-<h2>Données porté :</h2>
 {foreach $profiles as $profile}
-<h3>{$profile['description']|b64_dcode}</h3>
+<h2 style="margin-top: 20px;">{$profile['description']|b64_dcode}&nbsp;:</h2>
 {$profile['form']}
 {/foreach}
 <br />

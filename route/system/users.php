@@ -266,11 +266,13 @@ class wfr_admin_system_users extends wf_route_request {
 
 			$perms = array();
 			$perm_list = $this->a_core_session->user_get_permissions($user['id']);
-			foreach($perm_list as $perm => $value) {
-				if($value !== TRUE) {
-					$perm .= '('.$value.')';
+			if($perm_list) {
+				foreach($perm_list as $perm => $value) {
+					if($value !== TRUE) {
+						$perm .= '('.$value.')';
+					}
+					$perms[] = $perm;
 				}
-				$perms[] = $perm;
 			}
 
 			$online = time() - $user['session_time'] <= $this->a_core_session->get_timeout();
