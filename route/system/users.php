@@ -92,7 +92,12 @@ class wfr_admin_system_users extends wf_route_request {
 			));
 		}
 
-		$this->show();
+		$this->wf->core_request()->set_header(
+			'Location',
+			$this->wf->linker('/admin/system/users/list')
+		);
+		$this->wf->core_request()->send_headers();
+		exit(0);
 	}
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -195,7 +200,12 @@ class wfr_admin_system_users extends wf_route_request {
 			);
 		}
 
-		$this->show();
+		$this->wf->core_request()->set_header(
+			'Location',
+			$this->wf->linker('/admin/system/users/list')
+		);
+		$this->wf->core_request()->send_headers();
+		exit(0);
 	}
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -204,7 +214,13 @@ class wfr_admin_system_users extends wf_route_request {
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public function delete() {
 		$this->a_core_session->user_del($_POST['id']);
-		$this->show();
+
+		$this->wf->core_request()->set_header(
+			'Location',
+			$this->wf->linker('/admin/system/users/list')
+		);
+		$this->wf->core_request()->send_headers();
+		exit(0);
 	}
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
