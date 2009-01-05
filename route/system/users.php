@@ -247,6 +247,8 @@ class wfr_admin_system_users extends wf_route_request {
 				$perms[] = $perm;
 			}
 
+			$online = time() - $user['session_time'] <= $this->a_core_session->get_timeout();
+
 			$list[] = array(
 				'id'          => $user['id'],
 				'email'       => $user['email'],
@@ -254,7 +256,7 @@ class wfr_admin_system_users extends wf_route_request {
 				'_name'       => utf8_decode($user['name']),
 				'create_time' => date('d/m/Y', $user['create_time']),
 				'from'        => $from,
-				'online'      => (!!$user['session_id']),
+				'online'      => $online,
 				'perms'       => $perms
 			);
 		}
