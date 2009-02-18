@@ -38,6 +38,8 @@ class admin_html extends wf_agg {
 	private $page_topbar;
 	private $page_subtop;
 	
+	private $start_route = "/admin";
+	
 	public function loader($wf) {
 		$this->wf = $wf;
 		$this->a_core_route   = $this->wf->core_route();
@@ -48,6 +50,9 @@ class admin_html extends wf_agg {
 		
 		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
+		if($this->wf->ini_arr["admin"]["start_route"])
+			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
+			
 		$this->generate_route();
 	}
 	
@@ -139,7 +144,7 @@ class admin_html extends wf_agg {
 		foreach($nav as $key => $val) {
 			$toadd = FALSE;
 			
-			if(strncmp("/admin", $link, 6) == 0)
+			if(strncmp($this->start_route, $link, strlen($this->start_route)) == 0)
 				$use = TRUE;
 			if(
 				$val[1][2] == WF_ROUTE_ACTION && 
@@ -259,16 +264,35 @@ class admin_html extends wf_agg {
 		$tv = new ajax_treeview($this->wf, 'menu_tree');
 		$tv->tree_id = 'menu_tree';
 
-		$this->page_menu[] = array('label' => 'Panneau d\'administration', 'link' => $this->wf->linker('/admin'));
-
+		/* trouve la route necessaire */
+		$sdir = explode("/", $this->start_route);
+		$selected_route = &$this->a_core_route->routes[0];
+		$found = TRUE;
+		for($a=1; $a<count($sdir); $a++) {
+			$val = &$sdir[$a];
+			if($selected_route[$val])
+				$selected_route = &$selected_route[$val][0];
+			else {
+				$found = FALSE;
+				break;
+			}
+		}
+		if(!$found) {
+			$selected_route = &$this->a_core_route->routes[0];
+			$dft_route = $this->start_route;
+		}
+		else
+			$dft_route = $this->start_route."/";
+			
+		/* lance la génération de la liste */
 		$buf = '<div id="menu_tree">'.
 			$this->generate_li(
-				&$this->a_core_route->routes[0]["admin"][0],
+				&$selected_route,
 				&$dir,
 				$start,
 				&$title,
 				&$this->page_menu,
-				"/admin/"
+				$dft_route
 			).
 			'</div>'.
 			$tv->render();
@@ -277,5 +301,6 @@ class admin_html extends wf_agg {
 		
 		return(TRUE);
 	}
+
 
 }
