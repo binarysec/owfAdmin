@@ -268,10 +268,12 @@ class admin_html extends wf_agg {
 		$sdir = explode("/", $this->start_route);
 		$selected_route = &$this->a_core_route->routes[0];
 		$found = TRUE;
+		
 		for($a=1; $a<count($sdir); $a++) {
 			$val = &$sdir[$a];
-			if($selected_route[$val])
+			if($selected_route[$val]) {
 				$selected_route = &$selected_route[$val][0];
+			}
 			else {
 				$found = FALSE;
 				break;
@@ -283,6 +285,14 @@ class admin_html extends wf_agg {
 		}
 		else
 			$dft_route = $this->start_route."/";
+
+		
+		if($sdir[1] == "admin") {
+			$this->page_menu[] = array(
+				'label' => $this->lang->ts("Admin Dashboard"), 
+				'link' => $this->wf->linker("/admin")
+			);
+		}
 			
 		/* lance la génération de la liste */
 		$buf = '<div id="menu_tree">'.
