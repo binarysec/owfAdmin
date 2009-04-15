@@ -83,6 +83,14 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("admin:system:users:list")
 			),
+			"/admin/system/users/list/edit" => array(
+				WF_ROUTE_ACTION,
+				"system/users",
+				"list_edit",
+				"Edition d'un utilisateur",
+				WF_ROUTE_HIDE,
+				array("admin:system:users:manage")
+			),
 			"/admin/system/users/add" => array(
 				WF_ROUTE_ACTION,
 				"system/users",
