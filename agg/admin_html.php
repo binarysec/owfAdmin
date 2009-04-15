@@ -38,7 +38,7 @@ class admin_html extends wf_agg {
 	private $page_topbar;
 	private $page_subtop;
 	
-	private $start_route = "/admin";
+	public $start_route = "/admin";
 	
 	public function loader($wf) {
 		$this->wf = $wf;
@@ -52,8 +52,7 @@ class admin_html extends wf_agg {
 		
 		if($this->wf->ini_arr["admin"]["start_route"])
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
-			
-		$this->generate_route();
+
 	}
 	
 	public function append_subtop($data) {
@@ -84,6 +83,8 @@ class admin_html extends wf_agg {
 	}
 	
 	public function rendering($body) {
+		$this->generate_route();
+		
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user',              $this->a_core_session->me);
 		$tpl->set('page_subtitle',     $this->page_subtitle);
@@ -287,12 +288,12 @@ class admin_html extends wf_agg {
 			$dft_route = $this->start_route."/";
 
 		
-		if($sdir[1] == "admin") {
-			$this->page_menu[] = array(
-				'label' => $this->lang->ts("Admin Dashboard"), 
-				'link' => $this->wf->linker("/admin")
-			);
-		}
+// 		if($sdir[1] == "admin") {
+// 			$this->page_menu[] = array(
+// 				'label' => $this->lang->ts("Admin Dashboard"), 
+// 				'link' => $this->wf->linker("/admin")
+// 			);
+// 		}
 			
 		/* lance la génération de la liste */
 		$buf = '<div id="menu_tree">'.

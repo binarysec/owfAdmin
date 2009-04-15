@@ -15,12 +15,10 @@ class wfm_admin extends wf_module {
 	public function get_actions() {
 		return(array(
 			"/admin" => array(
-				WF_ROUTE_ACTION,
-				"admin",
-				"show",
+				WF_ROUTE_REDIRECT,
+				"/admin/system",
 				"Administration",
-				WF_ROUTE_SHOW,
-				array("session:admin")
+				WF_ROUTE_SHOW
 			),
 			
 			/* system management */
