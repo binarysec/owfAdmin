@@ -233,6 +233,32 @@ class wfr_admin_system_users extends wf_route_request {
 		$this->wf->core_request()->send_headers();
 		exit(0);
 	}
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 *
+	 * Rail function used to produce user edition
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	public function list_edit() {
+
+		$id = (int)$this->wf->core_request()->get_argv(0);
+		$user = $this->a_core_session->user_info($id);
+		$perms = $this->a_core_session->user_get_permissions($id);
+		$tpl = new core_tpl($this->wf);
+		
+		/* construction de la perm list */
+		$perms_list = NULL;
+		foreach($perms as $k => $v)
+			$perms_list .= !$perms_list ? "$k" : ", $k";
+		
+		$tpl->set("id", $user["id"]);
+		$tpl->set("email", $user["email"]);
+		$tpl->set("name", $user["name"]);
+		$tpl->set("perms", $perms_list);
+		
+		echo $tpl->fetch('admin/system/users/list_form_edit');
+		exit(0);
+	}
+	
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *
@@ -254,47 +280,144 @@ class wfr_admin_system_users extends wf_route_request {
 	 * Rendering user list
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	private function render_list() {
-		/* fetch user list */
-		$users = $this->a_core_session->user_list();
-		$list = array();
-		foreach($users as $user) {
-			$from = $user['remote_address'];
-			if($user['remote_address'])
-				$from .= " (".
-					$user['remote_hostname'].
-					")";
+// 		/* fetch user list */
+// 		$users = $this->a_core_session->user_list();
+// 		$list = array();
+// 		foreach($users as $user) {
+// 			$from = $user['remote_address'];
+// 			if($user['remote_address'])
+// 				$from .= " (".
+// 					$user['remote_hostname'].
+// 					")";
+// 
+// 			$perms = array();
+// 			$perm_list = $this->a_core_session->user_get_permissions($user['id']);
+// 			if($perm_list) {
+// 				foreach($perm_list as $perm => $value) {
+// 					if($value !== TRUE) {
+// 						$perm .= '('.$value.')';
+// 					}
+// 					$perms[] = $perm;
+// 				}
+// 			}
+// 
+// 			$online = time() - $user['session_time'] <= $this->a_core_session->get_timeout();
+// 
+// 			$list[] = array(
+// 				'id'          => $user['id'],
+// 				'email'       => $user['email'],
+// 				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
+// 				'_name'       => utf8_decode($user['name']),
+// 				'createtime'  => $user['create_time'],
+// 				'from'        => $from,
+// 				'online'      => $online,
+// 				'perms'       => $perms,
+// 				'lastauth'    => $user['session_time_auth']
+// 			);
+// 		}
+// 		
+// 		$tpl = new core_tpl($this->wf);
+// 		$tpl->set('scripts', $this->render_dialogs());
+// 		$tpl->set('users', &$list);
+// 		
+// 		return($tpl->fetch('admin/system/users/list'));
 
-			$perms = array();
-			$perm_list = $this->a_core_session->user_get_permissions($user['id']);
-			if($perm_list) {
-				foreach($perm_list as $perm => $value) {
-					if($value !== TRUE) {
-						$perm .= '('.$value.')';
-					}
-					$perms[] = $perm;
-				}
-			}
+		$dsrc  = new core_datasource_db($this->wf, "core_session");
+		$dset  = new core_dataset($this->wf, $dsrc);
+		
+		$filters = array();
+		$cols = array(
+			'icons' => array(),
+			'name' => array(
+				'name'      => 'Nom',
+				'orderable' => true,
+			),
+			'email' => array(
+				'name'      => 'E-mail',
+				'orderable' => true,
+			),
+			'ip' => array(
+				'name'      => 'Adresse IP'
+			),
+			'login' => array(
+				'name'      => 'Login'
+			),
+			'actions' => array()
+			
+		);
+		
+		$dset->set_cols($cols);
+		$dset->set_filters($filters);
+		
+		$dset->set_row_callback(array($this, 'callback_row'));
 
-			$online = time() - $user['session_time'] <= $this->a_core_session->get_timeout();
-
-			$list[] = array(
-				'id'          => $user['id'],
-				'email'       => $user['email'],
-				'name'        => htmlentities($user['name'], HTML_ENTITIES, 'UTF-8'),
-				'_name'       => utf8_decode($user['name']),
-				'createtime'  => $user['create_time'],
-				'from'        => $from,
-				'online'      => $online,
-				'perms'       => $perms,
-				'lastauth'    => $user['session_time_auth']
-			);
+		/* template utilisateur */
+		$tplset = array(
+			'scripts' => $this->render_dialogs()
+		);
+		$dview = new core_dataview($this->wf, $dset);
+		$dview_render = $dview->render('admin/system/users/list', $tplset);
+		return($dview_render);
+	}
+	
+	public function callback_row($row, $datum) {
+	
+		/* user online ? */
+		$online = time() - $datum['session_time'];
+		if($online > $this->a_core_session->get_timeout()) {
+			$icon = '<img src="'.
+				$this->wf->linker('/data/icons/16x16/offline.png').
+				'" alt="[On line]" title="On line" />';
+			$ip = '-';
+		}
+		else if($datum['session_id']) {
+			$icon = '<img src="'.
+				$this->wf->linker('/data/icons/16x16/online.png').
+				'" alt="[On line]" title="On line" />';
+			
+			$ip = $datum["remote_address"]." (".
+				gethostbyaddr($datum["remote_address"]).
+				")";
 		}
 		
-		$tpl = new core_tpl($this->wf);
-		$tpl->set('scripts', $this->render_dialogs());
-		$tpl->set('users', &$list);
+		/* adresse IP */
+		if($datum['session_time_auth']) {
+			$login_date = date('d/m/Y H:i:s', $datum['session_time_auth']);
+		}
+		else {
+			$login_date = '-';
+			
+		}
 		
-		return($tpl->fetch('admin/system/users/list'));
+		/* actions */
+		$actions = '<a href="#" onclick="'.
+			"set_form_edit_user('".
+			$datum['id'].
+			"')\">Edit</a>".
+			
+			" | ".
+			
+			'<a href="'.
+			$this->wf->linker("/admin/system/profiles/show/".$datum['id']).
+			"\">Profile</a>".
+			
+			" | ".
+			
+			'<a href="#" onclick="'.
+			"set_form_delete_user('".
+			$datum['id']."', '".
+			$datum['email'].
+			"')\">Edit</a>"
+		;
+		
+		return(array(
+			'icon'    => $icon,
+			'email'   => $row['email'],
+			'name'    => $row['name'],
+			'ip'      => $ip,
+			'login'   => $login_date,
+			'actions' => $actions
+		));
 	}
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -341,6 +464,11 @@ class wfr_admin_system_users extends wf_route_request {
 		$buf .= $this->render_add_dialog();
 		$buf .= $this->render_edit_dialog();
 		$buf .= $this->render_delete_dialog();
+		
+		$ar = new ajax_async_req($this->wf, 'user_edition');
+		$ar->resp_id = 'user_edition';
+		$buf .= $ar->render();
+
 		return($buf);
 	}
 }
