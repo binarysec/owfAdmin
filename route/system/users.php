@@ -412,8 +412,8 @@ class wfr_admin_system_users extends wf_route_request {
 		
 		return(array(
 			'icon'    => $icon,
-			'email'   => $row['email'],
-			'name'    => $row['name'],
+			'email'   => htmlentities($row['email']),
+			'name'    => htmlentities($row['name']),
 			'ip'      => $ip,
 			'login'   => $login_date,
 			'actions' => $actions
