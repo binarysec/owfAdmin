@@ -2,7 +2,7 @@
 <table>
 	<tr>
 		<td><label for="form_edit_user_email">Email <span class="required">(*)</span>&nbsp;:</label></td>
-		<td><input type="text" id="form_edit_user_email" name="email" value="{$email}" /></td>
+		<td><input type="text" id="form_edit_user_email" name="email" value="{$email|entities}" /></td>
 	</tr>
 	<tr>
 		<td><label for="form_edit_user_password">Mot de passe&nbsp;:</label></td>
@@ -14,10 +14,10 @@
 	</tr>
 	<tr>
 		<td><label for="form_edit_user_name">Nom&nbsp;:</label></td>
-		<td><input type="text" id="form_edit_user_name" name="name" value="{$name}" /></td>
+		<td><input type="text" id="form_edit_user_name" name="name" value="{$name|entities}" /></td>
 	</tr>
 	<tr>
 		<td><label for="form_edit_user_perms">Permissions&nbsp;:</label></td>
-		<td><textarea id="form_edit_user_perms" name="perms">{$perms}</textarea></td>
+		<td><textarea id="form_edit_user_perms" name="perms">{$perms|entities}</textarea></td>
 	</tr>
 </table>

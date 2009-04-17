@@ -142,6 +142,9 @@ class admin_html extends wf_agg {
 		
 	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
 		$buf = '';
+		if(!is_array($nav))
+			return(NULL);
+			
 		foreach($nav as $key => $val) {
 			$toadd = FALSE;
 			

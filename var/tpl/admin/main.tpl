@@ -30,7 +30,7 @@
 					{/if}
 				-
 				{/foreach}
-				{@ 'Bienvenue, <strong>%s</strong> (%s)', $user['name'], $user['email']}
+				{@ 'Bienvenue, <strong>%s</strong> (%s)', htmlentities($user['name']), htmlentities($user['email'])}
 				{$page_topbar}
 			</td>
 			<td>
