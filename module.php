@@ -53,7 +53,7 @@ class wfm_admin extends wf_module {
 				"system/preferences",
 				"show_vars",
 				"Préférences système",
-				WF_ROUTE_SHOW,
+				WF_ROUTE_HIDE,
 				array("admin:system:preferences")
 			),
 			"/admin/system/preferences/vars/edit" => array(
@@ -61,58 +61,58 @@ class wfm_admin extends wf_module {
 				"system/preferences",
 				"edit_var",
 				"Préférences système",
-				WF_ROUTE_SHOW,
+				WF_ROUTE_HIDE,
 				array("admin:system:preferences")
 			),
 			
 			/* users management */
-			"/admin/system/users" => array(
-				WF_ROUTE_REDIRECT,
-				"/admin/system/users/list",
-				"Utilisateurs",
-				WF_ROUTE_SHOW,
-				array("admin:system:users")
-			),
-			"/admin/system/users/list" => array(
-				WF_ROUTE_ACTION,
-				"system/users",
-				"show",
-				"Liste des utilisateurs",
-				WF_ROUTE_HIDE,
-				array("admin:system:users:list")
-			),
-			"/admin/system/users/list/edit" => array(
-				WF_ROUTE_ACTION,
-				"system/users",
-				"list_edit",
-				"Edition d'un utilisateur",
-				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
-			),
-			"/admin/system/users/add" => array(
-				WF_ROUTE_ACTION,
-				"system/users",
-				"add",
-				"Ajoute un utilisateur",
-				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
-			),
-			"/admin/system/users/edit" => array(
-				WF_ROUTE_ACTION,
-				"system/users",
-				"edit",
-				"Édite un utilisateur",
-				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
-			),
-			"/admin/system/users/delete" => array(
-				WF_ROUTE_ACTION,
-				"system/users",
-				"delete",
-				"Supprime un utilisateur",
-				WF_ROUTE_HIDE,
-				array("admin:system:users:manage")
-			),
+// 			"/admin/system/users" => array(
+// 				WF_ROUTE_REDIRECT,
+// 				"/admin/system/users/list",
+// 				"Utilisateurs",
+// 				WF_ROUTE_SHOW,
+// 				array("admin:system:users")
+// 			),
+// 			"/admin/system/users/list" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/users",
+// 				"show",
+// 				"Liste des utilisateurs",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:users:list")
+// 			),
+// 			"/admin/system/users/list/edit" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/users",
+// 				"list_edit",
+// 				"Edition d'un utilisateur",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:users:manage")
+// 			),
+// 			"/admin/system/users/add" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/users",
+// 				"add",
+// 				"Ajoute un utilisateur",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:users:manage")
+// 			),
+// 			"/admin/system/users/edit" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/users",
+// 				"edit",
+// 				"Édite un utilisateur",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:users:manage")
+// 			),
+// 			"/admin/system/users/delete" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/users",
+// 				"delete",
+// 				"Supprime un utilisateur",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:users:manage")
+// 			),
 			
 			/* profile */
 			"/admin/myprofile" => array(
