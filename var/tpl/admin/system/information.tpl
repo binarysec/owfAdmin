@@ -9,7 +9,7 @@
 
 <h1>{@ "Informations sur le système"}</h1>
 
-<table class="list">
+<table class="dataset_data_table">
 
 <tr{alt ' class="alt"'}">
 <td>{@ "Version WF"}</td>
@@ -57,7 +57,7 @@
 
 <h1>{@ "Information sur les modules chargés"}</h1>
 
-<table class="list">
+<table class="dataset_data_table">
 
 <thead>
 <tr>

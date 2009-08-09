@@ -26,14 +26,12 @@ class admin_html extends wf_agg {
 
 	private $a_core_route;
 	private $a_core_request;
-	private $a_core_session;
+	private $_session;
 	private $a_core_lang;
 	private $a_core_html;
 	
 	private $lang;
-	
-	private $page_subtitle;
-	private $page_sidebar = array();
+
 	private $page_bottom;
 	private $page_topbar;
 	private $page_subtop;
@@ -44,7 +42,7 @@ class admin_html extends wf_agg {
 		$this->wf = $wf;
 		$this->a_core_route   = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
-		$this->a_core_session = $this->wf->core_session();
+		$this->_session = $this->wf->session();
 		$this->a_core_lang    = $this->wf->core_lang();
 		$this->a_core_html    = $this->wf->core_html();
 		
@@ -63,21 +61,6 @@ class admin_html extends wf_agg {
 		$this->a_core_html->set_title($title);
 	}
 
-	public function set_subtitle($subtitle) {
-		$this->page_subtitle = $subtitle;
-	}
-	
-	public function add_sidebar($title, $data) {
-		$this->page_sidebar[] = array(
-			'title' => $title,
-			'data'  => $data
-		);
-	}
-
-	public function append_topbar($data) {
-		$this->page_topbar .= $data;
-	}
-	
 	public function add_bottom($data) {
 		$this->page_bottom .= " / $data";
 	}
@@ -86,27 +69,14 @@ class admin_html extends wf_agg {
 		$this->generate_route();
 		
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('user',              $this->a_core_session->me);
-		$tpl->set('page_subtitle',     $this->page_subtitle);
-		$tpl->set('page_topbar',       $this->page_topbar);
-		$tpl->set('page_subtop',       $this->page_subtop);
-		$tpl->set('langs',             $this->a_core_lang->get_list());
-		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
+		$tpl->set('user',              $this->_session->session_me);
+// 		$tpl->set('page_topbar',       $this->page_topbar);
+// 		$tpl->set('page_subtop',       $this->page_subtop);
+// 		$tpl->set('langs',             $this->a_core_lang->get_list());
+// 		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
 
-		/* check si on doit ajouter le side admin */
-		if($this->a_core_request->channel[2][0] == "admin") {
-// 			$this->add_sidebar(
-// 				$this->lang->ts("Administration"),
-// 				$this->page_adm_route
-// 			);
-			$tpl->set('page_sidebar', array_reverse($this->page_sidebar));
-		}
-		
-		/* navigation menu */
-		$menu = new ajax_topnav($this->wf, 'admin_menu');
-		$menu->menu = $this->page_menu;
 
-		$tpl->set('navigation', $menu->render());
+		$tpl->set('navigation', $this->page_js_route);
 		
 		/* add the bottom */
 		$this->add_bottom(
@@ -144,7 +114,9 @@ class admin_html extends wf_agg {
 		$buf = '';
 		if(!is_array($nav))
 			return(NULL);
-			
+		
+		$itemdata = FALSE;
+		
 		foreach($nav as $key => $val) {
 			$toadd = FALSE;
 			
@@ -162,7 +134,7 @@ class admin_html extends wf_agg {
 					$val[1][7] = array("session:anon");
 					
 				
-				$perm = $this->a_core_session->check_permissions(
+				$perm = $this->_session->check_permission(
 					&$val[1][7]
 				);
 				if($perm) {
@@ -173,13 +145,14 @@ class admin_html extends wf_agg {
 						}
 						else
 							$char = NULL;
+						
+						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
+							$linked.
+							'">'.
+							$this->lang->ts($val[1][5]).
+							"</a>\n";
 							
-						$buf .= '<li class="cat_open">'.
-							'<a href="'.$linked.'">'.
-							$char.$this->lang->ts($val[1][5]).
-							"</a></li>\n";
-							
-						$this->page_adm_route_c++;
+						$this->page_js_route_c++;
 					}
 					
 					$in = array(
@@ -200,7 +173,7 @@ class admin_html extends wf_agg {
 				if(!$val[1][6])
 					$val[1][6] = array("session:anon");
 
-				$perm = $this->a_core_session->check_permissions(
+				$perm = $this->_session->check_permission(
 					&$val[1][6]
 				);
 				if($perm) {
@@ -211,13 +184,19 @@ class admin_html extends wf_agg {
 						}
 						else
 							$char = NULL;
-							
-						$buf .= '<li class="cat_open">'.
-							'<a href="'.$linked.'">'.
-							$char.$this->lang->ts($val[1][4]).
-							"</a></li>\n";
 						
-						$this->page_adm_route_c++;
+// 						if($itemdata == FALSE) {
+// 							$buf .= 'itemdata: ['."\n";
+// 							$itemdata = TRUE;
+// 						}
+						
+						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
+							$linked.
+							'">'.
+							$this->lang->ts($val[1][4]).
+							"</a>\n";
+						
+						$this->page_js_route_c++;
 					}
 					$in = array(
 						"label" => $this->lang->ts($val[1][4]),
@@ -228,32 +207,39 @@ class admin_html extends wf_agg {
 			}
 
 			if(is_array($val[0])) {
-				$buf .=  '<ul>'
-					.$this->generate_li(
-						&$val[0], 
-						&$dir, 
-						$pos+1,
-						&$title,
-						&$in["children"],
-						$link.
-						"$key/",
-						$use
-					)
-					.'</ul>';
+				
+				$r = $this->generate_li(
+					&$val[0], 
+					&$dir, 
+					$pos+1,
+					&$title,
+					&$in["children"],
+					$link.
+					"$key/",
+					$use
+				);
+				
+				if(strlen($r) > 0) {
+					$buf .=  '<div class="yuimenu"><div class="bd"><ul class="first-of-type">'."\n".
+						$r.
+						"</ul></div></div></li>\n";
+				}	
 			}
-
-			if($toadd)
+			
+			if($toadd) {
 				$arr[] = $in;
+				$buf .= "</li>\n";
+			}
 			
 		}
 		
-	
+
 		return($buf);
 	}
 	
 	private $page_menu = array();
-	private $page_adm_route;
-	private $page_adm_route_c = 0;
+	private $page_js_route;
+	private $page_js_route_c = 0;
 	
 	private function generate_route() {
 		$dir = explode("/", $_SERVER["PATH_INFO"]);
@@ -265,9 +251,6 @@ class admin_html extends wf_agg {
 			
 		$title = NULL;
 		
-		$tv = new ajax_treeview($this->wf, 'menu_tree');
-		$tv->tree_id = 'menu_tree';
-
 		/* trouve la route necessaire */
 		$sdir = explode("/", $this->start_route);
 		$selected_route = &$this->a_core_route->routes[0];
@@ -290,16 +273,9 @@ class admin_html extends wf_agg {
 		else
 			$dft_route = $this->start_route."/";
 
-		
-// 		if($sdir[1] == "admin") {
-// 			$this->page_menu[] = array(
-// 				'label' => $this->lang->ts("Admin Dashboard"), 
-// 				'link' => $this->wf->linker("/admin")
-// 			);
-// 		}
 			
 		/* lance la génération de la liste */
-		$buf = '<div id="menu_tree">'.
+		$buf = '<div class="bd"><ul>'."\n".
 			$this->generate_li(
 				&$selected_route,
 				&$dir,
@@ -308,11 +284,10 @@ class admin_html extends wf_agg {
 				&$this->page_menu,
 				$dft_route
 			).
-			'</div>'.
-			$tv->render();
+			'</ul></div>'."\n";
 		
-		$this->page_adm_route = $buf;
-		
+		$this->page_js_route = $buf;
+
 		return(TRUE);
 	}
 

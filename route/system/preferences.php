@@ -43,9 +43,6 @@ class wfr_admin_system_preferences extends wf_route_request {
 		$this->a_admin_html->set_title(
 			$this->lang->ts("Gestionnaire des préférences")
 		);
-		$this->a_admin_html->set_subtitle(
-			$this->lang->ts("Gestionnaire des préférences")
-		);
 		
 		/* get all groups */
 		$list = array();
