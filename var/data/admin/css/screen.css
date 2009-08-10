@@ -1,7 +1,7 @@
 body {
 	font-family: georgia, Tahoma, Verdana, Arial, sans-serif; 
 	font-size: 11px;
-/* 	background-image: url('../img/back_grey.png'); */
+	background-image: url('../img/back_grey.png');
 	margin-left: 10px;
 	margin-top: 0px;
 	margin-right: 15px;
@@ -10,17 +10,28 @@ body {
 
 a, a:hover {
 	color: #a10e09; 
-	text-decoration: none; 
+	text-decoration: none;
+}
+
+img {
+	vertical-align: middle;
+}
+
+input, select, submit {
+	font-family: georgia, Tahoma, Verdana, Arial, sans-serif;
+	font-size: 11px;
 }
 
 .admin_center h1 {
 	margin: 0px;
-	padding-top: 0px;
+	padding-top: 4px;
 	padding-right: 0px;
-	padding-bottom: 0px;
+	padding-bottom: 8px;
 	padding-left: 10px;
 	font-size: 25px;
-	border: 0px;
+	margin-bottom: 6px;
+	font-weight: 900;
+	border-bottom: 1px solid #000000;
 }
 
 .admin_center h2 {
@@ -106,8 +117,70 @@ a, a:hover {
 	border: 0;
 }
 
-/* table list */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Dataset header
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.dataset_header.dataset_header_color { 
+	background: #dbff20; 
+}
+.dataset_header[class] {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 3px;
+	padding-right: 3px;
+	background-image: url(shade.png); 
+	background-position: bottom; 
+}
+.dataset_header a {
+	text-decoration: none;
+	color: #000000;
+}
+.dataset_header a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+.dataset_header select {
+	text-decoration: none;
+	color: #000000;
+	background-color: transparent;
+	border: 0px;
+}
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Dataset footer
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.dataset_footer.dataset_footer_color { 
+	background: #dbff20; 
+}
+.dataset_footer[class] {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 3px;
+	padding-right: 3px;
+	background-image: url(shade.png); 
+	background-position: bottom; 
+}
+.dataset_footer a {
+	text-decoration: none;
+	color: #000000;
+}
+.dataset_footer a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+.dataset_footer select {
+	text-decoration: none;
+	color: #000000;
+	background-color: transparent;
+	border: 0px;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Dataset table
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 table.dataset_data_table {
 	border-collapse: collapse;
 	width: 100%;
@@ -130,14 +203,6 @@ table.dataset_data_table .key {
 table.dataset_data_table, table.form {
 
 }
-table.dataset_data_table a {
-	color: #000000;
-	text-decoration: none;
-	border-bottom: 1px dotted;
-}
-table.dataset_data_table a:hover {
-
-}
 table.dataset_data_table .title {
 	width: 100px;
 }
@@ -148,15 +213,26 @@ table.dataset_data_table .actions a {
 table.dataset_data_table tr img {
 	vertical-align: middle;
 }
-table.dataset_data_table th, table td {
+table.dataset_data_table th table td {
 	padding: 2px 0 0 10px;
 }
-table.dataset_data_table thead, table tfoot {
+table.dataset_data_table thead table tfoot {
 	text-align: left;
 }
 table.dataset_data_table thead {
-	background-color: #a10e09;
+	background-image: url(shade.png); 
+	background-position: bottom; 
+	background-color: #2091ff;
 	color :#ffffff;
+}
+table.dataset_data_table thead a {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+table.dataset_data_table thead a:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
 }
 table.dataset_data_table.reorderable tr {
 	cursor: move;
@@ -170,6 +246,9 @@ table.dataset_data_table.medias tr {
 }
 table.dataset_data_table tr.alt {
 	background-color: #f3f3f3;
+}
+table.dataset_data_table tr.alt:hover {
+	background-image: none; 
 }
 table.dataset_data_table tr.god {
 	background-color: #ffd1d1;
@@ -200,8 +279,7 @@ table.dataset_data_table tbody tr:hover {
 	background-color: #e2e1dd;
 	color: #000;
 }
-table.dataset_data_table .empty
-{
+table.dataset_data_table .empty {
 	text-align: center;
 }
 .table_views {
@@ -267,9 +345,9 @@ table#index li {
 .btn[class] {  background-image: url(shade.png); background-position: bottom; }
 
 * html .btn { border: 3px double #aaa; }
-* html .btn.blue { border-color: #2ae; }
-* html .btn.green { border-color: #9d4; }
-* html .btn.pink { border-color: #e1a; }
+* html .btn.one { border-color: #2ae; }
+* html .btn.two { border-color: #9d4; }
+* html .btn.three { border-color: #e1a; }
 * html .btn:hover { border-color: #a10e09; color: #ffffff; }
 
 /*p { clear: both; padding-bottom: 2em; }
