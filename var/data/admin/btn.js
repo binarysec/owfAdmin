@@ -46,14 +46,14 @@ var btn = {
         return f;
     },
     addEvent : function(obj, type, fn) {
-        if (obj.addEventListener) {
-            obj.addEventListener(type, fn, false);
-        }
-        else if (obj.attachEvent) {
-            obj["e"+type+fn] = fn;
-            obj[type+fn] = function() { obj["e"+type+fn]( window.event ); }
-            obj.attachEvent("on"+type, obj[type+fn]);
-        }
+//         if (obj.addEventListener) {
+            addEventListener(type, fn, false);
+//         }
+//         else if (obj.attachEvent) {
+//             obj["e"+type+fn] = fn;
+//             obj[type+fn] = function() { obj["e"+type+fn]( window.event ); }
+//             obj.attachEvent("on"+type, obj[type+fn]);
+//         }
     },
     getElementsByClassName : function(className, tag, elm) {
         var testClass = new RegExp("(^|\s)" + className + "(\s|$)");
