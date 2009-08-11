@@ -2,7 +2,6 @@
 
 {css '/data/yui/build/reset-fonts-grids/reset-fonts-grids.css'}
 {css '/data/yui/build/menu/assets/skins/sam/menu.css'}
-{css '/data/yui/build/resize/assets/skins/sam/resize.css'}
 {css '/data/yui/build/layout/assets/skins/sam/layout.css'}
 
 {js '/data/yui/build/utilities/utilities.js'}
