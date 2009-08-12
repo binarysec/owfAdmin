@@ -133,11 +133,12 @@ class admin_html extends wf_agg {
 				if(!$val[1][7])
 					$val[1][7] = array("session:anon");
 					
-				
+			
 				$perm = $this->_session->check_permission(
 					&$val[1][7]
 				);
-				if($perm) {
+				
+				if($perm == true) {
 					if($use) {
 						if($dir[$pos] == $key) {
 							$char = "* ";
@@ -176,7 +177,7 @@ class admin_html extends wf_agg {
 				$perm = $this->_session->check_permission(
 					&$val[1][6]
 				);
-				if($perm) {
+				if($perm == true) {
 					if($use) {
 						if($dir[$pos] == $key) {
 							$char = "* ";
