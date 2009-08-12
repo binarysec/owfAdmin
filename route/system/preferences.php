@@ -137,12 +137,6 @@ class wfr_admin_system_preferences extends wf_route_request {
 				$list_key[$name][0]->description
 			))
 		);
-		$this->a_admin_html->set_subtitle(
-			$this->lang->ts(array(
-				"Edition des préférences de %s", 
-				$list_key[$name][0]->name
-			))
-		);
 
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('vars', &$vars);
