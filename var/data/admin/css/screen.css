@@ -30,7 +30,7 @@ input, select, submit {
 	padding-left: 10px;
 	font-size: 25px;
 	margin-bottom: 6px;
-	font-weight: 900;
+/* 	font-weight: 900; */
 	border-bottom: 1px solid #000000;
 }
 
