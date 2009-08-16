@@ -28,23 +28,23 @@ var btn = {
             as[i].appendChild(s1);
             as[i] = as[i].insertBefore(i2, s1);
         }
-        // The following lines submits the form if the button id is "submit_btn"
-        btn.addEvent(document.getElementById('submit_btn'),'click',function() {
-            var form = btn.findForm(this);
-            form.submit();
-        });
-        // The following lines resets the form if the button id is "reset_btn"
-        btn.addEvent(document.getElementById('reset_btn'),'click',function() {
-            var form = btn.findForm(this);
-            form.reset();
-        });
+//         // The following lines submits the form if the button id is "submit_btn"
+//         btn.addEvent(document.getElementById('submit_btn'),'click',function() {
+//             var form = btn.findForm(this);
+//             form.submit();
+//         });
+//         // The following lines resets the form if the button id is "reset_btn"
+//         btn.addEvent(document.getElementById('reset_btn'),'click',function() {
+//             var form = btn.findForm(this);
+//             form.reset();
+//         });
     },
-    findForm : function(f) {
-        while(f.tagName != "FORM") {
-            f = f.parentNode;
-        }
-        return f;
-    },
+//     findForm : function(f) {
+//         while(f.tagName != "FORM") {
+//             f = f.parentNode;
+//         }
+//         return f;
+//     },
     addEvent : function(obj, type, fn) {
 //         if (obj.addEventListener) {
             addEventListener(type, fn, false);
