@@ -142,22 +142,21 @@ class admin_html extends wf_agg {
 					if($use) {
 						if($dir[$pos] == $key) {
 							$char = "* ";
-							$title .= ":: ".$this->lang->ts($val[1][5])." ";
+							$title .= ":: ".$val[1][5]." ";
 						}
 						else
 							$char = NULL;
 						
 						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
 							$linked.
-							'">'.
-							$this->lang->ts($val[1][5]).
+							'">'.$val[1][5].
 							"</a>\n";
 							
 						$this->page_js_route_c++;
 					}
 					
 					$in = array(
-						"label" => $this->lang->ts($val[1][5]),
+						"label" => $val[1][5],
 						"link" => $linked
 					);
 					$toadd = TRUE;
@@ -181,7 +180,7 @@ class admin_html extends wf_agg {
 					if($use) {
 						if($dir[$pos] == $key) {
 							$char = "* ";
-							$title .= ":: ".$this->lang->ts($val[1][5])." ";
+							$title .= ":: ".$val[1][5]." ";
 						}
 						else
 							$char = NULL;
@@ -194,13 +193,13 @@ class admin_html extends wf_agg {
 						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
 							$linked.
 							'">'.
-							$this->lang->ts($val[1][4]).
+							$val[1][4].
 							"</a>\n";
 						
 						$this->page_js_route_c++;
 					}
 					$in = array(
-						"label" => $this->lang->ts($val[1][4]),
+						"label" => $val[1][4],
 						"link" => $linked
 					);
 					$toadd = TRUE;
