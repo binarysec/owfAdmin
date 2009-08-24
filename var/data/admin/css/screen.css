@@ -36,17 +36,14 @@ input, select, submit {
 
 .admin_center h2 {
 	margin: 0px;
-	margin-bottom: 10px;
-	
-	padding: 0px;
-	padding-top: 0px;
+	padding-top: 4px;
 	padding-right: 0px;
-	padding-bottom: 5px;
+	padding-bottom: 6px;
 	padding-left: 10px;
-	
-	font-size: 10px;
-	border: 0px;
-	border-bottom: 1px solid #000000;
+	font-size: 16px;
+	margin-bottom: 3px;
+/* 	font-weight: 900; */
+/* 	border-bottom: 1px solid #000000; */
 }
 
 .admin_top {
@@ -60,6 +57,18 @@ input, select, submit {
 	text-align: left;
 	text-decoration: none;
 	background-color: #ffffff;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Cadre
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.admin_cadre_head {
+
+}
+
+.admin_cadre_body {
+
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -327,7 +336,16 @@ table#index li {
  * Button
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-.btn { display: block; position: relative; background: #aaa; padding: 5px; float: left; color: #fff; text-decoration: none; cursor: pointer;  }
+.btn { 
+	display: block; 
+	position: relative; 
+	background: #aaa; 
+	padding: 5px; 
+	float: left; 
+	color: #fff; 
+	text-decoration: none; 
+	cursor: pointer;
+}
 .btn * { font-style: normal; background-image: url(btn2.png); background-repeat: no-repeat; display: block; position: relative; }
 .btn i { background-position: top left; position: absolute; margin-bottom: -5px;  top: 0; left: 0; width: 5px; height: 5px; }
 .btn span { background-position: bottom left; left: -5px; padding: 0 0 5px 10px; margin-bottom: -5px; }
@@ -343,6 +361,19 @@ table#index li {
 .btn:hover { background-color: #a10e09; color: #ffffff; }
 .btn:active { background-color: #444; }
 .btn[class] {  background-image: url(shade.png); background-position: bottom; }
+
+.btn select {
+	font-size: 11px;
+	border: 0px;
+	background-color: transparent;
+	background-image: none;
+	color: #fff; 
+}
+
+.btn option {
+	color: #000000;
+	background-image: none;
+}
 
 * html .btn { border: 3px double #aaa; }
 * html .btn.one { border-color: #2ae; }
