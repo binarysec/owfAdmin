@@ -1,13 +1,6 @@
-<div class="table_topnav">
-	<div class="table_topnav_left">
-		<button onclick="javascript:document.location='{link '/admin'}';">
-			<img src="{link '/data/icons/22x22/back.png'}" />
-			{@ 'Retourner au panneau d\'administration'}
-		</button>
-	</div>
-</div>
+<h1><img src="{link '/data/admin/img/title_info_system.png'}"/>{@ "Informations sur le système"}</h1>
 
-<h1>{@ "Informations sur le système"}</h1>
+<div class="admin_content">
 
 <table class="dataset_data_table">
 
@@ -53,9 +46,13 @@
 
 </table>
 
+</div>
+
 <br/>
 
-<h1>{@ "Information sur les modules chargés"}</h1>
+<h1><img src="{link '/data/admin/img/title_info_modules.png'}"/>{@ "Information sur les modules chargés"}</h1>
+
+<div class="admin_content">
 
 <table class="dataset_data_table">
 
@@ -78,3 +75,5 @@
 </tr>
 
 </table>
+
+</div>

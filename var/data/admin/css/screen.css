@@ -3,7 +3,7 @@ body {
 	font-size: 11px;
 /* 	background-image: url('../img/back_grey.png'); */
 	
-	background-image: url('../newimg/background.gif');
+	background-image: url('../img/background.gif');
 	background-repeat: repeat;
 	
 	margin-left: 10px;
@@ -70,7 +70,10 @@ input, select, submit {
 	background-image: url(shade.png); 
 	background-position: bottom;
 	background-color: #f0f0f0;
+}
 
+.admin_center h1 img {
+	padding-right: 10px;
 }
 
 .admin_center h2 {

@@ -69,10 +69,11 @@ class admin_html extends wf_agg {
 		$this->generate_route();
 		
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('user',              $this->_session->session_me);
+		$tpl->set('user', $this->_session->session_me);
+		$tpl->set('user_perm', $this->_session->session_my_perms);
 // 		$tpl->set('page_topbar',       $this->page_topbar);
 // 		$tpl->set('page_subtop',       $this->page_subtop);
-// 		$tpl->set('langs',             $this->a_core_lang->get_list());
+		$tpl->set('langs',             $this->a_core_lang->get_list());
 // 		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
 
 
