@@ -1081,4 +1081,35 @@ form p .btn { margin-right: 1em; }
 textarea { margin: 1em 0;}*/
 
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Center
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
+.biton {
+	color: #000;
+	
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	
+/* 	background-image: url(shade.png); */
+/* 	background-position: bottom; */
+	background-color: gold;
+	border: 1px solid #c0c0c0;
+	cursor: pointer;
+	
+	-moz-border-radius: 5px 5px; 
 
+}
+.biton:hover {
+	border: 1px solid #c0c0c0;
+	color: #fff;
+	background-color: #a10e09;
+}
+
+
+/* fieldset      {margin-left:0;padding-left:5px; margin-top:10px;border:1px solid #666;} */
+/* fieldset.typeA                    {margin-top:10px;border:1px solid #666} */
+/* fieldset legend             {font-weight:bold} */
