@@ -47,6 +47,7 @@
 	<a href="{link '/session/logout'}"> 
 	<img border="0" src="{link '/data/admin/img/session_exit.png'}" title="D&eacute;connexion" alt="{@ 'Déconnexion'}" />
 	</a>
+	<div style="font-size: 80%; padding-right: 30px;">Beta B11X</div>
 	</div>
     </td>
 
