@@ -36,7 +36,7 @@ class admin_html extends wf_agg {
 	private $page_topbar;
 	private $page_subtop;
 	
-	public $start_route = "/admin";
+	public $start_route = "/waf_saas";
 	
 	public function loader($wf) {
 		$this->wf = $wf;
@@ -47,10 +47,11 @@ class admin_html extends wf_agg {
 		$this->a_core_html    = $this->wf->core_html();
 		
 		$this->lang = $this->a_core_lang->get_context("admin/html");
-		
-		if($this->wf->ini_arr["admin"]["start_route"])
+			
+		/*if($this->wf->ini_arr["admin"]["start_route"]){
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
-
+		}
+		*/
 	}
 	
 	public function append_subtop($data) {
@@ -120,7 +121,6 @@ class admin_html extends wf_agg {
 		
 		foreach($nav as $key => $val) {
 			$toadd = FALSE;
-			
 			if(strncmp($this->start_route, $link, strlen($this->start_route)) == 0)
 				$use = TRUE;
 			if(
@@ -256,7 +256,7 @@ class admin_html extends wf_agg {
 		$sdir = explode("/", $this->start_route);
 		$selected_route = &$this->a_core_route->routes[0];
 		$found = TRUE;
-		
+		//var_dump($selected_route);
 		for($a=1; $a<count($sdir); $a++) {
 			$val = &$sdir[$a];
 			if($selected_route[$val]) {
@@ -274,9 +274,11 @@ class admin_html extends wf_agg {
 		else
 			$dft_route = $this->start_route."/";
 
-			
+			//var_dump($selected_route);
 		/* lance la génération de la liste */
-		$buf = '<div class="bd"><ul>'."\n".
+		$buf = '<div class="bd"><ul>'."\n";
+		
+		$buf.=
 			$this->generate_li(
 				&$selected_route,
 				&$dir,
