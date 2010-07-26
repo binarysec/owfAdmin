@@ -14,6 +14,9 @@ class wfr_admin_system_profiles extends wf_route_request {
 		$this->a_profile = $this->wf->core_profile();
 		$this->lang      = $this->wf->core_lang()->get_context('admin/system/profiles');
 
+
+
+	
 		$p = $this->a_profile->register_profile(
 			'core_session_extend',
 			'Informations &eacute;tendues sur l\'utilisateur',
@@ -150,7 +153,7 @@ class wfr_admin_system_profiles extends wf_route_request {
 		}
 
 		/* invalid user */
-		$user = $this->a_session->user_info($uid);
+		//$user = $this->a_session->user_info($uid);
 		if(!$user) {
 			$this->wf->core_request()->set_header(
 				'Location',
