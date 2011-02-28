@@ -14,7 +14,6 @@ class wfm_admin extends wf_module {
 	
 	public function get_actions() {
 		return(array(
-
 			"/admin" => array(
 				WF_ROUTE_REDIRECT,
 				"/admin/system",
@@ -40,7 +39,7 @@ class wfm_admin extends wf_module {
 				array("session:admin")
 			),
 			
-			/* preference edition
+			/* preference edition */
 			"/admin/system/preferences" => array(
 				WF_ROUTE_ACTION,
 				"system/preferences",
