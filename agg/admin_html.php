@@ -36,7 +36,7 @@ class admin_html extends wf_agg {
 	private $page_topbar;
 	private $page_subtop;
 	
-	public $start_route = "/waf_saas";
+	public $start_route = "/";
 	
 	public function loader($wf) {
 		$this->wf = $wf;
