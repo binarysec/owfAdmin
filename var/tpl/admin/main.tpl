@@ -1,6 +1,5 @@
 {css '/data/admin/css/screen.css'}
 
-
 {js '/data/yui/build/utilities/utilities.js'}
 {js '/data/yui/build/container/container_core-min.js'} 
 {js '/data/yui/build/menu/menu-min.js'}
@@ -9,12 +8,11 @@
 
 <div id="center" class="admin_top">
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<div align="right">
+<table border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="20" colspan="5">&nbsp;</td>
-    <td width="390" height="20">&nbsp;</td>
     <td width="20" height="20" background="{link '/data/admin/img/corner_language_left.gif'}">&nbsp;</td>
-    <td width="46" height="20" bgcolor="#A10E09">
+    <td height="20" bgcolor="#A10E09">
 {foreach $langs as $code => $infos}
 	{if $code != $current_lang_code}
 		<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}">
@@ -27,6 +25,11 @@
     </td>
     <td width="5" height="20" background="{link '/data/admin/img/corner_language_right.gif'}">&nbsp;</td>
   </tr>
+</table>
+</div>
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="5" height="103" rowspan="2" background="{link '/data/admin/img/corner_baner_left.gif'}">&nbsp;</td>
     <td width="343" rowspan="2"><img src="{link '/data/admin/img/logo.png'}" alt="Accueil" width="343" height="103" /></td>
