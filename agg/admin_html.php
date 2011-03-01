@@ -207,7 +207,7 @@ class admin_html extends wf_agg {
 				}
 			}
 
-			if(is_array($val[0])) {
+			if(isset($val[0]) && is_array($val[0])) {
 				
 				$r = $this->generate_li(
 					&$val[0], 
