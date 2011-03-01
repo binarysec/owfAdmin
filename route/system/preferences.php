@@ -60,10 +60,10 @@ class wfr_admin_system_preferences extends wf_route_request {
 		/* Create the side bar */
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('groups', &$list);
-		$this->a_admin_html->add_sidebar(
-			$this->lang->ts("Fast group access"), 
-			$tpl->fetch('admin/system/preferences/sb_groups_access')
-		);
+// 		$this->a_admin_html->add_sidebar(
+// 			$this->lang->ts("Fast group access"), 
+// 			$tpl->fetch('admin/system/preferences/sb_groups_access')
+// 		);
 		
 		/* create en render the page */
 		$tpl = new core_tpl($this->wf);
@@ -125,10 +125,10 @@ class wfr_admin_system_preferences extends wf_route_request {
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('groups', &$list);
 		$tpl->set('show_return', TRUE);
-		$this->a_admin_html->add_sidebar(
-			$this->lang->ts("Fast group access"), 
-			$tpl->fetch('admin/system/preferences/sb_groups_access')
-		);
+// 		$this->a_admin_html->add_sidebar(
+// 			$this->lang->ts("Fast group access"), 
+// 			$tpl->fetch('admin/system/preferences/sb_groups_access')
+// 		);
 		
 		/* set titles */
 		$this->a_admin_html->set_title(
