@@ -6,9 +6,9 @@ class wfm_admin extends wf_module {
 	}
 	
 	public function get_name() { return("admin"); }
-	public function get_description()  { return("OWF Administration module"); }
-	public function get_banner()  { return("admin/1.1.0-HEAD"); }
-	public function get_version() { return("1.1.0-HEAD"); }
+	public function get_description()  { return("BinarySEC OpenWF Administration"); }
+	public function get_banner()  { return("admin/1.2.0-HEAD"); }
+	public function get_version() { return("1.2.0-HEAD"); }
 	public function get_authors() { return(array("Olivier PASCAL", "Michael VERGOZ")); }
 	public function get_depends() { return(NULL); }
 	
@@ -26,7 +26,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/system",
 				"show",
-				"Système",
+				$this->ts("Système"),
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
@@ -34,7 +34,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/information",
 				"show",
-				"Informations système",
+				$this->ts("Informations système"),
 				WF_ROUTE_SHOW,
 				array("session:admin")
 			),
@@ -44,7 +44,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_ACTION,
 				"system/preferences",
 				"show_groups",
-				"Préférences système",
+				$this->ts("Préférences système"),
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
