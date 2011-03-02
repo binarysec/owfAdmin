@@ -48,7 +48,7 @@ class admin_html extends wf_agg {
 		
 		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
-		if($this->wf->ini_arr["admin"]["start_route"])
+		if(isset($this->wf->ini_arr["admin"]["start_route"]))
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
 
 	}
