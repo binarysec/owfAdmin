@@ -223,7 +223,7 @@ class admin_html extends wf_agg {
 				if(strlen($r) > 0) {
 					$buf .=  '<div class="yuimenu"><div class="bd"><ul class="first-of-type">'."\n".
 						$r.
-						"</ul></div></div></li>\n";
+						"</ul></div></div>\n";
 				}	
 			}
 			
