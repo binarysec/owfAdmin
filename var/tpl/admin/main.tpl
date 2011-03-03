@@ -48,9 +48,9 @@
 	
 	{@ 'Bienvenue, <strong>%s</strong> (%s)', htmlentities($user['name']), htmlentities($user['email'])}
 	<a href="{link '/session/logout'}"> 
-	<img border="0" src="{link '/data/admin/img/session_exit.png'}" title="D&eacute;connexion" alt="{@ 'Déconnexion'}" />
+	<img border="0" src="{link '/data/admin/img/session_exit.png'}" title="{@ 'Déconnexion'}" alt="{@ 'Déconnexion'}" />
 	</a>
-	<div style="font-size: 80%; padding-right: 30px;">Beta B11X</div>
+	{$page_topbar}
 	</div>
     </td>
 
@@ -81,7 +81,7 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td width="5" height="20" style="background:url('{link '/data/admin/img/corner_foot_left.gif'}');"></td>
-		<td height="20" bgcolor="#FFFFFF">Copyright <a href="http://binarysec.com" target="_blank">BinarySEC</a> 2006-2009{$bottom}</td>
+		<td height="20" bgcolor="#FFFFFF">Copyright <a href="http://binarysec.com" target="_blank">BinarySEC</a> 2006-2011{$bottom}</td>
 		<td width="5" height="20" style="background:url('{link '/data/admin/img/corner_foot_right.gif'}');"></td>
 	</tr>
 </table>
