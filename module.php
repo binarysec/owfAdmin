@@ -48,14 +48,6 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
-			"/admin/system/preferences/vars/show" => array(
-				WF_ROUTE_ACTION,
-				"system/preferences",
-				"show_vars",
-				"Préférences système",
-				WF_ROUTE_HIDE,
-				array("admin:system:preferences")
-			),
 			"/admin/system/preferences/vars/edit" => array(
 				WF_ROUTE_ACTION,
 				"system/preferences",

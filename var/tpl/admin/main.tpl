@@ -6,16 +6,16 @@
 
 {js '/data/admin/btn.js'}
 
-<div id="center" class="admin_top">
+<div id="center1" class="admin_top">
 
 <div align="right">
 <table border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="20" height="20" background="{link '/data/admin/img/corner_language_left.gif'}">&nbsp;</td>
+    <td width="20" height="20" style="background:url('{link '/data/admin/img/corner_language_left.gif'}');">&nbsp;</td>
     <td height="20" bgcolor="#A10E09">
 {foreach $langs as $code => $infos}
 	{if $code != $current_lang_code}
-		<a href="{link $_URI, $infos['code']}" alt="{$infos['name']}">
+		<a href="{link $_URI, $infos['code']}">
 	{/if}
 		<img src="{link '/data/admin/img/flags/small/'.$code.'.gif'}" alt="{$infos['name']}" title="{$infos['name']}"{if $code == $current_lang_code} class="selected"{/if} />
 	{if $code != $current_lang_code}
@@ -23,7 +23,7 @@
 	{/if}
 {/foreach}
     </td>
-    <td width="5" height="20" background="{link '/data/admin/img/corner_language_right.gif'}">&nbsp;</td>
+    <td width="5" height="20" style="background:url('{link '/data/admin/img/corner_language_right.gif'}');">&nbsp;</td>
   </tr>
 </table>
 </div>
@@ -31,7 +31,7 @@
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="5" height="103" rowspan="2" background="{link '/data/admin/img/corner_baner_left.gif'}">&nbsp;</td>
+    <td width="5" height="103" rowspan="2" style="background:url('{link '/data/admin/img/corner_baner_left.gif'}');">&nbsp;</td>
     <td width="343" rowspan="2"><img src="{link '/data/admin/img/logo.png'}" alt="Accueil" width="343" height="103" /></td>
     <td rowspan="2" bgcolor="#A10E09">&nbsp;</td>
     <td width="20" height="80" bgcolor="#A10E09">&nbsp;</td>
@@ -56,7 +56,7 @@
 
   </tr>
   <tr>
-    <td width="20" height="23" background="{link '/data/admin/img/corner_menu_left.gif'}">&nbsp;</td>
+    <td width="20" height="23" style="background:url('{link '/data/admin/img/corner_menu_left.gif'}');">&nbsp;</td>
     <td width="610" height="23" colspan="5" bgcolor="#000000">
 	<div id="general_menu" class="admin_gen_menu">
 	
@@ -73,22 +73,22 @@
 
 </div>
 
-<div id="center" class="admin_center">
+<div id="center2" class="admin_center">
 {$body}
 </div>
 
-<div id="center" class="admin_bottom">
+<div id="center3" class="admin_bottom">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
-		<td width="5" height="20" background="{link '/data/admin/img/corner_foot_left.gif'}"></td>
+		<td width="5" height="20" style="background:url('{link '/data/admin/img/corner_foot_left.gif'}');"></td>
 		<td height="20" bgcolor="#FFFFFF">Copyright <a href="http://binarysec.com" target="_blank">BinarySEC</a> 2006-2009{$bottom}</td>
-		<td width="5" height="20" background="{link '/data/admin/img/corner_foot_right.gif'}"></td>
+		<td width="5" height="20" style="background:url('{link '/data/admin/img/corner_foot_right.gif'}');"></td>
 	</tr>
 </table>
 </div>
 
 {literal}
-<script>
+<script type="text/javascript">
 (function() {
 	var Dom = YAHOO.util.Dom;
 	var Event = YAHOO.util.Event;
