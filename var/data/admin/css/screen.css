@@ -1,6 +1,6 @@
 body {
-	font-family: Tahoma, Verdana, Arial, sans-serif; 
-	font-size: 11px;
+	font-family: Ubuntu, Tahoma, Verdana, Arial, sans-serif; 
+	font-size: 12px;
 /* 	background-image: url('../img/back_grey.png'); */
 	
 	background-image: url('../img/background.gif');
@@ -24,8 +24,8 @@ img {
 }
 
 input, select, submit {
-	font-family: georgia, Tahoma, Verdana, Arial, sans-serif;
-	font-size: 11px;
+	font-family: Ubuntu, Tahoma, Verdana, Arial, sans-serif;
+	font-size: 12px;
 }
 
 .admin_top {
@@ -62,7 +62,7 @@ input, select, submit {
 	padding-right: 0px;
 	padding-bottom: 8px;
 	padding-left: 10px;
-	font-size: 18px;
+	font-size: 20px;
 	margin-bottom: 6px;
 /* 	font-weight: 900; */
 	border-bottom: 1px solid #808080;
@@ -233,7 +233,7 @@ input, select, submit {
 }
 
 .admin_gen_menu .yuimenubar {
-	font-size:93%;
+/* 	font-size:93%; */
 	line-height:2;
 	*line-height:1.9;
 	border:solid 1px #808080;
@@ -290,7 +290,7 @@ input, select, submit {
 }
 
 .admin_gen_menu .yuimenu{
-	font-size:93%;
+/* 	font-size:93%; */
 	line-height:1.5;
 	*line-height:1.45;
 }
@@ -442,7 +442,7 @@ input, select, submit {
 }
 
 #general_menu.yuimenubar li.yuimenubaritem a {
-	font-size: 11px;
+/* 	font-size: 11px; */
 	margin: 0;
 	border: 0;
 	cursor: pointer;
@@ -463,11 +463,11 @@ input, select, submit {
 .yui-panel textarea,
 .yui-panel select {
 	width: 100%;
-	font-size: 11px;
+	font-size: 12px;
 }
 .yui-panel input {
 	background: url('../img/forminput.gif') left bottom repeat-x;
-	border: 0;
+	border: 1;
 }
 .yui-panel input.radio {
 	background: none;
@@ -601,16 +601,16 @@ input, select, submit {
 }
 
 .admin_center .yui-panel .hd{
-	padding:0 10px;
-	font-size:93%;
-	line-height:2;
-	*line-height:1.9;
+	padding:10px;
+	font-size:14px;
+/* 	line-height:3; */
+/* 	*line-height:1.9; */
 	color: #fff;
-	font-weight:bold;
+	font-weight:none;
 /* 	color:#000; */
 	border-bottom: 1px dotted #000000;
-/* 	background:url(shade.png); */
-	background-color: #a10e09;
+	background:url(shade.png);
+	background-color: #000000;
 }
 
 .admin_center .yui-panel .bd{
@@ -619,8 +619,8 @@ input, select, submit {
 
 .admin_center .yui-panel .ft{
 	border-top:solid 1px #808080;
-	padding:5px 10px;
-	font-size:77%;
+/* 	padding:5px 10px; */
+/* 	font-size:77%; */
 }
 
 .admin_center .container-close{
@@ -629,7 +629,7 @@ input, select, submit {
 	right:6px;
 	width:25px;
 	height:15px;
-	background:url(dialog_close.gif) no-repeat 0 -300px;
+	background:url(dialog_close.gif) no-repeat 100 -200px;
 	cursor:pointer;
 }
 
@@ -671,7 +671,7 @@ input, select, submit {
 .admin_center .yui-dialog .ft{
 	border-top:none;
 	padding:0 10px 10px 10px;
-	font-size:100%;
+/* 	font-size:100%; */
 }
 
 .admin_center .yui-dialog .ft .button-group{
@@ -693,7 +693,7 @@ input, select, submit {
 }
 
 .admin_center .yui-dialog .ft span.default button{
-	color:#fff;
+/* 	color:#fff; */
 }
 
 .admin_center .yui-dialog .ft span.yui-button-disabled{
@@ -804,7 +804,7 @@ input, select, submit {
 	background-image: url(shade.png);
 	background-position: bottom;
 	color: #ffffff;
-	font-size: 93%;
+/* 	font-size: 93%; */
 }
 .dataset_header a {
 	text-decoration: none;
@@ -815,7 +815,7 @@ input, select, submit {
 	text-decoration: underline;
 }
 .dataset_header select {
-	font-size: 93%;
+/* 	font-size: 93%; */
 	text-decoration: none;
 	color: #ffffff;
 	background-color: transparent;
@@ -830,7 +830,7 @@ input, select, submit {
 	background: #808080;
 	color: #000000;
 	background-image: url(shade.png);
-	font-size: 93%;
+/* 	font-size: 93%; */
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -847,7 +847,7 @@ input, select, submit {
 	background-image: url(shade.png);
 	background-position: bottom;
 	color: #ffffff;
-	font-size: 93%;
+/* 	font-size: 93%; */
 }
 .dataset_footer a {
 	text-decoration: none;
@@ -858,7 +858,7 @@ input, select, submit {
 	text-decoration: underline;
 }
 .dataset_footer select {
-	font-size: 93%;
+/* 	font-size: 93%; */
 	text-decoration: none;
 	color: #ffffff;
 	background-color: transparent;
@@ -872,7 +872,7 @@ input, select, submit {
 	background: #808080;
 	color: #000000;
 	background-image: url(shade.png);
-	font-size: 93%;
+/* 	font-size: 93%; */
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1057,7 +1057,7 @@ table#index li {
 .btn[class] {  background-image: url(shade.png); background-position: bottom; }
 
 .btn select {
-	font-size: 11px;
+/* 	font-size: 11px; */
 	border: 0px;
 	background-color: transparent;
 	background-image: none;

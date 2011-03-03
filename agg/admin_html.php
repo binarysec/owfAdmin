@@ -1,25 +1,25 @@
 <?php
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Web Framework 1                                       *
- * BinarySEC (c) (2000-2008) / www.binarysec.com         *
- * Author: Olivier Pascal <op@binarysec.com>             *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~         *
- *  Avertissement : ce logiciel est protégé par la       *
- *  loi du copyright et par les traités internationaux.  *
- *  Toute personne ne respectant pas ces dispositions    *
- *  se rendra coupable du délit de contrefaçon et sera   *
- *  passible des sanctions pénales prévues par la loi.   *
- *  Il est notamment strictement interdit de décompiler, *
- *  désassembler ce logiciel ou de procèder à des        *
- *  opération de "reverse engineering".                  *
- *                                                       *
- *  Warning : this software product is protected by      *
- *  copyright law and international copyright treaties   *
- *  as well as other intellectual property laws and      *
- *  treaties. Is is strictly forbidden to reverse        *
- *  engineer, decompile or disassemble this software     *
- *  product.                                             *
+ * Web Framework 1 *
+ * BinarySEC (c) (2000-2008) / www.binarysec.com *
+ * Author: Olivier Pascal <op@binarysec.com> *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
+ *Avertissement : ce logiciel est protégé par la *
+ *loi du copyright et par les traités internationaux.*
+ *Toute personne ne respectant pas ces dispositions*
+ *se rendra coupable du délit de contrefaçon et sera *
+ *passible des sanctions pénales prévues par la loi. *
+ *Il est notamment strictement interdit de décompiler, *
+ *désassembler ce logiciel ou de procèder à des*
+ *opération de "reverse engineering".*
+ * *
+ *Warning : this software product is protected by*
+ *copyright law and international copyright treaties *
+ *as well as other intellectual property laws and*
+ *treaties. Is is strictly forbidden to reverse*
+ *engineer, decompile or disassemble this software *
+ *product. *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 class admin_html extends wf_agg {
@@ -34,17 +34,16 @@ class admin_html extends wf_agg {
 
 	private $page_bottom;
 	private $page_topbar;
-	private $page_subtop;
 	
 	public $start_route = "/admin";
 	
 	public function loader($wf) {
 		$this->wf = $wf;
-		$this->a_core_route   = $this->wf->core_route();
+		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
 		$this->_session = $this->wf->session();
-		$this->a_core_lang    = $this->wf->core_lang();
-		$this->a_core_html    = $this->wf->core_html();
+		$this->a_core_lang= $this->wf->core_lang();
+		$this->a_core_html= $this->wf->core_html();
 		
 		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
@@ -53,8 +52,8 @@ class admin_html extends wf_agg {
 
 	}
 	
-	public function append_subtop($data) {
-		$this->page_subtop .= $data;
+	public function append_topbar($data) {
+		$this->page_topbar .= $data;
 	}
 	
 	public function set_title($title) {
@@ -71,9 +70,8 @@ class admin_html extends wf_agg {
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('user', $this->_session->session_me);
 		$tpl->set('user_perm', $this->_session->session_my_perms);
-// 		$tpl->set('page_topbar',       $this->page_topbar);
-// 		$tpl->set('page_subtop',       $this->page_subtop);
-		$tpl->set('langs',             $this->a_core_lang->get_list());
+		$tpl->set('page_topbar', $this->page_topbar);
+		$tpl->set('langs', $this->a_core_lang->get_list());
 // 		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
 
 
@@ -103,10 +101,10 @@ class admin_html extends wf_agg {
 			))
 		);
 		
-		$tpl->set('bottom',           $this->page_bottom);
+		$tpl->set('bottom', $this->page_bottom);
 		
 		/* the body .. */
-		$tpl->set('body',             $body);
+		$tpl->set('body', $body);
 		
 		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
 	}
@@ -221,7 +219,7 @@ class admin_html extends wf_agg {
 				);
 				
 				if(strlen($r) > 0) {
-					$buf .=  '<div class="yuimenu"><div class="bd"><ul class="first-of-type">'."\n".
+					$buf .='<div class="yuimenu"><div class="bd"><ul class="first-of-type">'."\n".
 						$r.
 						"</ul></div></div>\n";
 				}	
