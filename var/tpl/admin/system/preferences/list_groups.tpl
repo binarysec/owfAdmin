@@ -112,6 +112,11 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 						<th></th>
 					</tr>
 				</thead>
+				<tfoot>
+					<tr>
+						<th colspan="3">Total ({$groups|count})</th>
+					</tr>
+				</tfoot>			
 				<tbody>
 					{foreach $val as $k=>$v}
 						<tr{alt ' class="alt"'}>
