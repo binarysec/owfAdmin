@@ -47,27 +47,22 @@ class wfr_admin_system_preferences extends wf_route_request {
 		/* get all groups */
 		$list = array();
 		$groups = $this->a_core_pref->group_find();
+		$vars=array();
 		foreach($groups as &$group) {
-			$link = $this->wf->linker(
-				"/admin/system/preferences/vars/show/$group[name]"
-			);
-			$list[] = array(
-				$o = $this->a_core_pref->register_group($group["name"]),
-				$link
-			);
+			$o=$this->a_core_pref->register_group($group["name"]);
+			$ret=$o->get_all();
+			foreach($ret as $k=>$v){
+				foreach($v as $k2=>$v2){
+					if($k2=="description")
+						$vars[$group["name"]][$k][$k2]=base64_decode($v2);
+					else
+						$vars[$group["name"]][$k][$k2]=$v2;
+				}
+			}		
 		}
-		
-		/* Create the side bar */
-		$tpl = new core_tpl($this->wf);
-		$tpl->set('groups', &$list);
-// 		$this->a_admin_html->add_sidebar(
-// 			$this->lang->ts("Fast group access"), 
-// 			$tpl->fetch('admin/system/preferences/sb_groups_access')
-// 		);
-		
 		/* create en render the page */
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('groups', &$list);
+		$tpl->set('groups', &$vars);
 		$this->a_admin_html->rendering(
 			$tpl->fetch('admin/system/preferences/list_groups')
 		);
@@ -124,6 +119,7 @@ class wfr_admin_system_preferences extends wf_route_request {
 		/* Create the side bar */
 		$tpl = new core_tpl($this->wf);
 		$tpl->set('groups', &$list);
+
 		$tpl->set('show_return', TRUE);
 // 		$this->a_admin_html->add_sidebar(
 // 			$this->lang->ts("Fast group access"), 
