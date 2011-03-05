@@ -50,6 +50,27 @@
 
 <br/>
 
+{if $partners_c > 0}
+<h1><img src="{link '/data/admin/img/title_info_partners.png'}" alt="{@ 'Partners'}" title="{@ 'Partners'}"/>{@ "Partners"}</h1>
+
+<div class="admin_content">
+
+{foreach $partners as $v}
+<table>
+<tr>
+	<td align="center"><strong>{$v["name"]}</strong></td>
+</tr>
+<tr>
+	<td><a href="{$v['url']}" target="_blank"><img src="{$v['img']}"/></a></td>
+</tr>
+</table>
+{/foreach}
+
+</div>
+
+<br/>
+{/if}
+
 <h1><img src="{link '/data/admin/img/title_info_modules.png'}" alt="{@ "Information sur les modules chargés"}" title="{@ "Information sur les modules chargés"}"/>{@ "Information sur les modules chargés"}</h1>
 
 <div class="admin_content">
