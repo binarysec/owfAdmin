@@ -51,8 +51,8 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 				visible : false,
 				constraintoviewport : true,
 				buttons : [
-					%{text:"Modifier", handler:handleSubmit, isDefault:true}%,
-					%{text:"Annuler", handler:handleCancel}%
+					{text:"Modifier", handler:handleSubmit, isDefault:true},
+					{text:"Annuler", handler:handleCancel}
 				],
 				postmethod : "form"		}
 		);
