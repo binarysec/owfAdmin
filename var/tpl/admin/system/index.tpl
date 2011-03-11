@@ -9,7 +9,7 @@
 		%{@ 'Pr&eacute;f&eacute;rences syst&egrave;mes'}% (%{$nb_pref_groups}%)
 	</button>
 
-	<button onclick="javascript:document.location = '%{link '/admin/system/users'}%'">
+	<button onclick="javascript:document.location = '%{link '/admin/system/session/users'}%'">
 		<img src="%{link '/data/icons/48x48/info.png'}%" alt="%{link '/data/icons/48x48/info.png'}%"/><br />
 		%{@ 'Utilisateurs'}% (%{$nb_users}%)
 	</button>
