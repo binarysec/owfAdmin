@@ -102,27 +102,12 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 		<img src="%{link '/data/icons/16x16/cat_close.png'}%" alt="[Configurer]" title="Configurer"/>
 		<span onclick="display('group_%{$group}%');">%{$group}%</span>
 		<div id="group_%{$group}%" style="display:none;">
-			<table  class="dataset_data_table">
-				<thead>
-					<tr>
-						<th>%{@ 'Nom'}%</th>
-						<th>%{@ 'Description'}%</th>
-						<th>%{@ 'Default'}%</th>
-						<th>%{@ 'Valeur'}%</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th colspan="3">Total (%{$groups|count}%)</th>
-					</tr>
-				</tfoot>			
+			<table  class="dataset_data_table">			
 				<tbody>
 					%{foreach $val as $k=>$v}%
 						<tr%{alt ' class="alt"'}%>
 							<td>%{$v["variable"]}%</td>
 							<td>%{$v["description"]}%</td>
-							<td>%{$v["dft"]}%</td>
 							<td>%{$v["value"]}%</td>
 							<td><a class="btn two" onclick="
 									YAHOO.dialog_edit_var.myDialog.show();
