@@ -146,7 +146,16 @@ class admin_html extends wf_agg {
 						else
 							$char = NULL;
 						
-						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
+						/* show icon */
+						if(isset($val[1][8])) {
+							$icon = '<img height="16" width="16" src="'.
+								$this->wf->linker($val[1][8]).
+								'"/>';
+						}
+						else
+							$icon = '';
+						
+						$buf .= '<li>'.$icon.'<a href="'.
 							$linked.
 							'">'.$val[1][5].
 							"</a>\n";
@@ -189,7 +198,7 @@ class admin_html extends wf_agg {
 // 							$itemdata = TRUE;
 // 						}
 						
-						$buf .= '<li class="yuimenuitem"><a class="yuimenuitemlabel" href="'.
+						$buf .= '<li><a href="'.
 							$linked.
 							'">'.
 							$val[1][4].
@@ -219,9 +228,9 @@ class admin_html extends wf_agg {
 				);
 				
 				if(strlen($r) > 0) {
-					$buf .='<div class="yuimenu"><div class="bd"><ul class="first-of-type">'."\n".
+					$buf .='<ul>'."\n".
 						$r.
-						"</ul></div></div>\n";
+						"</ul>\n";
 				}	
 			}
 			
@@ -274,7 +283,7 @@ class admin_html extends wf_agg {
 
 			
 		/* lance la génération de la liste */
-		$buf = '<div class="bd"><ul>'."\n".
+		$buf = '<ul>'."\n".
 			$this->generate_li(
 				&$selected_route,
 				&$dir,
@@ -283,7 +292,7 @@ class admin_html extends wf_agg {
 				&$this->page_menu,
 				$dft_route
 			).
-			'</ul></div>'."\n";
+			'</ul>'."\n";
 		
 		$this->page_js_route = $buf;
 
