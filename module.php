@@ -28,7 +28,8 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Système"),
 				WF_ROUTE_SHOW,
-				array("session:admin")
+				array("session:admin"),
+// 				"/data/admin/img/menu_system.png"
 			),
 			"/admin/system/information" => array(
 				WF_ROUTE_ACTION,
