@@ -81,7 +81,9 @@ $(document).ready(function() {
 </tr>
 <tr>
 	<td colspan="2">
+		<div id="adm_content">
 		%{$body}%
+		</div>
 	</td>
 </tr>
 <tr>
