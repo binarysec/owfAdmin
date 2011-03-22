@@ -56,16 +56,14 @@ img {
 	text-align: center;
 }
 
-.adm_content_title {
-	font-size: 20px;
-	font-weight: bold;
-	padding-bottom: 5px;
+#adm_content {
+	text-align: left;
 }
 
-.adm_content {
-	
+#adm_content h1 {
+	font-size: 14px;
+	text-align: left;
 }
-
 
 /* Menu admin */
 
