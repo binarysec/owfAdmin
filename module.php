@@ -6,11 +6,18 @@ class wfm_admin extends wf_module {
 	}
 	
 	public function get_name() { return("admin"); }
-	public function get_description()  { return("BinarySEC OpenWF Administration"); }
+	public function get_description()  { return("OWF Native Administration module"); }
 	public function get_banner()  { return("admin/1.3.0"); }
 	public function get_version() { return("1.3.0"); }
 	public function get_authors() { return(array("Michael VERGOZ")); }
 	public function get_depends() { return(NULL); }
+	
+	public function session_permissions() {
+		return(array(
+			"admin:system" => $this->ts("Allow access to system view"),
+			"admin:system:preferences" => $this->ts("Allow access to system preferences")
+		));
+	}
 	
 	public function get_actions() {
 		return(array(
@@ -28,7 +35,7 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Système"),
 				WF_ROUTE_SHOW,
-				array("session:admin"),
+				array("admin:system"),
 // 				"/data/admin/img/menu_system.png"
 			),
 			"/admin/system/information" => array(
@@ -37,7 +44,7 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Informations système"),
 				WF_ROUTE_SHOW,
-				array("session:admin")
+				array("admin:system")
 			),
 			
 			/* preference edition */
@@ -57,55 +64,7 @@ class wfm_admin extends wf_module {
 				WF_ROUTE_HIDE,
 				array("admin:system:preferences")
 			),
-			
-			/* users management */
-// 			"/admin/system/users" => array(
-// 				WF_ROUTE_REDIRECT,
-// 				"/admin/system/users/list",
-// 				"Utilisateurs",
-// 				WF_ROUTE_SHOW,
-// 				array("admin:system:users")
-// 			),
-// 			"/admin/system/users/list" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/users",
-// 				"show",
-// 				"Liste des utilisateurs",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:users:list")
-// 			),
-// 			"/admin/system/users/list/edit" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/users",
-// 				"list_edit",
-// 				"Edition d'un utilisateur",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:users:manage")
-// 			),
-// 			"/admin/system/users/add" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/users",
-// 				"add",
-// 				"Ajoute un utilisateur",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:users:manage")
-// 			),
-// 			"/admin/system/users/edit" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/users",
-// 				"edit",
-// 				"Édite un utilisateur",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:users:manage")
-// 			),
-// 			"/admin/system/users/delete" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/users",
-// 				"delete",
-// 				"Supprime un utilisateur",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:users:manage")
-// 			),
+
 			
 		));
 	}
