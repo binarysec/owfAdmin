@@ -9,11 +9,16 @@ body {
 	margin-bottom: 5px;
 }
 
-/*a, a:hover {
-	color: #a10e09; 
-	text-decoration: none;
-	border: 0px;
-}*/
+a, a:hover {
+/* 	color: #a10e09;  */
+/* 	text-decoration: none; */
+/* 	border: 0px; */
+}
+
+button {
+	margin: 0px;
+	padding: 0px;
+}
 
 img {
 	vertical-align: middle;
@@ -30,6 +35,13 @@ img {
 /* 	background-color: #a10e09; */
 }
 
+
+#adm_top_row {
+	color: #ffffff;
+	height: 100px;
+	vertical-align: bottom;
+	background-color: #414141;
+}
 
 #adm_logo {
 	font-size: 25px;
@@ -51,10 +63,22 @@ img {
 
 }
 
-#adm_information {
+#adm_bottom_row {
 	font-size: 10px;	
 	text-align: center;
+	
+	color: #ffffff;
+	height: 40px;
+	vertical-align: top;
+	background-color: #414141;
+	
 }
+#adm_bottom_row a, #adm_bottom_row a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+	border: 0px;
+}
+
 
 #adm_content {
 	text-align: left;

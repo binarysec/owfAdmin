@@ -35,7 +35,7 @@ $(document).ready(function() {
 
 <table id="adm_top" border="0" cellpadding="2" cellspacing="0" width="800px">
 
-<tr>
+<tr id="adm_top_row">
 	<td>
 		<div id="adm_logo">
 		Open Web Framework
@@ -86,11 +86,9 @@ $(document).ready(function() {
 		</div>
 	</td>
 </tr>
-<tr>
+<tr id="adm_bottom_row">
 	<td colspan="2">
-		<div id="adm_information">
-			Copyright <a href="http://binarysec.com" target="_blank">Open Web Framework</a> 2006-2011%{$bottom}%
-		</div>
+		Copyright <a href="http://binarysec.com" target="_blank">Open Web Framework</a> 2006-2011%{$bottom}%
 	</td>
 </tr>
 </table>
