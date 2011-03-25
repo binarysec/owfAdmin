@@ -93,7 +93,5 @@ $(document).ready(function() {
 </tr>
 </table>
 
-</div>
-
 </center>
 
