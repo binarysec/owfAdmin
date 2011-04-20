@@ -1,14 +1,42 @@
-%{css '/data/yui/build/button/assets/skins/sam/button.css'}%
-%{css '/data/yui/build/container/assets/skins/sam/container.css'}%
-
-%{js '/data/yui/build/yahoo-dom-event/yahoo-dom-event.js'}%
-%{js '/data/yui/build/connection/connection-min.js'}%
-%{js '/data/yui/build/element/element-min.js'}%
-%{js '/data/yui/build/button/button-min.js'}%
-%{js '/data/yui/build/dragdrop/dragdrop-min.js'}%
-%{js '/data/yui/build/container/container-min.js'}%
+%{js '/data/js/jquery-1.5.js'}%
+%{js '/data/js/jquery-ui-1.8.js'}%
 
 %{literal}%
+
+<script type="text/javascript">
+	$(function() {
+	// Change mode button 
+	$("button, input:submit, a", ".edit").button({ 
+		icons: {
+			primary:'ui-icon-gear'
+		}
+	});
+	
+	$("a", ".edit").click(function() { 
+		
+		var sid = document.getElementById('change_mode_sid');
+		$("#var_edit_simple_dialog").dialog({
+			width: 500,
+			modal: true,
+			autoOpen: true,
+			resizable: false,
+			buttons: { 
+				OK: function() {
+					$("#form_edit_var").submit();
+				},
+				Cancel: function() {
+					$("#var_edit_simple_dialog").dialog("close");
+				}
+			}
+		});
+		return(false);	
+	});
+	
+	$("#var_edit_simple_dialog").hide();
+});
+
+</script>
+
 <script type="text/javascript">
 function display(id){
 	var doc=document.getElementById(id);
@@ -35,39 +63,9 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 		
 	}
 
-	YAHOO.namespace("dialog_edit_var");
-	function init_edit_var() {
-	
-		var handleSubmit = function() {	
-			this.submit();			
-		};
-		var handleCancel = function() {
-			this.cancel();
-		};
-
-		YAHOO.dialog_edit_var.myDialog = new YAHOO.widget.Dialog(
-			"var_edit_simple", {
-				fixedcenter : true,
-				visible : false,
-				constraintoviewport : true,
-				buttons : [
-					{text:"Modifier", handler:handleSubmit, isDefault:true},
-					{text:"Annuler", handler:handleCancel}
-				],
-				postmethod : "form"		}
-		);
-	
-		YAHOO.dialog_edit_var.myDialog.validate = function() {
-				return true;
-		};
-
-		YAHOO.dialog_edit_var.myDialog.render();
-	}
-	YAHOO.util.Event.onDOMReady(init_edit_var);
-
 </script>
 %{/literal}%
-<div id="var_edit_simple">
+<div id="var_edit_simple_dialog">
 	<div class="hd">%{@ 'Edition de variable'}%</div>
 	<div class="bd">
 	<form id="form_edit_var" class="form_dialog" method="post" action="%{link '/admin/system/preferences/vars/edit'}%">
@@ -109,15 +107,14 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 							<td>%{$v["variable"]}%</td>
 							<td>%{$v["description"]}%</td>
 							<td>%{$v["value"]}%</td>
-							<td><a class="btn two" onclick="
-									YAHOO.dialog_edit_var.myDialog.show();
+							<td><span class="edit"><a onclick="
 									set_edit_var_single(
 										'%{$v['description']}%', 
 										'%{$v['variable']}%', 
 										'%{$v['dft']}%', 
 										'%{$v['value']}%',
 										'%{$group}%'
-										);">%{@ 'éditer'}%</a></td>
+										);">%{@ 'éditer'}%</a></span></td>
 
 						</tr>
 					%{/foreach}%
