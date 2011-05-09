@@ -1,8 +1,6 @@
 %{js '/data/js/jquery-1.5.js'}%
 %{js '/data/js/jquery-ui-1.8.js'}%
 
-%{literal}%
-
 <script type="text/javascript">
 	$(function() {
 	// Change mode button 
@@ -64,7 +62,7 @@ function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) 
 	}
 
 </script>
-%{/literal}%
+
 <div id="var_edit_simple_dialog">
 	<div class="hd">%{@ 'Edition de variable'}%</div>
 	<div class="bd">
