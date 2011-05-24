@@ -37,10 +37,10 @@ img {
 
 
 #adm_top_row {
-	color: #ffffff;
+	/*color: #ffffff;*/
 	height: 100px;
 	vertical-align: bottom;
-	background-color: #414141;
+	/*background-color: #414141;*/
 }
 
 #adm_logo {
@@ -56,7 +56,7 @@ img {
 }
 
 #adm_session {
-	
+	padding-bottom:10px;
 }
 
 #adm_menu {
@@ -70,7 +70,7 @@ img {
 	color: #ffffff;
 	height: 40px;
 	vertical-align: top;
-	background-color: #414141;
+	background-color: #85a72b;
 	
 }
 #adm_bottom_row a, #adm_bottom_row a:hover {
@@ -92,7 +92,7 @@ img {
 /* Menu admin */
 
 .adm_menu_top{
-	background: #414141; /*background of menu bar (default state)*/
+	/*background: #414141; /*background of menu bar (default state)*/
 	width: 100%;
 }
 
@@ -240,7 +240,8 @@ table.dataset_data_table thead table tfoot {
 }
 table.dataset_data_table thead {
 	background-position: bottom; 
-	background-color: #000000;
+	background-color:#414141;
+	/*background-color: #000000;*/
 	color :#ffffff;
 }
 table.dataset_data_table thead a {
