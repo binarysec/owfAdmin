@@ -14,7 +14,7 @@ ddsmoothmenu.init({
 	mainmenuid: "adm_menu", //menu DIV id
 	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
 	classname: 'adm_menu_top', //class added to menu's outer DIV
-	customtheme: ["#1c5a80", "#18374a"],
+	customtheme: ["#85a72b", "#a5ce35"],
 	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
 });
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
 <tr id="adm_top_row">
 	<td>
 		<div id="adm_logo">
-		Open Web Framework
+			<a href="/"><img src="%{link '/data/admin/img/OpenWF_Logo.png'}%" width="250px" alt="Open Web Framework" title="Open Web Framework"/></a>
 		</div>
 	</td>
 	<td align="right">
