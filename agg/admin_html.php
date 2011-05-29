@@ -36,6 +36,7 @@ class admin_html extends wf_agg {
 	private $page_topbar;
 	
 	public $start_route = "/admin";
+	private $tpl;
 	
 	public function loader($wf) {
 		$this->wf = $wf;
@@ -49,7 +50,8 @@ class admin_html extends wf_agg {
 		
 		if(isset($this->wf->ini_arr["admin"]["start_route"]))
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
-
+		
+		$this->tpl = new core_tpl($this->wf);
 	}
 	
 	public function append_topbar($data) {
@@ -64,16 +66,19 @@ class admin_html extends wf_agg {
 		$this->page_bottom .= " / $data";
 	}
 	
+	public function set($var, $value) {
+		$this->tpl->set($var, $value);
+	}
+	
 	public function rendering($body) {
 		$this->generate_route();
 		
-		$tpl = new core_tpl($this->wf);
+		$tpl = $this->tpl;
 		$tpl->set('user', $this->_session->session_me);
 		$tpl->set('user_perm', $this->_session->session_my_perms);
 		$tpl->set('page_topbar', $this->page_topbar);
 		$tpl->set('langs', $this->a_core_lang->get_list());
 // 		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
-
 
 		$tpl->set('navigation', $this->page_js_route);
 		
