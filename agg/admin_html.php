@@ -131,7 +131,10 @@ class admin_html extends wf_agg {
 				$val[1][6] == WF_ROUTE_SHOW
 				) {
 				$linked = $this->wf->linker(
-					$link.$key
+					$link.$key,
+					NULL,
+					NULL,
+					TRUE
 				);
 
 				if(!$val[1][7])
@@ -154,7 +157,7 @@ class admin_html extends wf_agg {
 						/* show icon */
 						if(isset($val[1][8])) {
 							$icon = '<img height="16" width="16" src="'.
-								$this->wf->linker($val[1][8]).
+								$this->wf->linker($val[1][8], NULL, NULL, TRUE).
 								'"/>';
 						}
 						else
@@ -180,7 +183,10 @@ class admin_html extends wf_agg {
 				$val[1][5] == WF_ROUTE_SHOW
 				) {
 				$linked = $this->wf->linker(
-					$link.$key
+					$link.$key,
+					NULL,
+					NULL,
+					TRUE
 				);
 				
 				if(!$val[1][6])
