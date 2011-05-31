@@ -45,7 +45,7 @@ $(document).ready(function() {
 		<div id="adm_language">
 			%{foreach $langs as $code => $infos}%
 				%{if $code != $current_lang_code}%
-					<a href="%{link $_URI, $infos['code']}%">
+					<a href="%{link $_URI, $infos['code'],true}%">
 				%{/if}%
 					<img src="%{link '/data/admin/img/flags/small/'.$code.'.gif'}%" alt="%{$infos['name']}%" title="%{$infos['name']}%"%{if $code == $current_lang_code}% class="selected"%{/if}% />
 				%{if $code != $current_lang_code}%
