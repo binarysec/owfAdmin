@@ -64,18 +64,19 @@
 	<td align="center"><strong>%{$v["name"]}%</strong></td>
 </tr>
 <tr>
-	<td><a href="%{$v['url']}%" target="_blank"><img src="%{$v['img']}%"/></a></td>
+	<td><a href="%{$v['url']}%" target="_blank"><img src="%{$v['img']}%" alt="%{$v['name']}%" /></a></td>
 </tr>
 </table>
 %{/foreach}%
 
-</div>
+
 
 <br/>
 %{/if}%
 
 <div class="adm_content_title">
-<img src="%{link '/data/admin/img/title_info_modules.png'}%" alt="%{@ "Information sur les modules chargés"}%" title="%{@ "Information sur les modules chargés"}%"/>%{@ "Information sur les modules chargés"}%</div>
+<img src="%{link '/data/admin/img/title_info_modules.png'}%" alt="%{@ "Information sur les modules chargés"}%" title="%{@ "Information sur les modules chargés"}%"/>%{@ "Information sur les modules chargés"}%
+</div>
 
 
 <table class="dataset_data_table">
