@@ -81,7 +81,7 @@ $(document).ready(function() {
 </tr>
 <tr>
 	<td colspan="2">
-		<div id="adm_content">
+		<div id="adm_content ui-widget">
 		%{$body}%
 		</div>
 	</td>
