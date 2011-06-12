@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("div.proute").accordion({ 
+		$("div.accordion_group").accordion({ 
 			active: false, 
 			clearStyle: true, 
 			collapsible: true, 
@@ -85,7 +85,7 @@
 
 		
 %{foreach $groups as $group=>$val}%
-<div class="proute">
+<div class="accordion_group">
 	<h3><a href="#">%{$group}%</a></h3>
 	<div id="search_%{$name}%">
 	
