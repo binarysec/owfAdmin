@@ -49,20 +49,28 @@ class wfm_admin extends wf_module {
 			
 			/* preference edition */
 			"/admin/system/preferences" => array(
-				WF_ROUTE_ACTION,
-				"system/preferences",
-				"show_groups",
+				WF_ROUTE_REDIRECT,
+				"/admin/system/preferences/variables",
 				$this->ts("Préférences système"),
 				WF_ROUTE_SHOW,
 				array("admin:system:preferences")
 			),
-			"/admin/system/preferences/vars/edit" => array(
+			
+			"/admin/system/preferences/variables" => array(
+				WF_ROUTE_ACTION,
+				"system/preferences",
+				"show_groups",
+				$this->ts("Préférences des variables"),
+				WF_ROUTE_SHOW,
+				array("admin:system:preferences:variables")
+			),
+			"/admin/system/preferences/variables/edit" => array(
 				WF_ROUTE_ACTION,
 				"system/preferences",
 				"edit_var",
 				"Préférences système",
 				WF_ROUTE_HIDE,
-				array("admin:system:preferences")
+				array("admin:system:preferences:variables")
 			),
 
 			
