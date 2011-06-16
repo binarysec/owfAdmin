@@ -1,6 +1,4 @@
-<div class="adm_content_title">
-<img src="%{link '/data/admin/img/title_info_system.png'}%" alt="%{@ "Informations sur le système"}%" title="%{@ "Informations sur le système"}%" />%{@ "Informations sur le système"}%
-</div>
+<h1><img src="%{link '/data/admin/img/title_info_system.png'}%" alt="%{@ "Informations sur le système"}%" title="%{@ "Informations sur le système"}%"/>%{@ "Informations sur le système"}%</h1>
 
 
 <table class="dataset_data_table">
@@ -47,16 +45,13 @@
 
 </table>
 
-</div>
 
 <br/>
 
 %{if $partners_c > 0}%
 
-<div class="adm_content_title">
-<img src="%{link '/data/admin/img/title_info_partners.png'}%" alt="%{@ 'Partners'}%" title="%{@ 'Partners'}%"/>%{@ "Partners"}%</div>
+<h1><img src="%{link '/data/admin/img/title_info_partners.png'}%" alt="%{@ 'Partners'}%" title="%{@ 'Partners'}%"/>%{@ "Partners"}%</h1>
 
-<div class="admin_content">
 
 %{foreach $partners as $v}%
 <table>
@@ -69,15 +64,9 @@
 </table>
 %{/foreach}%
 
-
-
-<br/>
 %{/if}%
 
-<div class="adm_content_title">
-<img src="%{link '/data/admin/img/title_info_modules.png'}%" alt="%{@ "Information sur les modules chargés"}%" title="%{@ "Information sur les modules chargés"}%"/>%{@ "Information sur les modules chargés"}%
-</div>
-
+<h1><img src="%{link '/data/admin/img/title_info_modules.png'}%" alt="%{@ "Information sur les modules chargés"}%" title="%{@ "Information sur les modules chargés"}%"/>%{@ "Information sur les modules chargés"}%</h1>
 
 <table class="dataset_data_table">
 	<thead>

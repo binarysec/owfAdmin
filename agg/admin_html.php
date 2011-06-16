@@ -38,6 +38,8 @@ class admin_html extends wf_agg {
 	public $start_route = "/admin";
 	private $tpl;
 	
+	public $template = "admin/main";
+	
 	public function loader($wf) {
 		$this->wf = $wf;
 		$this->a_core_route = $this->wf->core_route();
@@ -45,8 +47,6 @@ class admin_html extends wf_agg {
 		$this->_session = $this->wf->session();
 		$this->a_core_lang= $this->wf->core_lang();
 		$this->a_core_html= $this->wf->core_html();
-		
-		$this->lang = $this->a_core_lang->get_context("admin/html");
 		
 		if(isset($this->wf->ini_arr["admin"]["start_route"]))
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
@@ -72,6 +72,8 @@ class admin_html extends wf_agg {
 	
 	public function rendering($body) {
 		$this->generate_route();
+		
+		$this->lang = $this->a_core_lang->get_context($this->template);
 		
 		$tpl = $this->tpl;
 		$tpl->set('user', $this->_session->session_me);
@@ -111,7 +113,7 @@ class admin_html extends wf_agg {
 		/* the body .. */
 		$tpl->set('body', $body);
 		
-		$this->wf->core_html()->rendering($tpl->fetch('admin/main'));
+		$this->wf->core_html()->rendering($tpl->fetch($this->template));
 	}
 		
 	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
