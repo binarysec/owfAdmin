@@ -140,10 +140,10 @@ class admin_html extends wf_agg {
 				));
 
 				if(!$val[1][7])
-					$val[1][7] = array("session:anon");
-					
+					$val[1][7] = array("session:admin");
+				
 			
-				$perm = $this->_session->check_permission(
+				$perm = $this->check_permission(
 					&$val[1][7]
 				);
 				
@@ -192,9 +192,9 @@ class admin_html extends wf_agg {
 				));
 				
 				if(!$val[1][6])
-					$val[1][6] = array("session:anon");
+					$val[1][6] = array("session:admin");
 
-				$perm = $this->_session->check_permission(
+				$perm = $this->check_permission(
 					&$val[1][6]
 				);
 				if($perm == true) {
@@ -312,5 +312,19 @@ class admin_html extends wf_agg {
 		return(TRUE);
 	}
 
+	private function check_permission($val) {
+		foreach($val as $k => $v) {
+			if($v == "session:anon" && $this->wf->ini_arr["session"]["allow_anonymous"]) 
+				return(true);
+			else if($v == "session:ranon")
+				return(true);
+		}
+		$perm = $this->_session->check_permission(
+			$val
+		);
+		if($perm == true)
+			return(true);
+		return(false);
+	}
 
 }
