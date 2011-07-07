@@ -15,6 +15,7 @@ ddsmoothmenu.init({
 	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
 	classname: 'adm_menu_top', //class added to menu's outer DIV
 	customtheme: ["#85a72b", "#a5ce35"],
+	zindex: '100',
 	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
 });
 
