@@ -42,6 +42,9 @@ class admin_html extends wf_agg {
 	
 	public function loader($wf) {
 		$this->wf = $wf;
+		/* non cachable page */
+		$wf->no_cache();
+		
 		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
 		$this->_session = $this->wf->session();
