@@ -62,7 +62,7 @@ class wfm_admin extends wf_module {
 				"show_groups",
 				$this->ts("Préférences des variables"),
 				WF_ROUTE_SHOW,
-				array("admin:system:preferences:variables")
+				array("admin:system:preferences")
 			),
 			"/admin/system/preferences/variables/edit" => array(
 				WF_ROUTE_ACTION,
@@ -70,7 +70,7 @@ class wfm_admin extends wf_module {
 				"edit_var",
 				"Préférences système",
 				WF_ROUTE_HIDE,
-				array("admin:system:preferences:variables")
+				array("admin:system:preferences")
 			),
 
 			
