@@ -64,7 +64,7 @@ $(document).ready(function() {
 				<img src="%{link '/data/session/t_simple.png'}%" alt="%{@ 'Utilisateur'}%" title="%{@ 'Utilisateur'}%"/>
 			%{/if}%
 
-			%{@ 'Bienvenue, <strong>%s</strong> (%s)', htmlspecialchars($user['name']), htmlspecialchars($user['username'])}%
+			%{@ 'Bienvenue, '}%<strong>%{@ '%s %s',htmlspecialchars($user['name']),htmlspecialchars($user['firstname'])}%</strong> (%{$user['username']}%)
 			<a href="%{link '/session/logout'}%"> 
 			<img border="0" src="%{link '/data/admin/img/session_exit.png'}%" title="%{@ 'Déconnexion'}%" alt="%{@ 'Déconnexion'}%" />
 			</a>
