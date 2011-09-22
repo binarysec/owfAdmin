@@ -5,9 +5,6 @@
 %{js '/data/admin/ddsmoothmenu.js'}%
 
 <script type="text/javascript">
-
-
-
 // alert($(".ui-widget").css("background-color"));
 
 ddsmoothmenu.init({
@@ -20,15 +17,8 @@ ddsmoothmenu.init({
 });
 
 $(document).ready(function() {
-
-
-// 	$(".adm_content_title").addClass("ui-corner-all");
-
-
-
+	// 	$(".adm_content_title").addClass("ui-corner-all");
 });
-
-
 
 </script>
 
