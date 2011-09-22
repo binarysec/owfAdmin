@@ -17,7 +17,7 @@
 		});
 		
 		$("#dialog").dialog({
-			width: 350,
+			width: 500,
 			modal: true,
 			autoOpen: false,
 			resizable: false,
@@ -63,19 +63,19 @@
 		<input type="hidden" id="var_edit_simple_name" name="name" value=""/>
 		<table>
 			<tr>
-				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Nom'}%&nbsp;:</td>
+				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Nom'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_showname"></span></td>
 			</tr>
 			<tr>
-				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Description'}%&nbsp;:</td>
+				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Description'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_description"></span></td>
 			</tr>
 			<tr>
-				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Defaut'}%&nbsp;:</td>
+				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Defaut'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_default"></span></td>
 			</tr>	
 			<tr>
-				<td style="width: 40%;text-align: right;padding-right: 5%;"><label for="var_edit_simple_value" class="base_text">%{@ 'Valeur'}%&nbsp;:</label></td>
+				<td style="width: 80px;text-align: right;padding-right: 6px;"><label for="var_edit_simple_value" class="base_text">%{@ 'Valeur'}%&nbsp;:</label></td>
 				<td><input type="text" id="var_edit_simple_value" name="value" value="" /></td>
 			</tr>
 		</table>
