@@ -83,7 +83,7 @@ class admin_html extends wf_agg {
 		$tpl->set('user_perm', $this->_session->session_my_perms);
 		$tpl->set('page_topbar', $this->page_topbar);
 		$tpl->set('langs', $this->a_core_lang->get_list());
-// 		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
+		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
 
 		$tpl->set('navigation', $this->page_js_route);
 		
@@ -132,6 +132,7 @@ class admin_html extends wf_agg {
 			if(strncmp($this->start_route, $link, strlen($this->start_route)) == 0)
 				$use = TRUE;
 			if(
+				isset($val[1]) &&
 				$val[1][2] == WF_ROUTE_ACTION && 
 				$val[1][6] == WF_ROUTE_SHOW
 				) {
@@ -152,7 +153,7 @@ class admin_html extends wf_agg {
 				
 				if($perm == true) {
 					if($use) {
-						if($dir[$pos] == $key) {
+						if(isset($dir[$pos]) && $dir[$pos] == $key) {
 							$char = "* ";
 							$title .= ":: ".$val[1][5]." ";
 						}
@@ -184,6 +185,7 @@ class admin_html extends wf_agg {
 				}
 			}
 			else if(
+				isset($val[1]) &&
 				$val[1][2] == WF_ROUTE_REDIRECT && 
 				$val[1][5] == WF_ROUTE_SHOW
 				) {
@@ -194,7 +196,7 @@ class admin_html extends wf_agg {
 					TRUE
 				));
 				
-				if(!$val[1][6])
+				if(!isset($val[1][6]))
 					$val[1][6] = array("session:admin");
 
 				$perm = $this->check_permission(
@@ -202,7 +204,7 @@ class admin_html extends wf_agg {
 				);
 				if($perm == true) {
 					if($use) {
-						if($dir[$pos] == $key) {
+						if(isset($dir[$pos]) && $dir[$pos] == $key) {
 							$char = "* ";
 							$title .= ":: ".$val[1][5]." ";
 						}

@@ -1,5 +1,3 @@
-<h1><img src="%{link '/data/admin/img/title_pref.png'}%" alt="%{@ 'Preference variables'}%" title="%{@ 'Preference variables'}%" />%{@ 'Preference variables'}%</h1>
-
 %{js '/data/js/jquery-1.5.js'}%
 %{js '/data/js/jquery-ui-1.8.js'}%
 
@@ -17,26 +15,28 @@
 				primary:'ui-icon-gear'
 			}
 		});
-	
-		$("button.edit_button").click(function() { 
-			$("#dialog").dialog({
-				width: 500,
-				modal: true,
-				autoOpen: true,
-				resizable: false,
-				buttons: { 
-					OK: function() {
-						$("#form_edit_var").submit();
-					},
-					Cancel: function() {
-						$("#dialog").dialog("close");
-					}
+		
+		$("#dialog").dialog({
+			width: 350,
+			modal: true,
+			autoOpen: false,
+			resizable: false,
+			buttons: { 
+				OK: function() {
+					$("#form_edit_var").submit();
+				},
+				Cancel: function() {
+					$("#dialog").dialog("close");
 				}
-			});
-			return(false);
+			}
 		});
 		
-		$("#dialog").hide();
+		$("button.edit_button").click(function() { 
+			$("#dialog").dialog("option", "position", 'center');
+			$("#dialog").dialog("open");
+			
+			return(false);
+		});
 	});
 	
 	function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) {	
@@ -53,9 +53,9 @@
 		field_default.innerHTML = a_default;
 		field_value.value = a_value;
 	}
-	
 </script>
 
+<h1><img src="%{link '/data/admin/img/title_pref.png'}%" alt="%{@ 'Preference variables'}%" title="%{@ 'Preference variables'}%" />%{@ 'Preference variables'}%</h1>
 
 <div id="dialog" title="%{@ 'Edit a variable'}%">
 	<form id="form_edit_var" class="form_dialog" method="post" action="%{link '/admin/system/preferences/variables/edit'}%">
@@ -63,31 +63,29 @@
 		<input type="hidden" id="var_edit_simple_name" name="name" value=""/>
 		<table>
 			<tr>
-				<td>%{@ 'Nom'}%</td>
+				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Nom'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_showname"></span></td>
 			</tr>
 			<tr>
-				<td>%{@ 'Description'}%</td>
+				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Description'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_description"></span></td>
 			</tr>
 			<tr>
-				<td>%{@ 'Defaut'}%</td>
+				<td style="width: 40%;text-align: right;padding-right: 5%;">%{@ 'Defaut'}%&nbsp;:</td>
 				<td><span class="base_text" id="var_edit_simple_default"></span></td>
 			</tr>	
 			<tr>
-				<td><label for="var_edit_simple_value" class="base_text">%{@ 'Valeur'}%&nbsp;:</label></td>
+				<td style="width: 40%;text-align: right;padding-right: 5%;"><label for="var_edit_simple_value" class="base_text">%{@ 'Valeur'}%&nbsp;:</label></td>
 				<td><input type="text" id="var_edit_simple_value" name="value" value="" /></td>
 			</tr>
 		</table>
 	</form>
 </div>
-
-
 		
 %{foreach $groups as $group=>$val}%
 <div class="accordion_group">
 	<h3><a href="#">%{$group}%</a></h3>
-	<div id="search_%{$name}%">
+	<div id="search_%{$group}%">
 	
 	%{foreach $val as $k=>$v}%
 		<div style="margin-bottom: 2px; padding: 3px;" class="ui-widget ui-widget-content ui-corner-all">
@@ -112,11 +110,8 @@
 
 			</tr>
 		</table>
-		
 		</div>
 	%{/foreach}%
 	</div>
 </div>
 %{/foreach}%
-
-
