@@ -46,11 +46,11 @@ $(document).ready(function() {
 		</div>
 
 		<div id="adm_session">
-			%{if is_array($user_perm['session:god'])}%
+			%{if isset($user_perm['session:god'])}%
 				<img src="%{link '/data/session/t_god.png'}%" alt="%{@ 'Administrateur'}%" title="%{@ 'Administrateur'}%"/>
-			%{elseif is_array($user_perm['session:admin'])}%
+			%{elseif isset($user_perm['session:admin'])}%
 				<img src="%{link '/data/session/t_admin.png'}%" alt="%{@ 'Administrateur'}%" title="%{@ 'Administrateur'}%"/>
-			%{elseif is_array($user_perm['session:simple'])}%
+			%{elseif isset($user_perm['session:simple'])}%
 				<img src="%{link '/data/session/t_simple.png'}%" alt="%{@ 'Utilisateur'}%" title="%{@ 'Utilisateur'}%"/>
 			%{/if}%
 
