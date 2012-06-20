@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 <center>
 
-<table id="adm_top" border="0" cellpadding="2" cellspacing="0" width="800px">
+<table id="adm_top" border="0" cellpadding="2" cellspacing="0" width="80%">
 
 <tr id="adm_top_row">
 	<td>
