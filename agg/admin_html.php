@@ -35,7 +35,7 @@ class admin_html extends wf_agg {
 	private $page_bottom;
 	private $page_topbar;
 	
-	public $start_route = "/admin";
+	public $start_route = "/";
 	private $tpl;
 	
 	public $template = "admin/main";
@@ -284,7 +284,7 @@ class admin_html extends wf_agg {
 		
 		for($a=1; $a<count($sdir); $a++) {
 			$val = &$sdir[$a];
-			if($selected_route[$val]) {
+			if(array_key_exists($val, $selected_route)) {
 				$selected_route = &$selected_route[$val][0];
 			}
 			else {
