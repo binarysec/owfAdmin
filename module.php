@@ -14,6 +14,7 @@ class wfm_admin extends wf_module {
 	
 	public function session_permissions() {
 		return(array(
+			"admin" => $this->ts("Allow access to administration"),
 			"admin:system" => $this->ts("Allow access to system view"),
 			"admin:system:preferences" => $this->ts("Allow access to system preferences")
 		));
@@ -22,56 +23,58 @@ class wfm_admin extends wf_module {
 	public function get_actions() {
 		return(array(
 			"/admin" => array(
-				WF_ROUTE_REDIRECT,
-				"/admin/system",
-				"Administration",
-				WF_ROUTE_SHOW
+				WF_ROUTE_ACTION,
+				"admin",
+				"show",
+				$this->ts("Administration"),
+				WF_ROUTE_SHOW,
+				array("admin"),
 			),
 			
 			/* system management */
 			"/admin/system" => array(
 				WF_ROUTE_ACTION,
-				"system/system",
+				"admin/system",
 				"show",
-				$this->ts("Système"),
+				$this->ts("Préférences systèmes"),
 				WF_ROUTE_SHOW,
 				array("admin:system"),
 // 				"/data/admin/img/menu_system.png"
 			),
 			"/admin/system/information" => array(
 				WF_ROUTE_ACTION,
-				"system/information",
+				"admin/system/information",
 				"show",
 				$this->ts("Informations système"),
 				WF_ROUTE_SHOW,
 				array("admin:system")
 			),
 			
-			/* preference edition */
-			"/admin/system/preferences" => array(
-				WF_ROUTE_REDIRECT,
-				"/admin/system/preferences/variables",
-				$this->ts("Préférences système"),
-				WF_ROUTE_SHOW,
-				array("admin:system:preferences")
-			),
-			
-			"/admin/system/preferences/variables" => array(
-				WF_ROUTE_ACTION,
-				"system/preferences",
-				"show_groups",
-				$this->ts("Préférences des variables"),
-				WF_ROUTE_SHOW,
-				array("admin:system:preferences")
-			),
-			"/admin/system/preferences/variables/edit" => array(
-				WF_ROUTE_ACTION,
-				"system/preferences",
-				"edit_var",
-				"Préférences système",
-				WF_ROUTE_HIDE,
-				array("admin:system:preferences")
-			),
+// 			/* preference edition */
+// 			"/admin/system/preferences" => array(
+// 				WF_ROUTE_REDIRECT,
+// 				"/admin/system/preferences/variables",
+// 				$this->ts("Préférences système"),
+// 				WF_ROUTE_SHOW,
+// 				array("admin:system:preferences")
+// 			),
+// 			
+// 			"/admin/system/preferences/variables" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/preferences",
+// 				"show_groups",
+// 				$this->ts("Préférences des variables"),
+// 				WF_ROUTE_SHOW,
+// 				array("admin:system:preferences")
+// 			),
+// 			"/admin/system/preferences/variables/edit" => array(
+// 				WF_ROUTE_ACTION,
+// 				"system/preferences",
+// 				"edit_var",
+// 				"Préférences système",
+// 				WF_ROUTE_HIDE,
+// 				array("admin:system:preferences")
+// 			),
 
 			
 		));

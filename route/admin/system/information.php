@@ -1,6 +1,6 @@
 <?php
 
-class wfr_admin_system_information extends wf_route_request {
+class wfr_admin_admin_system_information extends wf_route_request {
 
 	private $a_core_route;
 	private $a_admin_html;
@@ -13,7 +13,6 @@ class wfr_admin_system_information extends wf_route_request {
 	
 	
 	public function show() {
-
 		$tpl = new core_tpl($this->wf);
 
 		if(function_exists("apache_get_version"))
@@ -32,6 +31,7 @@ class wfr_admin_system_information extends wf_route_request {
 			}
 		}
 		
+		/* prepare template variable */
 		$in = array(
 			"version" => WF_VERSION,
 			"os" => php_uname("s")." (".php_uname("r").")",
@@ -47,7 +47,11 @@ class wfr_admin_system_information extends wf_route_request {
 		);
 	
 		$tpl->set_vars($in);
-
+		
+		/* Add back button */
+		$this->a_admin_html->set_backlink($this->wf->linker('/admin/system'));
+		
+		/* rendering using my template */
 		$this->a_admin_html->rendering($tpl->fetch('admin/system/information'));
 		exit(0);
 	}

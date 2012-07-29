@@ -3,7 +3,8 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Web Framework 1 *
  * BinarySEC (c) (2000-2008) / www.binarysec.com *
- * Author: Olivier Pascal <op@binarysec.com> *
+ * Author: Olivier Pascal <op@binarysec.com>     *
+ *         Michael Vergoz <mv@binarysec.com>     *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
  *Avertissement : ce logiciel est protégé par la *
  *loi du copyright et par les traités internationaux.*
@@ -32,9 +33,6 @@ class admin_html extends wf_agg {
 	
 	private $lang;
 
-	private $page_bottom;
-	private $page_topbar;
-	
 	public $start_route = "/";
 	private $tpl;
 	
@@ -55,267 +53,206 @@ class admin_html extends wf_agg {
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
 		
 		$this->tpl = new core_tpl($this->wf);
-	}
-	
-	public function append_topbar($data) {
-		$this->page_topbar .= $data;
-	}
-	
-	public function set_title($title) {
-		$this->a_core_html->set_title($title);
-	}
 
-	public function add_bottom($data) {
-		$this->page_bottom .= " / $data";
+		$this->no_zoom();
+	}
+	
+	public function no_zoom() {
+		$this->a_core_html->set_meta_name(
+			"viewport", 
+			array(
+				"content" => "width=device-width, initial-scale=1"
+			)
+		);	
 	}
 	
 	public function set($var, $value) {
 		$this->tpl->set($var, $value);
 	}
 	
-	public function rendering($body) {
-		$this->generate_route();
-		
-		$this->lang = $this->a_core_lang->get_context($this->template);
-		
-		$tpl = $this->tpl;
-		$tpl->set('user', $this->_session->session_me);
-		$tpl->set('user_perm', $this->_session->session_my_perms);
-		$tpl->set('page_topbar', $this->page_topbar);
-		$tpl->set('langs', $this->a_core_lang->get_list());
-		$tpl->set('current_lang_code', $this->a_core_lang->get_code());
-
-		$tpl->set('navigation', $this->page_js_route);
-		
-		/* add the bottom */
-		$this->add_bottom(
-			$this->lang->ts(array(
-				"%s SQL requests", 
-				$this->wf->db->get_request_counter()
-			))
-		);
-		
-		$this->add_bottom(
-			$this->lang->ts(array(
-				"on <strong>%s</strong> - %s", 
-				php_uname("n"),
-				$_SERVER["REMOTE_ADDR"]
-			))
-		);
-		
-		/* last */
-		$this->add_bottom(
-			$this->lang->ts(array(
-				"engine took %f ms", 
-				microtime(TRUE) - $this->wf->time_start
-			))
-		);
-		
-		$tpl->set('bottom', $this->page_bottom);
-		
-		/* the body .. */
-		$tpl->set('body', $body);
-		
-		$this->wf->core_html()->rendering($tpl->fetch($this->template));
-	}
-		
-	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
-		$buf = '';
-		if(!is_array($nav))
-			return(NULL);
-		
-		$itemdata = FALSE;
-		
-		foreach($nav as $key => $val) {
-			$toadd = FALSE;
-			
-			if(strncmp($this->start_route, $link, strlen($this->start_route)) == 0)
-				$use = TRUE;
-			if(
-				isset($val[1]) &&
-				$val[1][2] == WF_ROUTE_ACTION && 
-				$val[1][6] == WF_ROUTE_SHOW
-				) {
-				$linked = htmlentities($this->wf->linker(
-					$link.$key,
-					NULL,
-					NULL,
-					TRUE
-				));
-
-				if(!$val[1][7])
-					$val[1][7] = array("session:admin");
-				
-			
-				$perm = $this->check_permission(
-					&$val[1][7]
-				);
-				
-				if($perm == true) {
-					if($use) {
-						if(isset($dir[$pos]) && $dir[$pos] == $key) {
-							$char = "* ";
-							$title .= ":: ".$val[1][5]." ";
-						}
-						else
-							$char = NULL;
-						
-						/* show icon */
-						if(isset($val[1][8])) {
-							$icon = '<img height="16" width="16" src="'.
-								htmlentities($this->wf->linker($val[1][8], NULL, NULL, TRUE)).
-								'"/>';
-						}
-						else
-							$icon = '';
-						
-						$buf .= '<li>'.$icon.'<a href="'.
-							$linked.
-							'">'.$val[1][5].
-							"</a>\n";
-							
-						$this->page_js_route_c++;
-					}
-					
-					$in = array(
-						"label" => $val[1][5],
-						"link" => $linked
-					);
-					$toadd = TRUE;
-				}
-			}
-			else if(
-				isset($val[1]) &&
-				$val[1][2] == WF_ROUTE_REDIRECT && 
-				$val[1][5] == WF_ROUTE_SHOW
-				) {
-				$linked = htmlentities($this->wf->linker(
-					$link.$key,
-					NULL,
-					NULL,
-					TRUE
-				));
-				
-				if(!isset($val[1][6]))
-					$val[1][6] = array("session:admin");
-
-				$perm = $this->check_permission(
-					&$val[1][6]
-				);
-				if($perm == true) {
-					if($use) {
-						if(isset($dir[$pos]) && $dir[$pos] == $key) {
-							$char = "* ";
-							$title .= ":: ".$val[1][5]." ";
-						}
-						else
-							$char = NULL;
-						
-// 						if($itemdata == FALSE) {
-// 							$buf .= 'itemdata: ['."\n";
-// 							$itemdata = TRUE;
-// 						}
-						
-						$buf .= '<li><a href="'.
-							$linked.
-							'">'.
-							$val[1][4].
-							"</a>\n";
-						
-						$this->page_js_route_c++;
-					}
-					$in = array(
-						"label" => $val[1][4],
-						"link" => $linked
-					);
-					$toadd = TRUE;
-				}
-			}
-
-			if(isset($val[0]) && is_array($val[0])) {
-				
-				$r = $this->generate_li(
-					&$val[0], 
-					&$dir, 
-					$pos+1,
-					&$title,
-					&$in["children"],
-					$link.
-					"$key/",
-					$use
-				);
-				
-				if(strlen($r) > 0) {
-					$buf .='<ul>'."\n".
-						$r.
-						"</ul>\n";
-				}	
-			}
-			
-			if($toadd) {
-				$arr[] = $in;
-				$buf .= "</li>\n";
-			}
-			
-		}
-		
-
-		return($buf);
+	public $html_title = null;
+	public function set_title($title) {
+		$this->a_core_html->set_title($title);
+		$this->html_title = $title;
 	}
 	
-	private $page_menu = array();
-	private $page_js_route;
-	private $page_js_route_c = 0;
+	/* Header getter/setter */
+	private $setmode_header = false;
+	public $html_header = null;
+	public function header_append($html) {
+		$this->html_header .= $html;
+	}
+	public function header_set($html) {
+		$this->html_header = $html;
+		$this->setmode_header = true;
+	}
 	
-	private function generate_route() {
-		$dir = explode("/", $_SERVER["PATH_INFO"]);
+	/* Footer getter/setter */
+	private $setmode_footer = false;
+	public $html_footer = null;
+	public function footer_append($html) {
+		$this->html_footer .= $html;
+	}
+	public function footer_set($html) {
+		$this->html_footer = $html;
+		$this->setmode_footer = true;
+	}
+	
+	/* Backlink */
+	public $html_backlink = null;
+	public function set_backlink($link, $text="Back", $icon="back") {
+		$this->html_backlink = array($link, $text, $icon);
+	}
+	
+	public function renderlinks($options=array()) {
+	
+		if(array_key_exists("body", $options))
+			$body = $options["body"];
+		else $body = null;
+		
+		if(array_key_exists("header", $options))
+			$header = $options["header"];
+		else $header = true;
+		
+		if(array_key_exists("footer", $options))
+			$footer = $options["footer"];
+		else $footer = true;
+
+		if(array_key_exists("template", $options))
+			$template = $options["template"];
+		else $template = 'admin/routes';
+		
+		$tpl = new core_tpl($this->wf);
+
+		$this->set_title($this->a_core_request->channel[0][5]);
+	
+		/* make real url */
+		$rurl = '';
+		$dir = explode("/", $this->a_core_request->channel[3]);
+		$nav = &$this->a_core_route->routes;
 		$start = 1;
 		
 		/* checking lang context if available */
-		if($this->a_core_lang->check_lang_route($dir[1]))
+		if($this->a_core_lang->check_lang_route(isset($dir[1]) ? $dir[1] : NULL))
 			$start++;
-			
-		$title = NULL;
-		
-		/* trouve la route necessaire */
-		$sdir = explode("/", $this->start_route);
-		$selected_route = &$this->a_core_route->routes[0];
-		$found = TRUE;
-		
-		for($a=1; $a<count($sdir); $a++) {
-			$val = &$sdir[$a];
-			if(array_key_exists($val, $selected_route)) {
-				$selected_route = &$selected_route[$val][0];
-			}
-			else {
-				$found = FALSE;
+		for($i=$start; $i<count($dir); $i++) {
+			if(isset($nav[0][$dir[$i]]))
+				$nav = &$nav[0][$dir[$i]];
+			else
 				break;
+			$rurl .= "/".$dir[$i];
+		}
+		
+		$sub_channels = $this->a_core_route->get_sub_channel($rurl."/p");
+		
+		/* check subchannels permission */
+		foreach($sub_channels as $k => $chan) {
+			/* create channel link */
+			$sub_channels[$k]["link"] = $this->wf->linker("$rurl/$chan[key]");
+			
+			if(!is_array($chan["perm"]))
+				unset($sub_channels[$k]);
+			else {
+				$r = $this->check_permission($chan["perm"]);
+				if(!$r)
+					unset($sub_channels[$k]);
 			}
 		}
-		if(!$found) {
-			$selected_route = &$this->a_core_route->routes[0];
-			$dft_route = $this->start_route;
-		}
-		else
-			$dft_route = $this->start_route."/";
-
-			
-		/* lance la génération de la liste */
-		$buf = '<ul>'."\n".
-			$this->generate_li(
-				&$selected_route,
-				&$dir,
-				$start,
-				&$title,
-				&$this->page_menu,
-				$dft_route
-			).
-			'</ul>'."\n";
 		
-		$this->page_js_route = $buf;
-
-		return(TRUE);
+		/* order by name */
+		uasort($sub_channels, array($this, 'renderlinks_order'));
+		
+		$in = array(
+			"subchans" => $sub_channels,
+			"url" => $rurl,
+			"channel" => $this->a_core_request->channel[0],
+			"body" => $body
+			
+		);	 
+		$tpl->set_vars($in);
+		$this->rendering($tpl->fetch($template));
+		exit(0);
 	}
+	
+	public function renderlinks_order($a, $b) {
+		if ($a['name'] == $b['name']) return(0);
+		return ($a['name'] < $b['name']) ? -1 : 1;
+	}
+	
+	/* Rendering */
+	public function rendering($body, $header=true, $footer=true) {		
+		$tmp = '';
+
+		$this->lang = $this->a_core_lang->get_context($this->template);
+		
+		$tpl = $this->tpl;
+
+		
+// 		/* add the bottom */
+// 		$this->add_bottom(
+// 			$this->lang->ts(array(
+// 				"%s SQL requests", 
+// 				$this->wf->db->get_request_counter()
+// 			))
+// 		);
+// 		
+// 		$this->add_bottom(
+// 			$this->lang->ts(array(
+// 				"on <strong>%s</strong> - %s", 
+// 				php_uname("n"),
+// 				$_SERVER["REMOTE_ADDR"]
+// 			))
+// 		);
+// 		
+// 		/* last */
+// 		$this->add_bottom(
+// 			$this->lang->ts(array(
+// 				"engine took %f ms", 
+// 				microtime(TRUE) - $this->wf->time_start
+// 			))
+// 		);
+// 		
+// 		$tpl->set('bottom', $this->page_bottom);
+
+		/* header rendering */
+		if(!$this->setmode_header) {
+			if($this->html_backlink) {
+				$tmp = '<a href="'.$this->html_backlink[0].
+					'" data-icon="'.$this->html_backlink[2].
+					'" data-iconpos="notext" data-direction="reverse">'.
+					$this->html_backlink[1].
+					'</a>';
+			}
+			$tmp .= '<h1>'.$this->html_title.'</h1>'.
+				'<a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>';
+			if($this->html_header)
+				$tmp = $this->html_header.$tmp;
+			$this->html_header = $tmp;
+		}
+		
+		/* Footer rendering */
+		if(!$this->setmode_header) {
+			$tmp = '<p>&copy; 2012 <a href="http://wiki.owf.re" target="_blank">Open Web Framework</a> 2006-2012</p>';
+			if($this->html_footer)
+				$tmp = $this->html_footer.$tmp;
+			$this->html_footer = $tmp;
+		}
+		
+		/* the body .. */
+		$in = array(
+			"header_bool" => $header,
+			"footer_bool" => $footer,
+			"title" => $this->html_title,
+			"header" => $this->html_header,
+			"body" => $body,
+			"footer" => $this->html_footer,
+			"backlink" => $this->html_backlink,
+		);	 
+		$tpl->set_vars($in);
+	
+		$this->wf->core_html()->rendering($tpl->fetch($this->template));
+	}
+	
 
 	private function check_permission($val) {
 		foreach($val as $k => $v) {
