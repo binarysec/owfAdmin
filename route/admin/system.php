@@ -3,6 +3,7 @@
 class wfr_admin_admin_system extends wf_route_request {
 	public function __construct($wf) {
 		$this->wf = $wf;
+		$this->a_admin_html = $this->wf->admin_html();
 	}
 
 	public function show() {
@@ -11,7 +12,8 @@ class wfr_admin_admin_system extends wf_route_request {
 		$in = array(			
 		);	 
 		$tpl->set_vars($in);
-		$this->wf->admin_html()->renderlinks(array(
+		$this->a_admin_html->set_backlink($this->wf->linker('/admin'));
+		$this->a_admin_html->renderlinks(array(
 			"body" => $tpl->fetch('admin/system/index'),
 		));
 	}
