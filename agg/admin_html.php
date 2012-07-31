@@ -46,14 +46,16 @@ class admin_html extends wf_agg {
 		$this->a_core_route = $this->wf->core_route();
 		$this->a_core_request = $this->wf->core_request();
 		$this->_session = $this->wf->session();
-		$this->a_core_lang= $this->wf->core_lang();
-		$this->a_core_html= $this->wf->core_html();
+		$this->a_core_lang = $this->wf->core_lang();
+		$this->a_core_html = $this->wf->core_html();
+		$this->a_core_cipher = $this->wf->core_cipher();
 		
 		if(isset($this->wf->ini_arr["admin"]["start_route"]))
 			$this->start_route = $this->wf->ini_arr["admin"]["start_route"];
 		
 		$this->tpl = new core_tpl($this->wf);
-
+		
+		$this->div_set("data-role", "page");
 		$this->no_zoom();
 	}
 	
@@ -103,9 +105,13 @@ class admin_html extends wf_agg {
 	public function set_backlink($link, $text="Back", $icon="back") {
 		$this->html_backlink = array($link, $text, $icon);
 	}
-	
+
+	/* div */
+	public $html_div = array();
+	public function div_set($var, $val) {
+		$this->html_div[$var] = $val;
+	}
 	public function renderlinks($options=array()) {
-	
 		if(array_key_exists("body", $options))
 			$body = $options["body"];
 		else $body = null;
@@ -142,7 +148,7 @@ class admin_html extends wf_agg {
 				break;
 			$rurl .= "/".$dir[$i];
 		}
-		
+// 		var_dump($rurl);
 		$sub_channels = $this->a_core_route->get_sub_channel($rurl."/p");
 		
 		/* check subchannels permission */
@@ -153,8 +159,13 @@ class admin_html extends wf_agg {
 			if(!is_array($chan["perm"]))
 				unset($sub_channels[$k]);
 			else {
+				/* check channel permissions */
 				$r = $this->check_permission($chan["perm"]);
 				if(!$r)
+					unset($sub_channels[$k]);
+					
+				/* check visibility */
+				if($chan["visible"] != WF_ROUTE_SHOW)
 					unset($sub_channels[$k]);
 			}
 		}
@@ -223,15 +234,20 @@ class admin_html extends wf_agg {
 					$this->html_backlink[1].
 					'</a>';
 			}
+			$opt_lnk = $this->options_link();
+			$opt_text = $this->lang->ts("Options");
 			$tmp .= '<h1>'.$this->html_title.'</h1>'.
-				'<a href="index.html" data-icon="gear" class="ui-btn-right">Options</a>';
+				'<a href="'.$opt_lnk.'" data-icon="gear" data-transition="pop" class="ui-btn-right">'.$opt_text.'</a>';
 			if($this->html_header)
 				$tmp = $this->html_header.$tmp;
-			$this->html_header = $tmp;
+			$this->html_header = 
+				'<div data-role="header" data-theme="a" data-position="fixed">'.
+				$tmp.
+				'</div>';
 		}
 		
 		/* Footer rendering */
-		if(!$this->setmode_header) {
+		if(!$this->setmode_footer) {
 			$tmp = '<p>&copy; 2012 <a href="http://wiki.owf.re" target="_blank">Open Web Framework</a> 2006-2012</p>';
 			if($this->html_footer)
 				$tmp = $this->html_footer.$tmp;
@@ -246,15 +262,50 @@ class admin_html extends wf_agg {
 			"header" => $this->html_header,
 			"body" => $body,
 			"footer" => $this->html_footer,
+			"divs" => $this->html_div,
 			"backlink" => $this->html_backlink,
 		);	 
-		$tpl->set_vars($in);
+		$tpl->merge_vars($in);
 	
 		$this->wf->core_html()->rendering($tpl->fetch($this->template));
 	}
 	
+	
+	public function rendering_options($body, $mode="dialog") {	
+		$this->div_set("data-theme", "a");
+		
+		/* build the header */
+		$blink = $this->a_core_cipher->get_var('back');
+		if(!$blink)
+			exit(0);
+			
+		/* build the header */
+		if($mode == "dialog") {
+			$this->html_header = 
+				'<div data-role="header">'."\n".
+				"<h1>".$this->html_title."</h1>\n".
+				'</div>'."\n"
+				;
+			$this->setmode_header = true;
+		}
+		
+		$this->rendering($body, true, false);
+		
+	}
+	
+	public function check_options_policy($uid, &$info=null) {
+		/* view information of all users */
+		if($uid != $this->_session->session_me["id"]) {
+			if(!$this->check_permission(array("session:manage")))
+				return(false);
+		}
+		$info = $this->_session->user->get(array("id" => $uid));
+		$info = $info[0];
+		return(true);
+	}
+	
 
-	private function check_permission($val) {
+	public function check_permission($val) {
 		foreach($val as $k => $v) {
 			if($v == "session:anon" && $this->wf->ini_arr["session"]["allow_anonymous"]) 
 				return(true);
@@ -269,4 +320,11 @@ class admin_html extends wf_agg {
 		return(false);
 	}
 
+	public function options_link() {
+		$lnk = $this->wf->linker("/admin/options");
+		$blink = $this->a_core_cipher->encode($_SERVER["REQUEST_URI"]);
+		$r = "$lnk?back=$blink";
+		return($r);
+	}
+	
 }

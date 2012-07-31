@@ -1,5 +1,5 @@
 <?php
- 
+
 class wfm_admin extends wf_module {
 	public function __construct($wf) {
 		$this->wf = $wf;
@@ -28,6 +28,15 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Administration"),
 				WF_ROUTE_SHOW,
+				array("admin"),
+			),
+			
+			"/admin/options" => array(
+				WF_ROUTE_ACTION,
+				"admin/options",
+				"show",
+				$this->ts("Options"),
+				WF_ROUTE_HIDE,
 				array("admin"),
 			),
 			

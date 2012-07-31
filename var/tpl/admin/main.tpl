@@ -3,16 +3,12 @@
 %{js '/data/js/jquery-1.7.js'}%
 %{js '/data/js/jquery.mobile.min.js'}%
 
-<div data-role="page"> 
+<div %{foreach $divs as $k => $v}%%{$k}%="%{$v}%" %{/foreach}%> 
 	%{if $header_bool}%
-	<div data-role="header" data-theme="a" data-position="fixed">
 		%{$header}%
-	</div>
-	%{else}%
-	<div data-role="header" data-theme="a" data-position="fixed"></div>
 	%{/if}%
 	
-	<div data-role="content" data-theme="b">
+	<div data-role="content">
 	%{$body}%
 	</div>
 
@@ -20,7 +16,5 @@
 	<div data-role="footer" class="footer-docs" data-theme="c">
 		%{$footer}%
 	</div>
-	%{else}%
-	<div data-role="footer" class="footer-docs" data-theme="c"></div>
 	%{/if}%
 </div>
