@@ -7,23 +7,20 @@
 
 	<p class="intro"></p>
 	<ul data-role="listview" data-inset="true">
-		<li data-role="list-divider">%{@ "Vos informations"}%</li>
-		<li>%{$user['firstname']}% %{$user['name']}%</li>
-		<li>Email: %{$user['email']}%</li>
+		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['firstname']}% %{$user['name']}%</li>
+		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Email: %{$user['email']}%</li>
 		
 	%{if isset($perms["session:god"])}%
-	<li>Role: Super administrateur</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Super administrateur</li>
 	%{elseif isset($perms["session:admin"])}%
-	<li>Role: Administrateur</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Administrateur</li>
 	%{elseif isset($perms["session:simple"])}%
-	<li>Role: Utilisateur</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Utilisateur</li>
 	%{elseif isset($perms["session:ws"])}%
-	<li>Role: Service web</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Service web</li>
 	%{/if}%
-	
-		
-	</ul>
 
+	</ul>
 </div>
 <div class="content-primary">
 	<ul data-role="listview" data-inset="true">

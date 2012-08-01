@@ -11,8 +11,9 @@ class wfr_admin_admin_options extends wf_route_request {
 		$this->a_admin_html = $this->wf->admin_html();
 		$this->a_core_cipher = $this->wf->core_cipher();
 		$this->a_session = $this->wf->session();
+		
 		/* change global template for options */
-// 		$this->a_admin_html->template = 'admin/options/main';
+		$this->a_admin_html->template = 'admin/options/main';
 
 		$this->uid = null;
 	}
