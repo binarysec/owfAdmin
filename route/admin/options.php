@@ -37,6 +37,13 @@ class wfr_admin_admin_options extends wf_route_request {
 		if(!$burl)
 			exit(0);
 		
+		/* rendering using my template */
+		$theme = $this->a_core_cipher->get_var("theme");
+		if(!$theme)
+			$theme = "a";
+			
+		$this->a_admin_html->div_set("data-theme", $theme);
+		
 		$here = $this->a_core_cipher->encode($_SERVER['REQUEST_URI']);
 		$this->a_admin_html->set("backurl", $burl);
 		
@@ -48,7 +55,8 @@ class wfr_admin_admin_options extends wf_route_request {
 					$aopt["link"] = $this->wf->linker($aopt["route"])."?back=$here";
 					if($this->uid)
 						$aopt["link"] .= '&uid='.$this->uid;
-// 					$aopt["link"] = $aopt["link"];
+					if($theme)
+						$aopt["link"] .= '&theme='.$this->a_core_cipher->encode($theme);
 					array_push($this->aopts, $aopt);
 				}
 			}
@@ -62,8 +70,8 @@ class wfr_admin_admin_options extends wf_route_request {
 	
 		$tpl->set_vars($in);
 		
-		/* rendering using my template */
-		$this->a_admin_html->div_set("data-theme", "a");
+
+
 		$this->a_admin_html->set_backlink($burl);
 		$this->a_admin_html->rendering($tpl->fetch('admin/options/index'), true, false);
 		exit(0);

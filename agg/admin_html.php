@@ -272,8 +272,14 @@ class admin_html extends wf_agg {
 	
 	
 	public function rendering_options($body, $mode="dialog") {	
-		$this->div_set("data-theme", "a");
 		
+		/* get theme */
+		$theme = $this->a_core_cipher->get_var("theme");
+		if($theme)
+			$this->div_set("data-theme", $theme);
+		else
+			$this->div_set("data-theme", "a");
+			
 		/* build the header */
 		$blink = $this->a_core_cipher->get_var('back');
 		if(!$blink)
@@ -320,12 +326,14 @@ class admin_html extends wf_agg {
 		return(false);
 	}
 
-	public function options_link($uid=null) {
+	public function options_link($uid=null, $theme=null) {
 		$lnk = $this->wf->linker("/admin/options");
 		$blink = $this->a_core_cipher->encode($_SERVER["REQUEST_URI"]);
 		$r = "$lnk?back=$blink";
 		if($uid)
 			$r .= '&uid='.$uid;
+		if($theme)
+			$r .= '&theme='.$this->a_core_cipher->encode($theme);
 		return($r);
 	}
 	
