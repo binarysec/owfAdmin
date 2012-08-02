@@ -265,7 +265,7 @@ class admin_html extends wf_agg {
 			"divs" => $this->html_div,
 			"backlink" => $this->html_backlink,
 		);	 
-		$tpl->merge_vars($in);
+		$tpl->set_vars($in);
 	
 		$this->wf->core_html()->rendering($tpl->fetch($this->template));
 	}
@@ -320,10 +320,12 @@ class admin_html extends wf_agg {
 		return(false);
 	}
 
-	public function options_link() {
+	public function options_link($uid=null) {
 		$lnk = $this->wf->linker("/admin/options");
 		$blink = $this->a_core_cipher->encode($_SERVER["REQUEST_URI"]);
 		$r = "$lnk?back=$blink";
+		if($uid)
+			$r .= '&uid='.$uid;
 		return($r);
 	}
 	

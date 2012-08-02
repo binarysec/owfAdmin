@@ -5,7 +5,7 @@
 
 <div %{foreach $divs as $k => $v}%%{$k}%="%{$v}%" %{/foreach}%> 
 	<div data-role="header" data-theme="a" data-position="fixed">
-		<a href="%{$backlink}%" data-icon="back" data-iconpos="notext" data-direction="reverse">Back</a>
+		<a href="%{$backlink[0]|html}%" data-icon="back" data-iconpos="notext" data-direction="reverse">Back</a>
 		<h1>%{$title}%</h1>
 	</div>
 	

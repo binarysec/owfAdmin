@@ -48,13 +48,13 @@ class wfr_admin_admin_options extends wf_route_request {
 					$aopt["link"] = $this->wf->linker($aopt["route"])."?back=$here";
 					if($this->uid)
 						$aopt["link"] .= '&uid='.$this->uid;
+// 					$aopt["link"] = $aopt["link"];
 					array_push($this->aopts, $aopt);
 				}
 			}
 		}
-		
+
 		$in = array(
-			"backurl" => $burl,
 			"aopts" => $this->aopts,
 			"user" => $user,
 			"perms" => $perms
