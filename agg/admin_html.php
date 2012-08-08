@@ -39,7 +39,6 @@ class admin_html extends wf_agg {
 	public $template = "admin/main";
 	
 	public function loader($wf) {
-		$this->wf = $wf;
 		/* non cachable page */
 		$wf->no_cache();
 		
