@@ -150,10 +150,12 @@ class admin_html extends wf_agg {
 // 		var_dump($rurl);
 		$sub_channels = $this->a_core_route->get_sub_channel($rurl."/p");
 		
+		$here = $this->a_core_cipher->encode($_SERVER['REQUEST_URI']);
+		
 		/* check subchannels permission */
 		foreach($sub_channels as $k => $chan) {
 			/* create channel link */
-			$sub_channels[$k]["link"] = $this->wf->linker("$rurl/$chan[key]");
+			$sub_channels[$k]["link"] = $this->wf->linker("$rurl/$chan[key]")."?back=".$here;
 			
 			if(!is_array($chan["perm"]))
 				unset($sub_channels[$k]);
