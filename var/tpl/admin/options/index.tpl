@@ -7,17 +7,15 @@
 
 	<p class="intro"></p>
 	<ul data-role="listview" data-inset="true">
-		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['firstname']}% %{$user['name']}%</li>
-		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Email: %{$user['email']}%</li>
+		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['firstname']}% %{$user['name']}% / %{$user['username']}%</li>
+		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['email']}%</li>
 		
 	%{if isset($perms["session:god"])}%
-	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Super administrateur</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Super administrateur</li>
 	%{elseif isset($perms["session:admin"])}%
-	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Administrateur</li>
-	%{elseif isset($perms["session:simple"])}%
-	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Utilisateur</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Administrateur</li>
 	%{elseif isset($perms["session:ws"])}%
-	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Role: Service web</li>
+	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Service web</li>
 	%{/if}%
 
 	</ul>
