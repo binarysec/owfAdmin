@@ -5,7 +5,13 @@
 		<p>Gestion du compte de %{$user['firstname']}% %{$user['name']}%</p>
 	</div>
 
-	<p class="intro"></p>
+	<p class="intro">
+		<select tabindex="-1" name="select-choice-1" id="select-choice-custom" data-native-menu="false" data-mini="true">
+			<option value="standard">Langue Française</option>
+			<option value="rush">English Language</option>
+		</select>
+	</p>
+	
 	<ul data-role="listview" data-inset="true">
 		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['firstname']}% %{$user['name']}% / %{$user['username']}%</li>
 		<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">%{$user['email']}%</li>
@@ -19,6 +25,8 @@
 	%{/if}%
 
 	</ul>
+
+	
 </div>
 <div class="content-primary">
 	<ul data-role="listview" data-inset="true">
