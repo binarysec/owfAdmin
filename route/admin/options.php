@@ -21,12 +21,22 @@ class wfr_admin_admin_options extends wf_route_request {
 	
 	public function show() {
 		$this->uid = $this->wf->get_var("uid");
-		if(!$this->uid)
+		$self_edition = false;
+		
+		if(!$this->uid) {
 			$this->uid = $this->a_session->session_me["id"];
+			$self_edition = true;
+		}
 		
 		$r = $this->a_admin_html->check_options_policy($this->uid, $user);
-		if(!$r)
+		if(is_null($user)) {
+			$this->wf->display_error(500);
 			exit(0);
+		}
+		if(!$r) {
+			$this->wf->display_error(403);
+			exit(0);
+		}
 		
 		$perms = $this->a_session->perm->user_get($this->uid);
 		
@@ -34,8 +44,10 @@ class wfr_admin_admin_options extends wf_route_request {
 		
 		/* get back URL */
 		$burl = $this->a_core_cipher->get_var("back");
-		if(!$burl)
+		if(!$burl) {
+			$this->wf->display_error(500);
 			exit(0);
+		}
 		
 		/* rendering using my template */
 		$theme = $this->a_core_cipher->get_var("theme");
@@ -65,7 +77,8 @@ class wfr_admin_admin_options extends wf_route_request {
 		$in = array(
 			"aopts" => $this->aopts,
 			"user" => $user,
-			"perms" => $perms
+			"perms" => $perms,
+			"self_edition" => $self_edition,
 		);
 	
 		$tpl->set_vars($in);

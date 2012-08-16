@@ -101,8 +101,8 @@ class admin_html extends wf_agg {
 	
 	/* Backlink */
 	public $html_backlink = null;
-	public function set_backlink($link, $text="Back", $icon="back") {
-		$this->html_backlink = array($link, $text, $icon);
+	public function set_backlink($link, $text="Back", $icon="back", $showtext=false) {
+		$this->html_backlink = array($link, $text, $icon, $showtext ? "left" : "notext");
 	}
 
 	/* div */
@@ -231,7 +231,8 @@ class admin_html extends wf_agg {
 			if($this->html_backlink) {
 				$tmp = '<a href="'.$this->html_backlink[0].
 					'" data-icon="'.$this->html_backlink[2].
-					'" data-iconpos="notext" data-direction="reverse">'.
+					'" data-iconpos="'.$this->html_backlink[3].
+					'" data-direction="reverse">'.
 					$this->html_backlink[1].
 					'</a>';
 			}
@@ -307,7 +308,7 @@ class admin_html extends wf_agg {
 				return(false);
 		}
 		$info = $this->_session->user->get(array("id" => $uid));
-		$info = $info[0];
+		$info = isset($info[0]) ? $info[0] : null;
 		return(true);
 	}
 	

@@ -11,8 +11,15 @@ class wfr_admin_admin extends wf_route_request {
 		$in = array(			
 		);	 
 		$tpl->set_vars($in);
+		$this->wf->admin_html()->set_backlink(
+			$this->wf->linker("/session/logout"),
+			"Logout",
+			"delete",
+			true
+		);
 		$this->wf->admin_html()->renderlinks(array(
 			"body" => $tpl->fetch('admin/index'),
+			"backurl" => "foo",
 		));
 	}
 }
