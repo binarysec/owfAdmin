@@ -1,4 +1,5 @@
 %{css '/data/admin/css/jqm-docs.css'}%
+%{css '/data/admin/css/admin.css'}%
 %{css '/data/css/jquery.mobile.min.css'}%
 %{js '/data/js/jquery-1.7.js'}%
 %{js '/data/js/jquery.mobile.min.js'}%

@@ -1,5 +1,9 @@
+/* open web framework main style */
 
-/* open web framework */
-
+/* general */
 .owf-links { font-size: 12px; text-align: center; }
+.owf-footer { font-size: 12px; }
+
+/* page specific */
+.owf-login-dialog .ui-header .ui-btn-icon-notext { display: none; }
 .owf-login-field { text-align: right; padding-right: 5%; }

@@ -25,8 +25,12 @@
 	%{/if}%
 
 	</ul>
-
 	
+	%{if($self_edition)}%
+	<p>
+		<a href="%{link '/session/logout'}%" data-role="button" data-transition="slidedown">%{@ 'Logout'}%</a>
+	</p>
+	%{/if}%
 </div>
 <div class="content-primary">
 	<ul data-role="listview" data-inset="true">
