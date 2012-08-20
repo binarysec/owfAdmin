@@ -65,6 +65,9 @@ class wfr_admin_admin_system_preferences extends wf_route_request {
 		$this->a_admin_html->set_title(
 			$this->lang->ts("Gestionnaire des préférences")
 		);
+		$this->a_admin_html->set_backlink(
+			$this->wf->linker('/admin/system')
+		);
 		$this->a_admin_html->rendering(
 			$tpl->fetch('admin/system/preferences/list_groups')
 		);
@@ -76,49 +79,43 @@ class wfr_admin_admin_system_preferences extends wf_route_request {
 	 * Function used to receive a var modification form
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public function edit() {
-		/* get the input */
-		$i_variable = $_POST["name"];
-		$value = $_POST["value"];
-		$i_group=$_POST["group"];
+		$errors = array();
+		
+		/* get parameters */
+		$group = $this->wf->get_var('group');
+		$variable = $this->wf->get_var('variable');
+		$value = $this->wf->get_var('value');
 		
 		/* get all groups */
 		$list_key = array();
 		$groups = $this->a_core_pref->group_find();
-		foreach($groups as $group){
-			$list_key[$group["name"]] = $this->a_core_pref->register_group(
-				$group["name"]
+		foreach($groups as $grp) {
+			$list_key[$grp["name"]] = $this->a_core_pref->register_group(
+				$grp["name"]
 			);
-		}
-			
-		/* sanatize the group */
-		if(!$list_key[$i_group]) {
-			$this->wf->core_request()->set_header(
-				"Location",
-				$this->wf->linker("/")
-			);
-			$this->wf->core_request()->send_headers();
-			exit(0);
 		}
 		
-		/* sanatize the variable */
-		$all_vars = $list_key[$i_group]->get_all($i_variable);
-		if(!$all_vars[$i_variable]) {
-			$this->wf->core_request()->set_header(
-				"Location",
-				$this->wf->linker("/")
-			);
-			$this->wf->core_request()->send_headers();
-			exit(0);
-		}
-		/* set input */
-		$list_key[$i_group]->set_value($i_variable, $value);
+		/* sanatize the group */
+		if(isset($list_key[$group])) {
+			
+			/* sanatize the variable */
+			$all_vars = $list_key[$group]->get_all($variable);
+		
+			if(isset($all_vars[$variable])) {
+				/* set input */
+				$list_key[$group]->set_value($variable, $value);
 
-		/* return to the good page */
-		$this->wf->core_request()->set_header(
-			"Location",
-			$this->wf->linker("/admin/system/preferences/")
-		);
-		$this->wf->core_request()->send_headers();
+				/* return to the good page */
+				$this->wf->redirector($this->wf->linker("/admin/system/variables"));
+				exit(0);
+			}
+			else
+				$errors[] = $this->lang->ts("This variable does not exist");
+		}
+		else
+			$errors[] = $this->lang->ts("This group does not exist");
+		
+		$this->wf->display_msg("core_pref error", $errors[0]);
 		exit(0);
 	}
 	
