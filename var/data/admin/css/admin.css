@@ -7,4 +7,5 @@
 .owf-dialog .ui-header .ui-btn-icon-notext { display: none; }
 
 /* page specific */
-.owf-login-field { text-align: right; padding-right: 5%; }
+.owf-login-field { text-align: center; }
+.owf-login-field input { text-align: center; }

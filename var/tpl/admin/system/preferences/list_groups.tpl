@@ -1,117 +1,49 @@
-%{js '/data/js/jquery-1.5.js'}%
-%{js '/data/js/jquery-ui-1.8.js'}%
-
-<script type="text/javascript">
-	$(function() {
-		$("div.accordion_group").accordion({ 
-			active: false, 
-			clearStyle: true, 
-			collapsible: true, 
-			autoHeight: true
-		});
-		
-		$("button.edit_button").button({ 
-			icons: {
-				primary:'ui-icon-gear'
-			}
-		});
-		
-		$("#dialog").dialog({
-			width: 500,
-			modal: true,
-			autoOpen: false,
-			resizable: false,
-			buttons: { 
-				OK: function() {
-					$("#form_edit_var").submit();
-				},
-				Cancel: function() {
-					$("#dialog").dialog("close");
-				}
-			}
-		});
-		
-		$("button.edit_button").click(function() { 
-			$("#dialog").dialog("option", "position", 'center');
-			$("#dialog").dialog("open");
-			
-			return(false);
-		});
-	});
-	
-	function set_edit_var_single(a_description, a_name, a_default, a_value,a_group) {	
-		var field_description = document.getElementById('var_edit_simple_description');
-		var field_group = document.getElementById('var_edit_simple_group');
-		var field_showname = document.getElementById('var_edit_simple_showname');
-		var field_default = document.getElementById('var_edit_simple_default');
-		var field_value = document.getElementById('var_edit_simple_value');
-		var field_name_hid = document.getElementById('var_edit_simple_name');
-		field_description.innerHTML = a_description;
-		field_group.value = a_group;
-		field_showname.innerHTML = a_name;
-		field_name_hid.value = a_name;
-		field_default.innerHTML = a_default;
-		field_value.value = a_value;
-	}
+<script>
+	$(document).delegate('.opendialog', 'click', function() {
+		$('<div>').simpledialog2({
+		mode: 'blank',
+		headerText: 'Some Stuff',
+		headerClose: true,
+		dialogAllow: true,
+		dialogForce: true,
+		blankContent : 
+			"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul>" +
+			// NOTE: the use of rel="close" causes this button to close the dialog.
+			"<a rel='close' data-role='button' href='#'>Close</a>"
+		})
+	})
 </script>
 
-<h1><img src="%{link '/data/admin/img/title_pref.png'}%" alt="%{@ 'Preference variables'}%" title="%{@ 'Preference variables'}%" />%{@ 'Preference variables'}%</h1>
+<div class="content-secondary">
+	<div id="jqm-homeheader">
+		<h1 id="jqm-logo"><img src="%{link '/data/admin/images/title_pref.png'}%" alt="%{@ 'OWF SMTP'}%" /></h1>
+		<p>%{@ 'Configuration des variables'}%</p>
+	</div>
 
-<div id="dialog" title="%{@ 'Edit a variable'}%">
-	<form id="form_edit_var" class="form_dialog" method="post" action="%{link '/admin/system/preferences/variables/edit'}%">
-		<input type="hidden" id="var_edit_simple_group" name="group" value=""/>
-		<input type="hidden" id="var_edit_simple_name" name="name" value=""/>
-		<table>
-			<tr>
-				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Nom'}%&nbsp;:</td>
-				<td><span class="base_text" id="var_edit_simple_showname"></span></td>
-			</tr>
-			<tr>
-				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Description'}%&nbsp;:</td>
-				<td><span class="base_text" id="var_edit_simple_description"></span></td>
-			</tr>
-			<tr>
-				<td style="width: 80px;text-align: right;padding-right: 6px;">%{@ 'Defaut'}%&nbsp;:</td>
-				<td><span class="base_text" id="var_edit_simple_default"></span></td>
-			</tr>	
-			<tr>
-				<td style="width: 80px;text-align: right;padding-right: 6px;"><label for="var_edit_simple_value" class="base_text">%{@ 'Valeur'}%&nbsp;:</label></td>
-				<td><input type="text" id="var_edit_simple_value" name="value" value="" /></td>
-			</tr>
-		</table>
-	</form>
+	<p class="intro">%{@ 'Vous pouvez configurer ici toutes les variables de votre application <strong>OWF</strong>.'}%</p>
 </div>
-		
-%{foreach $groups as $group=>$val}%
-<div class="accordion_group">
-	<h3><a href="#">%{$group}%</a></h3>
-	<div id="search_%{$group}%">
+
+<div class="content-primary">
 	
-	%{foreach $val as $k=>$v}%
-		<div style="margin-bottom: 2px; padding: 3px;" class="ui-widget ui-widget-content ui-corner-all">
-		<table width="100%" border="0" cellpadding="2" cellspacing="0">
-			<tr>
-				<td>
-				<strong>%{$v["description"]}%</strong><br/>
-				Variable : <i>%{$v["variable"]}%</i><br/>
-				Valeur : %{$v["value"]}%
-				</td>
-
-				<td align="right" valign="bottom">
-				<button class="edit_button" onclick="
-					set_edit_var_single(
-						'%{$v['description']}%', 
-						'%{$v['variable']}%', 
-						'%{$v['dft']}%', 
-						'%{$v['value']}%',
-						'%{$group}%'
-						);">%{@ 'éditer'}%</button>
-				</td>
-
-			</tr>
-		</table>
+	<div data-role="collapsible-set">
+	%{foreach $groups as $group => $val}%
+		<div data-role="collapsible" data-theme="b">
+			<h3>%{$group}%</h3>
+			
+				<ul data-role="listview">
+					%{foreach $val as $k=>$v}%
+					
+						<li data-role="fieldcontain">
+							<a href="#" class="opendialog">
+								<strong>%{$v["variable"]}%</strong>&nbsp;(%{$v["description"]}%) <i>%{$v["value"]}%</i>
+							</a>
+						</li>
+						
+					%{/foreach}%
+				</ul>
+			
 		</div>
 	%{/foreach}%
 	</div>
+	
 </div>
-%{/foreach}%

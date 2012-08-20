@@ -67,33 +67,22 @@ class wfm_admin extends wf_module {
 				array("admin:system")
 			),
 			
-// 			/* preference edition */
-// 			"/admin/system/preferences" => array(
-// 				WF_ROUTE_REDIRECT,
-// 				"/admin/system/preferences/variables",
-// 				$this->ts("Préférences système"),
-// 				WF_ROUTE_SHOW,
-// 				array("admin:system:preferences")
-// 			),
-// 			
-// 			"/admin/system/preferences/variables" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/preferences",
-// 				"show_groups",
-// 				$this->ts("Préférences des variables"),
-// 				WF_ROUTE_SHOW,
-// 				array("admin:system:preferences")
-// 			),
-// 			"/admin/system/preferences/variables/edit" => array(
-// 				WF_ROUTE_ACTION,
-// 				"system/preferences",
-// 				"edit_var",
-// 				"Préférences système",
-// 				WF_ROUTE_HIDE,
-// 				array("admin:system:preferences")
-// 			),
-
-			
+			"/admin/system/variables" => array(
+ 				WF_ROUTE_ACTION,
+ 				"admin/system/preferences",
+ 				"show",
+ 				$this->ts("Préférences des variables"),
+ 				WF_ROUTE_SHOW,
+ 				array("admin:system:preferences")
+ 			),
+ 			"/admin/system/variables/edit" => array(
+ 				WF_ROUTE_ACTION,
+ 				"admin/system/preferences",
+ 				"edit",
+ 				"",
+ 				WF_ROUTE_HIDE,
+ 				array("admin:system:preferences")
+ 			),
 		));
 	}
 
