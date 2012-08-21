@@ -10,7 +10,9 @@ class wfm_admin extends wf_module {
 	public function get_banner()  { return("admin/1.4.0"); }
 	public function get_version() { return("1.4.0"); }
 	public function get_authors() { return(array("Michael VERGOZ")); }
-	public function get_depends() { return(NULL); }
+	public function get_depends() {
+		return(array("core"));
+	}
 	
 	public function session_permissions() {
 		return(array(
@@ -44,6 +46,15 @@ class wfm_admin extends wf_module {
 				"admin/options",
 				"show",
 				$this->ts("Options"),
+				WF_ROUTE_HIDE,
+				array("admin"),
+			),
+			
+			"/admin/options/edit" => array(
+				WF_ROUTE_ACTION,
+				"admin/options",
+				"edit",
+				"",
 				WF_ROUTE_HIDE,
 				array("admin"),
 			),

@@ -1,3 +1,12 @@
+<script>
+	$(function() {
+		$("#admin-options-lang").change(function() {
+			var a = $("#admin-options-lang").val();
+			$.post("%{link '/admin/options/edit'}%", {f: "lang", v: a});
+		});
+	});
+</script>
+
 <div class="content-secondary">
 
 	<div id="jqm-homeheader">
@@ -6,9 +15,10 @@
 	</div>
 
 	<p class="intro">
-		<select tabindex="-1" name="select-choice-1" id="select-choice-custom" data-native-menu="false" data-mini="true">
-			<option value="standard">Langue Française</option>
-			<option value="rush">English Language</option>
+		<select id="admin-options-lang" data-native-menu="false" data-mini="true">
+			%{foreach($langs as $lang)}%
+				<option value="%{$lang['code']}%" %{if($lang['code']==$lang_cur)}%selected=selected%{/if}%>%{$lang['name']}%</option>
+			%{/foreach}%
 		</select>
 	</p>
 	
@@ -35,7 +45,7 @@
 <div class="content-primary">
 	<ul data-role="listview" data-inset="true">
 		%{foreach $aopts as $aopt}%
-		<li %{if $aopt['icon']}%data-icon="%{$aopt['icon']}%"%{/if}%>
+		<li %{if isset($aopt['icon'])}%data-icon="%{$aopt['icon']}%"%{/if}%>
 			<a href="%{$aopt['link']|html}%">
 				%{$aopt['text']}%
 			</a>

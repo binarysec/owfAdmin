@@ -12,12 +12,15 @@ class wfr_admin_admin_options extends wf_route_request {
 		$this->a_core_cipher = $this->wf->core_cipher();
 		$this->a_session = $this->wf->session();
 		
+		$this->lang = $this->wf->core_lang()->get_context(
+			"admin/options"
+		);
+		
 		/* change global template for options */
 		$this->a_admin_html->template = 'admin/options/main';
-
+		
 		$this->uid = null;
 	}
-	
 	
 	public function show() {
 		$this->uid = $this->wf->get_var("uid");
@@ -79,16 +82,34 @@ class wfr_admin_admin_options extends wf_route_request {
 			"user" => $user,
 			"perms" => $perms,
 			"self_edition" => $self_edition,
+			"langs" => $this->wf->core_lang()->get_list(),
+			"lang_cur" => $this->a_session->session_me['lang'],
 		);
 	
 		$tpl->set_vars($in);
-		
-
 
 		$this->a_admin_html->set_backlink($burl);
+		$this->a_admin_html->set_title($this->lang->ts("User options"));
 		$this->a_admin_html->rendering($tpl->fetch('admin/options/index'), true, false);
 		exit(0);
 	}
 	
+	public function edit() {
+		$field = $this->wf->get_var("f");
+		$value = $this->wf->get_var("v");
+		
+		if(strlen($field) > 0 && strlen($value) > 0) {
+			if($field == "lang") {
+				if($this->wf->core_lang()->resolv($value)) {
+					$this->a_session->user->modify(
+						array("lang" => $value),
+						(int)$this->a_session->session_me["id"]
+					);
+				}
+			}
+		}
+		
+		exit(0);
+	}
+	
 }
-
