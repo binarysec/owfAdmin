@@ -9,6 +9,8 @@ class wfr_admin_admin_system_information extends wf_route_request {
 	public function __construct($wf) {
 		$this->wf = $wf;
 		$this->a_admin_html = $this->wf->admin_html();
+		
+		$this->lang = $this->wf->core_lang()->get_context("system/information");
 	}
 	
 	
@@ -47,6 +49,8 @@ class wfr_admin_admin_system_information extends wf_route_request {
 		);
 	
 		$tpl->set_vars($in);
+		
+		$this->a_admin_html->set_title($this->lang->ts("System informations"));
 		
 		/* Add back button */
 		$this->a_admin_html->set_backlink($this->wf->linker('/admin/system'));

@@ -2,7 +2,25 @@
 	$(document).delegate('.opendialog', 'click', function() {
 		var	variable = $(this).children(".core-pref-variable").val(),
 			group = $(this).children(".core-pref-group").val(),
-			value = $(this).children(".core-pref-value").val();
+			value = $(this).children(".core-pref-value").val(),
+			pref_type = $(this).children(".core-pref-type").val(),
+			type = "text",
+			input = '';
+		
+		if(pref_type == %{const CORE_PREF_NUM}%)
+			type = "number"
+		
+		if(	pref_type == %{const CORE_PREF_NUM}% ||
+			pref_type == %{const CORE_PREF_VARCHAR}% ||
+			pref_type == %{const CORE_PREF_DATA}% ||
+			pref_type == %{const CORE_PREF_HIDDEN}%
+			)
+			input = "<input style='text-align: center;' type='" + type + "' name='value' value='" + value + "' />";
+		else if(pref_type == %{const CORE_PREF_BOOL}%)
+			input =	"<select name='value' data-role='slider'>" +
+						"<option value='0'>Off</option>" +
+						"<option value='1'" + (value ? " selected" : "") + ">On</option>" +
+					"</select>";
 		
 		$('<div>').simpledialog2({
 			mode: 'blank',
@@ -11,12 +29,12 @@
 			dialogAllow: true,
 			dialogForce: true,
 			blankContent : 
-				"<p><center><form action='%{link "/admin/system/variables/edit"}%'>" +
+				"<p><center><form action='%{link '/admin/system/variables/edit'}%'>" +
 					"<input type='hidden' name='variable' value='" + variable + "' />" +
 					"<input type='hidden' name='group' value='" + group + "' />" +
-					"Editing variable \"" + variable + "\" of group \""  + group + "\" : " +
-					"<label><input style='text-align: center;' type='text' name='value' value='" + value + "' /></label>" +
-					"<input type='submit' data-role='button' value='%{@ "Submit"}%' />" +
+					"Editing variable \"" + variable + "\" of group \""  + group + "\" : <br/>" +
+					"<label>" + input + "</label>" +
+					"<input type='submit' data-role='button' value='%{@ 'Submit'}%' />" +
 					"<a rel='close' data-role='button' href='#'>Close</a>" +
 				"</form></center></p>"
 		})
@@ -45,9 +63,14 @@
 					<input class="core-pref-variable" type="hidden" value="%{$v['variable']}%" />
 					<input class="core-pref-group" type="hidden" value="%{$group}%" />
 					<input class="core-pref-value" type="hidden" value="%{$v['value']}%" />
+					<input class="core-pref-type" type="hidden" value="%{$v['type']}%" />
 					%{@ "Variable"}% : <strong>%{$v["variable"]}%</strong><br/>
 					%{@ "Description"}% : (%{$v["description"]}%)<br/>
-					%{@ "Value"}% : <i>%{$v["value"]}%</i>
+					%{if($v["type"] == CORE_PREF_BOOL)}%
+						%{@ "Value"}% : <i>%{if($v["value"])}%On%{else}%Off%{/if}%</i>
+					%{else}%
+						%{@ "Value"}% : <i>%{$v["value"]}%</i>
+					%{/if}%
 				</a>
 			</li>
 			%{/foreach}%
