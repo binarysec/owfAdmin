@@ -37,7 +37,9 @@
 		
 		<li>
 			<img src="%{$v['img']}%" alt="%{$v['name']}%" />
-			<h1>%{$v["name"]}%</h1>
+			<div style="float: right;">
+				<h1>%{$v["name"]}%</h1>
+			</div>
 		</li>
 		%{/foreach}%
 

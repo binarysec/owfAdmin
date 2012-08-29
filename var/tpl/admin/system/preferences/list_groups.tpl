@@ -1,5 +1,5 @@
 <script>
-	$(document).delegate('.opendialog', 'click', function() {
+	$(document).delegate('.core-pref-opendialog', 'click', function() {
 		var	variable = $(this).children(".core-pref-variable").val(),
 			group = $(this).children(".core-pref-group").val(),
 			value = $(this).children(".core-pref-value").val(),
@@ -59,7 +59,7 @@
 		<ul data-role="listview">
 			%{foreach $val as $k=>$v}%
 			<li data-role="fieldcontain">
-				<a href="#" class="opendialog">
+				<a href="#" class="core-pref-opendialog">
 					<input class="core-pref-variable" type="hidden" value="%{$v['variable']}%" />
 					<input class="core-pref-group" type="hidden" value="%{$group}%" />
 					<input class="core-pref-value" type="hidden" value="%{$v['value']}%" />
