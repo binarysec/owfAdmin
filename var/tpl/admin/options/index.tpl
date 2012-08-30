@@ -1,12 +1,3 @@
-<script>
-	$(function() {
-		$("#admin-options-lang").change(function() {
-			var a = $("#admin-options-lang").val();
-			$.post("%{link '/admin/options/edit'}%", {f: "lang", v: a});
-		});
-	});
-</script>
-
 <div class="content-secondary">
 
 	<div id="jqm-homeheader">
@@ -15,9 +6,9 @@
 	</div>
 
 	<p class="intro">
-		<select id="admin-options-lang" data-native-menu="false" data-mini="true">
+		<select id="admin-options-lang" data-native-menu="false" data-mini="true" onchange='$.post("%{link "/admin/options/edit"}%", {f: "lang", v: $("#admin-options-lang").val(), u: %{$user["id"]}%});'>
 			%{foreach($langs as $lang)}%
-				<option value="%{$lang['code']}%" %{if($lang['code']==$lang_cur)}%selected=selected%{/if}%>%{$lang['name']}%</option>
+				<option value="%{$lang['code']}%" %{if($lang['code']==$user['lang'])}%selected=selected%{/if}%>%{$lang['name']}%</option>
 			%{/foreach}%
 		</select>
 	</p>

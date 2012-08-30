@@ -76,14 +76,13 @@ class wfr_admin_admin_options extends wf_route_request {
 				}
 			}
 		}
-
+		
 		$in = array(
 			"aopts" => $this->aopts,
 			"user" => $user,
 			"perms" => $perms,
 			"self_edition" => $self_edition,
 			"langs" => $this->wf->core_lang()->get_list(),
-			"lang_cur" => $this->a_session->session_me['lang'],
 		);
 	
 		$tpl->set_vars($in);
@@ -95,16 +94,25 @@ class wfr_admin_admin_options extends wf_route_request {
 	}
 	
 	public function edit() {
+		
+		/* get parameters */
 		$field = $this->wf->get_var("f");
 		$value = $this->wf->get_var("v");
+		$uid = (int) $this->wf->get_var("u");
+		$me = (int)$this->a_session->session_me["id"];
 		
-		if(strlen($field) > 0 && strlen($value) > 0) {
+		/* check parameters */
+		if(strlen($field) > 0 && strlen($value) > 0 && $uid > 0) {
+			
+			/* check which field is trying to be edited */
 			if($field == "lang") {
+				
+				/* check lang registered */
 				if($this->wf->core_lang()->resolv($value)) {
-					$this->a_session->user->modify(
-						array("lang" => $value),
-						(int)$this->a_session->session_me["id"]
-					);
+					
+					/* if self edition or admin */
+					if($uid == $me || $this->a_session->iam_admin())
+						$this->a_session->user->modify(array("lang" => $value), $uid);
 				}
 			}
 		}
