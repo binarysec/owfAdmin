@@ -54,7 +54,7 @@
 	
 	<div data-role="collapsible-set">
 	%{foreach $groups as $group => $val}%
-	<div data-role="collapsible" data-theme="b">
+	<div data-role="collapsible">
 		<h3>%{$group}%</h3>
 		<ul data-role="listview">
 			%{foreach $val as $k=>$v}%
@@ -64,13 +64,14 @@
 					<input class="core-pref-group" type="hidden" value="%{$group}%" />
 					<input class="core-pref-value" type="hidden" value="%{$v['value']}%" />
 					<input class="core-pref-type" type="hidden" value="%{$v['type']}%" />
-					%{@ "Variable"}% : <strong>%{$v["variable"]}%</strong><br/>
-					%{@ "Description"}% : (%{$v["description"]}%)<br/>
+					<p>
+					<strong>%{$v["description"]}%</strong> - <i>%{$v["variable"]}%</i><br/>
 					%{if($v["type"] == CORE_PREF_BOOL)}%
-						%{@ "Value"}% : <i>%{if($v["value"])}%On%{else}%Off%{/if}%</i>
+						%{@ "Value"}% : <strong>%{if($v["value"])}%On%{else}%Off%{/if}%</strong>
 					%{else}%
-						%{@ "Value"}% : <i>%{$v["value"]}%</i>
+						%{@ "Value"}% : <strong>%{$v["value"]}%</strong>
 					%{/if}%
+					</p>
 				</a>
 			</li>
 			%{/foreach}%

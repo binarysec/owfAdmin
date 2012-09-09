@@ -6,9 +6,7 @@
 	</div>
 	<div class="content-primary">
 %{/if}%
-	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
-		<li data-role="list-divider">%{$channel[5]}%</li>
-		
+	<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="%{@ 'Search ...'}%">
 		%{foreach $subchans as $chan}%
 		<li><a href="%{$chan['link']}%">%{$chan['name']}%</a></li>
 		%{/foreach}%
