@@ -25,11 +25,13 @@
 		$('<div>').simpledialog2({
 			mode: 'blank',
 			headerText: 'Edition of variable',
-			headerClose: false,
+			headerClose: true,
 			dialogAllow: true,
-			dialogForce: true,
+			dialogForce: false,
+			width: "500px",
+			height: "350px",
 			blankContent : 
-				"<p><center><form action='%{link '/admin/system/variables/edit'}%'>" +
+				"<p><center style='padding: 10px;'><form action='%{link '/admin/system/variables/edit'}%'>" +
 					"<input type='hidden' name='variable' value='" + variable + "' />" +
 					"<input type='hidden' name='group' value='" + group + "' />" +
 					"Editing variable \"" + variable + "\" of group \""  + group + "\" : <br/>" +
@@ -38,7 +40,7 @@
 					"<a rel='close' data-role='button' href='#'>Close</a>" +
 				"</form></center></p>"
 		})
-	})
+	});
 </script>
 
 <div class="content-secondary">
