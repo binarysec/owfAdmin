@@ -237,9 +237,9 @@ class admin_html extends wf_agg {
 					'</a>';
 			}
 			$opt_lnk = $this->options_link();
-			$opt_text = $this->lang->ts("Options");
+			//$opt_text = $this->lang->ts("Options");
 			$tmp .= '<h1>'.$this->html_title.'</h1>'.
-				'<a href="'.$opt_lnk.'" data-icon="gear" data-transition="pop" class="ui-btn-right">'.$opt_text.'</a>';
+				'<a href="'.$opt_lnk.'" data-icon="gear" data-iconpos="notext" data-transition="pop" class="ui-btn-right"></a>';
 			if($this->html_header)
 				$tmp = $this->html_header.$tmp;
 			$this->html_header = 
@@ -273,8 +273,7 @@ class admin_html extends wf_agg {
 	}
 	
 	
-	public function rendering_options($body, $mode="dialog") {	
-		
+	public function rendering_options($body, $mode="dialog") {
 		/* get theme */
 		$theme = $this->a_core_cipher->get_var("theme");
 		if($theme)
@@ -290,15 +289,13 @@ class admin_html extends wf_agg {
 		/* build the header */
 		if($mode == "dialog") {
 			$this->html_header = 
-				'<div data-role="header">'."\n".
+				"<div data-role='header'>\n".
 				"<h1>".$this->html_title."</h1>\n".
-				'</div>'."\n"
-				;
+				"</div>\n";
 			$this->setmode_header = true;
 		}
 		
 		$this->rendering($body, true, false);
-		
 	}
 	
 	public function check_options_policy($uid, &$info=null) {
