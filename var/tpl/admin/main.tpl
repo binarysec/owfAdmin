@@ -2,6 +2,7 @@
 %{css '/data/admin/css/admin.css'}%
 %{css '/data/css/jquery.mobile.min.css'}%
 %{css '/data/css/jqm.simpledialog.css'}%
+%{js '/data/admin/js/admin.js'}%
 %{js '/data/js/jquery-1.7.js'}%
 %{js '/data/js/jquery.mobile.min.js'}%
 %{js '/data/js/jqm.simpledialog2.js'}%
@@ -10,6 +11,8 @@
 	%{if $header_bool}%
 		%{$header}%
 	%{/if}%
+	
+	<div id="owf-admin-infobar" class="ui-bar ui-bar-e"></div>
 	
 	<div data-role="content">
 	%{$body}%
