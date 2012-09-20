@@ -243,7 +243,7 @@ class admin_html extends wf_agg {
 			if($this->html_header)
 				$tmp = $this->html_header.$tmp;
 			$this->html_header = 
-				'<div data-role="header" data-theme="a" data-position="fixed">'.
+				'<div data-role="header" data-theme="a" data-position="fixed" data-tap-toggle="false">'.
 				$tmp.
 				'</div>';
 		}

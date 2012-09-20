@@ -4,7 +4,6 @@ var	owf_display_msg_interval,
 
 function owf_admin_display_msg_periodic() {
 	owf_display_msg_ticks = owf_display_msg_ticks - 1;
-	console.debug(owf_display_msg_ticks);
 	if(owf_display_msg_ticks <= 0) {
 		$('#owf-admin-infobar').html('').slideUp('normal');
 		clearInterval(owf_display_msg_interval);
