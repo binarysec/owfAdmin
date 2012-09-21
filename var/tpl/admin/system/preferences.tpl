@@ -36,8 +36,10 @@
 					"<input type='hidden' name='group' value='" + group + "' />" +
 					"Editing variable \"" + variable + "\" of group \""  + group + "\" : <br/>" +
 					"<label>" + input + "</label>" +
-					"<input type='submit' data-role='button' value='%{@ 'Submit'}%' />" +
-					"<a rel='close' data-role='button' href='#'>Close</a>" +
+					'<fieldset class="ui-grid-a">' +
+						"<div class='ui-block-a'><input type='submit' data-role='button' value='%{@ 'Submit'}%' /></div>" +
+						"<div class='ui-block-b'><a rel='close' data-role='button' href='#'>Close</a></div>" +
+					'</fieldset>' +
 				"</form></center></p>"
 		})
 	});

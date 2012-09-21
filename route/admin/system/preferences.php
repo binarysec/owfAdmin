@@ -69,7 +69,7 @@ class wfr_admin_admin_system_preferences extends wf_route_request {
 			$this->wf->linker('/admin/system')
 		);
 		$this->a_admin_html->rendering(
-			$tpl->fetch('admin/system/preferences/list_groups')
+			$tpl->fetch('admin/system/preferences')
 		);
 		exit(0);
 	}
