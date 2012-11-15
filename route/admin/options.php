@@ -32,14 +32,11 @@ class wfr_admin_admin_options extends wf_route_request {
 		}
 		
 		$r = $this->a_admin_html->check_options_policy($this->uid, $user);
-		if(is_null($user)) {
-			$this->wf->display_error(500);
-			exit(0);
-		}
-		if(!$r) {
-			$this->wf->display_error(403);
-			exit(0);
-		}
+		if(is_null($user))
+			$this->wf->display_error(500, "", true);
+		
+		if(!$r)
+			$this->wf->display_error(403, "", true);
 		
 		$perms = $this->a_session->perm->user_get($this->uid);
 		
@@ -47,10 +44,8 @@ class wfr_admin_admin_options extends wf_route_request {
 		
 		/* get back URL */
 		$burl = $this->a_core_cipher->get_var("back");
-		if(!$burl) {
-			$this->wf->display_error(500);
-			exit(0);
-		}
+		if(!$burl)
+			$this->wf->display_error(500, "", true);
 		
 		/* rendering using my template */
 		$theme = $this->a_core_cipher->get_var("theme");
