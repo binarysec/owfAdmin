@@ -62,7 +62,7 @@ class wfr_admin_system_preferences extends wf_route_request {
 		}
 		/* create en render the page */
 		$tpl = new core_tpl($this->wf);
-		$tpl->set('groups', &$vars);
+		$tpl->set('groups', $vars);
 		$this->a_admin_html->rendering(
 			$tpl->fetch('admin/system/preferences/list_groups')
 		);

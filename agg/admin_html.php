@@ -119,7 +119,7 @@ class admin_html extends wf_agg {
 		$this->wf->core_html()->rendering($tpl->fetch($this->template));
 	}
 		
-	private function generate_li(&$nav, $dir, $pos, $title, $arr, $link="/", $use=FALSE) {
+	private function generate_li(&$nav, &$dir, $pos, &$title, &$arr, $link="/", $use=FALSE) {
 		$buf = '';
 		if(!is_array($nav))
 			return(NULL);
@@ -148,7 +148,7 @@ class admin_html extends wf_agg {
 				
 			
 				$perm = $this->check_permission(
-					&$val[1][7]
+					$val[1][7]
 				);
 				
 				if($perm == true) {
@@ -200,7 +200,7 @@ class admin_html extends wf_agg {
 					$val[1][6] = array("session:admin");
 
 				$perm = $this->check_permission(
-					&$val[1][6]
+					$val[1][6]
 				);
 				if($perm == true) {
 					if($use) {
@@ -235,11 +235,11 @@ class admin_html extends wf_agg {
 			if(isset($val[0]) && is_array($val[0])) {
 				
 				$r = $this->generate_li(
-					&$val[0], 
-					&$dir, 
+					$val[0],
+					$dir, 
 					$pos+1,
-					&$title,
-					&$in["children"],
+					$title,
+					$in["children"],
 					$link.
 					"$key/",
 					$use
@@ -303,11 +303,11 @@ class admin_html extends wf_agg {
 		/* lance la génération de la liste */
 		$buf = '<ul>'."\n".
 			$this->generate_li(
-				&$selected_route,
-				&$dir,
+				$selected_route,
+				$dir,
 				$start,
-				&$title,
-				&$this->page_menu,
+				$title,
+				$this->page_menu,
 				$dft_route
 			).
 			'</ul>'."\n";
@@ -317,7 +317,7 @@ class admin_html extends wf_agg {
 		return(TRUE);
 	}
 
-	private function check_permission($val) {
+	private function check_permission(&$val) {
 		foreach($val as $k => $v) {
 			if($v == "session:anon" && $this->wf->ini_arr["session"]["allow_anonymous"]) 
 				return(true);
