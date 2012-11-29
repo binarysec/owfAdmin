@@ -11,10 +11,10 @@ function owf_admin_display_msg_periodic() {
 	}
 }
 	
-function owf_admin_display_msg(text) {
+function owf_admin_display_msg(text, seconds) {
 	$('#owf-admin-infobar').html(text);
 	
-	owf_display_msg_ticks = 2;
+	owf_display_msg_ticks = seconds ? seconds : 2;
 	if(!owf_display_msg_running) {
 		$('#owf-admin-infobar').slideDown('slow');
 		owf_display_msg_running = true;
