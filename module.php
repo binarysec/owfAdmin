@@ -38,7 +38,7 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Administration"),
 				WF_ROUTE_SHOW,
-				array("admin"),
+				array("session:admin"),
 			),
 			
 			"/admin/options" => array(
@@ -47,7 +47,7 @@ class wfm_admin extends wf_module {
 				"show",
 				$this->ts("Options"),
 				WF_ROUTE_HIDE,
-				array("admin"),
+				array("session:simple"),
 			),
 			
 			"/admin/options/edit" => array(
@@ -56,7 +56,7 @@ class wfm_admin extends wf_module {
 				"edit",
 				"",
 				WF_ROUTE_HIDE,
-				array("admin"),
+				array("session:simple"),
 			),
 			
 			/* system management */

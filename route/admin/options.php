@@ -106,8 +106,10 @@ class wfr_admin_admin_options extends wf_route_request {
 				if($this->wf->core_lang()->resolv($value)) {
 					
 					/* if self edition or admin */
-					if($uid == $me || $this->a_session->iam_admin())
+					if($uid == $me || $this->a_session->iam_admin()) {
 						$this->a_session->user->modify(array("lang" => $value), $uid);
+						
+					}
 				}
 			}
 		}
