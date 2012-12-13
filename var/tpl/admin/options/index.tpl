@@ -24,7 +24,12 @@
 	%{elseif isset($perms["session:ws"])}%
 	<li class="ui-btn-icon-right ui-li-has-arrow ui-li.ui-corner-top ui-btn-up-a">Service web</li>
 	%{/if}%
-
+	
+	%{if($iam_admin && $activation_required && $user["activated"] != "true")}%
+		<li data-role="fieldcontain">
+			<a href="%{link '/admin/options/edit'}%?f=activated&v=true&u=%{$user['id']}%">%{@ 'Activate user now'}%</a>
+		</li>
+	%{/if}%
 	</ul>
 	
 	%{if($self_edition)}%

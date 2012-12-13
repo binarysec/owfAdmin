@@ -78,6 +78,9 @@ class wfr_admin_admin_options extends wf_route_request {
 			"perms" => $perms,
 			"self_edition" => $self_edition,
 			"langs" => $this->wf->core_lang()->get_list(),
+			"iam_admin" => $this->a_session->iam_admin(),
+			"activation_required" => isset($this->wf->ini_arr['session']['activation_required']) ?
+			$this->wf->ini_arr['session']['activation_required'] : false
 		);
 	
 		$tpl->set_vars($in);
@@ -108,11 +111,17 @@ class wfr_admin_admin_options extends wf_route_request {
 					/* if self edition or admin */
 					if($uid == $me || $this->a_session->iam_admin()) {
 						$this->a_session->user->modify(array("lang" => $value), $uid);
-						
 					}
 				}
 			}
+			elseif($field == "activated" && $this->a_session->iam_admin()) {
+				$this->a_session->user->modify(array("activated" => "true"), $uid);
+				$this->wf->redirector($this->wf->linker('/admin/system/session'));
+			}
+			echo
+				$this->wf->display_error(404, "Field not found");
 		}
+		$this->wf->display_error(404, "Page not found");
 		
 		exit(0);
 	}
