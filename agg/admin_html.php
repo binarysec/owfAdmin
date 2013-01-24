@@ -56,6 +56,8 @@ class admin_html extends wf_agg {
 		
 		$this->div_set("data-role", "page");
 		$this->no_zoom();
+		
+		$this->seed = $this->wf->generate_password(8, true);
 	}
 	
 	public function no_zoom() {
@@ -266,6 +268,7 @@ class admin_html extends wf_agg {
 			"footer" => $this->html_footer,
 			"divs" => $this->html_div,
 			"backlink" => $this->html_backlink,
+			"seed" => $this->seed,
 		);	 
 		$tpl->set_vars($in);
 	

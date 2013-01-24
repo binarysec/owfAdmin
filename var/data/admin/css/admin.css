@@ -1,6 +1,6 @@
 /* open web framework main style */
 
-#owf-admin-infobar {
+.owf-admin-infobar {
 	position: fixed;
 	z-index: 1000;
 	width: 100%;

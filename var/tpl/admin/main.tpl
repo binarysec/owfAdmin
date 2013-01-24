@@ -12,7 +12,7 @@
 		%{$header}%
 	%{/if}%
 	
-	<div id="owf-admin-infobar" class="ui-bar ui-bar-e"></div>
+	<div id="owf-admin-infobar-%{$seed}%" class="owf-admin-infobar ui-bar ui-bar-e"></div>
 	
 	<div data-role="content">
 	%{$body}%
