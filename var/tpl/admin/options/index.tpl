@@ -1,3 +1,34 @@
+<script type="text/javascript" src="%{link "/data/js/jqm.simpledialog2.js"}%"></script>
+<script type="text/javascript">
+	function ask_change_lang() {
+		$('<div>').simpledialog2({
+			mode: 'button',
+			headerText: '%{@ "Confirmation"}%',
+			headerClose: true,
+			buttonPrompt: '<strong>Vous allez être redirrigé vers la page principale. Voulez-vous continuer?</strong>',
+			buttons : {
+				'OK': {
+					click: do_change_lang
+				},
+				'Cancel': {
+					click: function() {},
+					icon: "delete",
+					theme: "c"
+				}
+			}
+		});
+	}
+	
+	function do_change_lang() {
+		$.post(
+			"%{link "/admin/options/edit"}%",
+			{f: "lang", v: $("#admin-options-lang").val(), u: %{$user["id"]}%},
+			function(data, textStatus, jqXHR) {
+				$.mobile.changePage(data, {reloadPage: true});
+			}
+		);
+	}
+</script>
 <div class="content-secondary">
 
 	<div id="jqm-homeheader">
@@ -6,7 +37,7 @@
 	</div>
 
 	<p class="intro">
-		<select id="admin-options-lang" data-native-menu="false" data-mini="true" onchange='$.post("%{link "/admin/options/edit"}%", {f: "lang", v: $("#admin-options-lang").val(), u: %{$user["id"]}%});'>
+		<select id="admin-options-lang" data-native-menu="false" data-mini="true" onchange='ask_change_lang();'>
 			%{foreach($langs as $lang)}%
 				<option value="%{$lang['code']}%" %{if($lang['code']==$user['lang'])}%selected=selected%{/if}%>%{$lang['name']}%</option>
 			%{/foreach}%

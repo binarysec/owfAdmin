@@ -11,8 +11,9 @@ class wfr_admin_admin_options extends wf_route_request {
 		$this->a_admin_html = $this->wf->admin_html();
 		$this->a_core_cipher = $this->wf->core_cipher();
 		$this->a_session = $this->wf->session();
+		$this->a_core_lang = $this->wf->core_lang();
 		
-		$this->lang = $this->wf->core_lang()->get_context(
+		$this->lang = $this->a_core_lang->get_context(
 			"admin/options"
 		);
 		
@@ -111,6 +112,8 @@ class wfr_admin_admin_options extends wf_route_request {
 					/* if self edition or admin */
 					if($uid == $me || $this->a_session->iam_admin()) {
 						$this->a_session->user->modify(array("lang" => $value), $uid);
+						echo $this->wf->linker('/', NULL, $value);
+						exit(0);
 					}
 				}
 			}
@@ -125,5 +128,4 @@ class wfr_admin_admin_options extends wf_route_request {
 		
 		exit(0);
 	}
-	
 }
