@@ -31,6 +31,8 @@ class wfr_admin_admin_options extends wf_route_request {
 			$this->uid = $this->a_session->session_me["id"];
 			$self_edition = true;
 		}
+		elseif($this->uid == $this->a_session->session_me["id"])
+			$self_edition = true;
 		
 		$r = $this->a_admin_html->check_options_policy($this->uid, $user);
 		if(is_null($user))
