@@ -70,6 +70,9 @@ class wfr_admin_admin_options extends wf_route_request {
 						$aopt["link"] .= '&uid='.$this->uid;
 					if($theme)
 						$aopt["link"] .= '&theme='.$this->a_core_cipher->encode($theme);
+					if(isset($aopt["args"]))
+						foreach($aopt["args"] as $name => $val)
+							$aopt["link"] .= "&$name=$val";
 					array_push($this->aopts, $aopt);
 				}
 			}
