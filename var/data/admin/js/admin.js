@@ -22,24 +22,3 @@ function owf_admin_display_msg(seed, text, seconds) {
 		owf_display_msg_interval = setInterval("owf_admin_display_msg_periodic()", 1000);
 	}
 }
-
-function owf_admin_confirm_deletion(href) {
-	$('<div>').simpledialog2({
-		mode: 'blank',
-		headerText: 'Delete confirmation',
-		headerClose: true,
-		dialogAllow: true,
-		dialogForce: false,
-		width: "400px",
-		height: "300px",
-		blankContent :
-			'<p><center style="padding: 10px;"><form action="' + href + '">' +
-				'Are you sure about deleting this ?<br/>' +
-				'<fieldset class="ui-grid-a">' +
-					'<div class="ui-block-a"><input type="submit" data-role="button" value="Delete" /></div>' +
-					'<div class="ui-block-b"><a rel="close" data-role="button" href="#">Close</a></div>' +
-				'</fieldset>' +
-			'</form></center></p>'
-	});
-	return false;
-}
