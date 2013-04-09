@@ -1,50 +1,3 @@
-<script>
-	$(document).delegate('.core-pref-opendialog', 'click', function() {
-		var	variable = $(this).children(".core-pref-variable").val(),
-			group = $(this).children(".core-pref-group").val(),
-			value = $(this).children(".core-pref-value").val(),
-			pref_type = $(this).children(".core-pref-type").val(),
-			type = "text",
-			input = '';
-		
-		if(pref_type == %{const CORE_PREF_NUM}%)
-			type = "number"
-		
-		if(	pref_type == %{const CORE_PREF_NUM}% ||
-			pref_type == %{const CORE_PREF_VARCHAR}% ||
-			pref_type == %{const CORE_PREF_DATA}% ||
-			pref_type == %{const CORE_PREF_HIDDEN}%
-			)
-			input = "<input style='text-align: center;' type='" + type + "' name='value' value='" + value + "' />";
-		else if(pref_type == %{const CORE_PREF_BOOL}%)
-			input =	"<select name='value' data-role='slider'>" +
-						"<option value='0'>Off</option>" +
-						"<option value='1'" + (value ? " selected" : "") + ">On</option>" +
-					"</select>";
-		
-		$('<div>').simpledialog2({
-			mode: 'blank',
-			headerText: 'Edition of variable',
-			headerClose: true,
-			dialogAllow: true,
-			dialogForce: false,
-			width: "500px",
-			height: "350px",
-			blankContent : 
-				"<p><center style='padding: 10px;'><form action='%{link '/admin/system/variables/edit'}%'>" +
-					"<input type='hidden' name='variable' value='" + variable + "' />" +
-					"<input type='hidden' name='group' value='" + group + "' />" +
-					"Editing variable \"" + variable + "\" of group \""  + group + "\" : <br/>" +
-					"<label>" + input + "</label>" +
-					'<fieldset class="ui-grid-a">' +
-						"<div class='ui-block-a'><input type='submit' data-role='button' value='%{@ 'Submit'}%' /></div>" +
-						"<div class='ui-block-b'><a rel='close' data-role='button' href='#'>Close</a></div>" +
-					'</fieldset>' +
-				"</form></center></p>"
-		})
-	});
-</script>
-
 <div class="content-secondary">
 	<div id="jqm-homeheader">
 		<h1 id="jqm-logo"><img src="%{link '/data/admin/images/title_pref.png'}%" alt="%{@ 'OWF SMTP'}%" /></h1>
@@ -55,7 +8,6 @@
 </div>
 
 <div class="content-primary">
-	
 	<div data-role="collapsible-set">
 	%{foreach $groups as $group => $val}%
 	<div data-role="collapsible">
@@ -63,20 +15,43 @@
 		<ul data-role="listview">
 			%{foreach $val as $k=>$v}%
 			<li data-role="fieldcontain">
-				<a href="#" class="core-pref-opendialog">
-					<input class="core-pref-variable" type="hidden" value="%{$v['variable']}%" />
-					<input class="core-pref-group" type="hidden" value="%{$group}%" />
-					<input class="core-pref-value" type="hidden" value="%{$v['value']}%" />
-					<input class="core-pref-type" type="hidden" value="%{$v['type']}%" />
-					<p>
-					<strong>%{$v["description"]}%</strong> - <i>%{$v["variable"]}%</i><br/>
-					%{if($v["type"] == CORE_PREF_BOOL)}%
-						%{@ "Value"}% : <strong>%{if($v["value"])}%On%{else}%Off%{/if}%</strong>
-					%{else}%
-						%{@ "Value"}% : <strong>%{$v["value"]}%</strong>
-					%{/if}%
-					</p>
+				<a href="#owf-admin-variables-open-%{$k}%" data-rel="popup" data-position-to="window" data-transition="pop">
+					<small style="font-weight: normal;">
+						<strong>%{$v["description"]}%</strong> - <i>%{$v["variable"]}%</i><br/>
+						%{if($v["type"] == CORE_PREF_BOOL)}%
+							%{@ "Value"}% : <strong>%{if($v["value"])}%On%{else}%Off%{/if}%</strong>
+						%{else}%
+							%{@ "Value"}% : <strong>%{$v["value"]}%</strong>
+						%{/if}%
+					</small>
 				</a>
+				<div id="owf-admin-variables-open-%{$k}%" data-role="popup" data-theme="f" class="ui-corner-all">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">%{@ "Close"}%</a>
+					<div data-role="header" data-theme="a" class="ui-corner-top">
+						<h1>%{@ "Variable edition"}%</h1>
+					</div>
+					<div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
+						<form action="%{link '/admin/system/variables/edit'}%">
+							<input type="hidden" name="group" value="%{$group}%" />
+							<input type="hidden" name="variable" value="%{$v['variable']}%" />
+							<h3 class="ui-title">%{@ "Editing variable \"%s\" of group \"%s\"",$v['variable'],$group}%</h3>
+							<p>
+								%{if($v['type'] == CORE_PREF_BOOL)}%
+								<select name='value' data-role='slider'>
+									<option value='0'>Off</option>
+									<option value='1'%{if($v['value'])}% selected='selected'%{/if}% >On</option>
+								</select>
+								%{else}%
+								<input type="%{if($v['type'] == CORE_PREF_NUM)}%number%{else}%text%{/if}%" name="value" value="%{$v['value']}%" style="text-align: center;" />
+								%{/if}%
+							</p>
+							<center>
+								<input type="submit" data-role="button" data-inline="true" data-theme="f" data-transition="flow" value="%{@ 'Submit'}%">
+								<a href="#" data-role="button" data-inline="true" data-rel="back">%{@ "Cancel"}%</a>
+							</center>
+						</form>
+					</div>
+				</div>
 			</li>
 			%{/foreach}%
 		</ul>
