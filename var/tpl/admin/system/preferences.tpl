@@ -31,7 +31,7 @@
 						<h1>%{@ "Variable edition"}%</h1>
 					</div>
 					<div data-role="content" data-theme="b" class="ui-corner-bottom ui-content">
-						<form action="%{link '/admin/system/variables/edit'}%">
+						<form action="%{link '/admin/system/variables/edit'}%" method="post">
 							<input type="hidden" name="group" value="%{$group}%" />
 							<input type="hidden" name="variable" value="%{$v['variable']}%" />
 							<h3 class="ui-title">%{@ "Editing variable \"%s\" of group \"%s\"",$v['variable'],$group}%</h3>
