@@ -339,4 +339,8 @@ class admin_html extends wf_agg {
 		return($r);
 	}
 	
+	public function msg($message, $time = 0) {
+		return 'owf_admin_display_msg("'.$this->seed.'", '.$message.')';
+	}
+	
 }
