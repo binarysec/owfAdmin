@@ -103,8 +103,8 @@ class admin_html extends wf_agg {
 	
 	/* Backlink */
 	public $html_backlink = null;
-	public function set_backlink($link, $text="Back", $icon="back", $showtext=false) {
-		$this->html_backlink = array($link, $text, $icon, $showtext ? "left" : "notext");
+	public function set_backlink($link, $text="Back", $icon="back", $showtext=false, $dataajax=true) {
+		$this->html_backlink = array($link, $text, $icon, $showtext ? "left" : "notext", $dataajax);
 	}
 
 	/* div */
@@ -234,6 +234,7 @@ class admin_html extends wf_agg {
 				$tmp = '<a href="'.$this->html_backlink[0].
 					'" data-icon="'.$this->html_backlink[2].
 					'" data-iconpos="'.$this->html_backlink[3].
+					(!$this->html_backlink[4] ? '" data-ajax="false' : '').
 					'" data-direction="reverse">'.
 					$this->html_backlink[1].
 					'</a>';
