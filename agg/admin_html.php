@@ -106,6 +106,14 @@ class admin_html extends wf_agg {
 	public function set_backlink($link, $text="Back", $icon="back", $showtext=false, $dataajax=true) {
 		$this->html_backlink = array($link, $text, $icon, $showtext ? "left" : "notext", $dataajax);
 	}
+	
+	/* Panels */
+	public $panels = array();
+	public function add_panel($panelhtml, $opts = array()) {
+		$key = $this->seed + count($this->panels);
+		$this->panels[$key] = array("opts" => $opts, "html" => $panelhtml);
+		return "owf-panel-$key";
+	}
 
 	/* div */
 	public $html_div = array();
@@ -270,6 +278,7 @@ class admin_html extends wf_agg {
 			"divs" => $this->html_div,
 			"backlink" => $this->html_backlink,
 			"seed" => $this->seed,
+			"panels" => $this->panels,
 		);	 
 		$tpl->set_vars($in);
 	
