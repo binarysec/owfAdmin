@@ -27,7 +27,7 @@
 	%{/if}%
 	
 	%{foreach($panels as $id => $panel)}%
-		<div data-role="panel" id="owf-panel-%{$id}%"%{foreach($panel["opts"] as $optkey => $opt)}%%{$optkey}%="%{$opt}%"%{/foreach}%>
+		<div data-role="panel" id="owf-panel-%{$id}%" %{foreach($panel["opts"] as $optkey => $opt)}%%{$optkey}%="%{$opt}%" %{/foreach}%>
 			%{$panel["html"]}%
 		</div>
 	%{/foreach}%
