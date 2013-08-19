@@ -2,12 +2,10 @@
 %{css '/data/admin/css/admin.css'}%
 %{css '/data/css/jqm-datebox.min.css'}%
 %{css '/data/css/jquery.mobile.min.css'}%
-%{css '/data/css/jqm.simpledialog.css'}%
 %{js '/data/admin/js/admin.js'}%
 %{js '/data/js/jquery-1.7.js'}%
 %{js '/data/js/jquery.mobile.min.js'}%
 %{js '/data/js/jqm-datebox.comp.calbox.min.js'}%
-%{js '/data/js/jqm.simpledialog2.js'}%
 
 <div %{foreach $divs as $k => $v}%%{$k}%="%{$v}%" %{/foreach}%> 
 	%{if $header_bool}%
