@@ -37,6 +37,7 @@ class admin_html extends wf_agg {
 	private $tpl;
 	
 	public $template = "admin/main";
+	var $seed;
 	
 	public function loader($wf) {
 		/* non cachable page */
@@ -109,8 +110,9 @@ class admin_html extends wf_agg {
 	
 	/* Panels */
 	public $panels = array();
-	public function add_panel($panelhtml, $opts = array()) {
-		$key = $this->seed + count($this->panels);
+	public function add_panel($panelhtml, $opts = array(), $key = "") {
+		if(!$key)
+			$key = $this->seed.count($this->panels);
 		$this->panels[$key] = array("opts" => $opts, "html" => $panelhtml);
 		return "owf-panel-$key";
 	}
