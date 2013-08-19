@@ -5,7 +5,9 @@
 %{js '/data/admin/js/admin.js'}%
 %{js '/data/js/jquery-1.7.js'}%
 %{js '/data/js/jquery.mobile.min.js'}%
-%{js '/data/js/jqm-datebox.comp.calbox.min.js'}%
+%{js '/data/js/jqm-datebox.core.min.js'}%
+%{js '/data/js/jqm-datebox.mode.calbox.min.js'}%
+%{js '/data/js/jqm-datebox.mode.slidebox.min.js'}%
 
 <div %{foreach $divs as $k => $v}%%{$k}%="%{$v}%" %{/foreach}%> 
 	%{if $header_bool}%
