@@ -8,6 +8,7 @@
 %{js '/data/js/jqm-datebox.core.min.js'}%
 %{js '/data/js/jqm-datebox.mode.calbox.min.js'}%
 %{js '/data/js/jqm-datebox.mode.slidebox.min.js'}%
+%{js '/data/js/jqm-datebox.mode.durationbox.min.js'}%
 
 <div %{foreach $divs as $k => $v}%%{$k}%="%{$v}%" %{/foreach}%> 
 	%{if $header_bool}%
